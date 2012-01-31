@@ -8,3 +8,5 @@ PostalService.run(CONFIGURATION_DATA) do |incoming, outgoing|
     outgoing.subject = "UNKNOWN"
   end
 end
+
+puts "This is why we use event machine"
