@@ -63,11 +63,6 @@ module PostalService
       self.default_callback = callback
     end
 
-    def call(params)
-      controller = Controller.new(params)      
-      trigger_callbacks(controller)
-    end
-
     def trigger_callbacks(controller)
       matched_callbacks = callbacks.select do |e| 
         matcher = e[:matcher]
@@ -92,6 +87,11 @@ module PostalService
       self.callbacks  = []
 
       instance_eval(&block) if block_given?
+    end
+
+    def call(params)
+      controller = Controller.new(params)      
+      trigger_callbacks(controller)
     end
 
     private
