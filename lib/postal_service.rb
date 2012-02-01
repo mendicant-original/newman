@@ -36,6 +36,34 @@ module PostalService
     end
   end
 
+  module Helpers
+    def sender(mail)
+      mail.from.first.to_s
+    end
+
+    def forward(incoming, outgoing)
+      outgoing.from      = incoming.from
+      outgoing.reply_to  = CONFIGURATION_DATA[:default_sender]
+      outgoing.subject   = incoming.subject
+
+      if incoming.multipart?
+        outgoing.text_part = incoming.text_part
+        outgoing.html_part = incoming.html_part
+      else
+        outgoing.body = incoming.body.to_s
+      end
+    end
+
+    def filter(type, pattern)
+      case type
+      when :sender
+        ->(mail) { mail.to.any? { |e| e[pattern] } }
+      else
+        ->(mail) { false }
+      end
+    end
+  end
+
   require "pstore"
 
   class MailingList
