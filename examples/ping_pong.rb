@@ -1,12 +1,14 @@
 require_relative "../lib/postal_service"
-require_relative "config"
 
-PostalService.run(CONFIGURATION_DATA) do |incoming, outgoing|
-  if incoming.to.any? { |e| e[/\+ping@#{CONFIGURATION_DATA[:domain]}/] }
-    outgoing.subject = "PONG"
-  else
-    outgoing.subject = "UNKNOWN"
+app = PostalService::Application.new do
+  to(:tag, "ping") do
+    response.subject = "pong"
+  end
+
+  default do
+    response.subject = "unknown command"
   end
 end
 
-puts "This is why we use event machine"
+PostalService::Server.run(:config => eval(File.read("config.rb")), 
+                          :apps   => [app])

@@ -1,70 +1,130 @@
 require "mail"
-require "eventmachine"
 
 module PostalService
-  class << self
-    def run(params, &callback)
-      application = Object.new
-      application.extend(Helpers)
+  Server = Object.new
 
-      configure_mailer(params)
-      interval = params.fetch(:polling_interval, 10)
+  class << Server
+    def run(params)
+      config = params[:config]
+      apps   = params[:apps]
 
-      EventMachine.run do
-        EventMachine::PeriodicTimer.new(interval) do
-          Mail.all(:delete_after_find => true).each do |incoming|
-            outgoing = Mail.new(:to   => incoming.from, 
-                                :from => params[:default_sender])
-            application.instance_exec(incoming, outgoing, &callback)
-            outgoing.deliver
+      configure_mailer(config)
+
+      loop do
+        sleep config[:polling_interval]
+
+        Mail.all(:delete_after_find => true).each do |request|
+          response = Mail.new(:to   => request.from, 
+                              :from => config[:default_address])
+
+          apps.each do |a| 
+            a.call(:request  => request, 
+                   :response => response, 
+                   :config   => config)
           end
+
+          response.deliver
         end
       end
     end
 
-    def configure_mailer(params)
+    private
+
+    def configure_mailer(config_data)
       Mail.defaults do
         retriever_method :imap, 
-          :address    => params[:imap_address],
-          :user_name  => params[:imap_user],
-          :password   => params[:imap_password]
+          :address    => config_data[:imap_address],
+          :user_name  => config_data[:imap_user],
+          :password   => config_data[:imap_password]
 
         delivery_method :smtp,
-          :address              => params[:smtp_address], 
-          :user_name            => params[:smtp_user],
-          :password             => params[:smtp_password],
+          :address              => config_data[:smtp_address], 
+          :user_name            => config_data[:smtp_user],
+          :password             => config_data[:smtp_password],
           :authentication       => :plain,
           :enable_starttls_auto => false
       end
     end
   end
 
-  module Helpers
-    def sender(mail)
-      mail.from.first.to_s
+  class Application
+    def initialize(&block)
+      self.callbacks  = []
+
+      instance_eval(&block) if block_given?
     end
 
-    def forward(incoming, outgoing)
-      outgoing.from      = incoming.from
-      outgoing.reply_to  = CONFIGURATION_DATA[:default_sender]
-      outgoing.subject   = incoming.subject
+    def to(pattern_type, pattern, &callback)
+      raise NotImplementedError unless pattern_type == :tag
 
-      if incoming.multipart?
-        outgoing.text_part = incoming.text_part
-        outgoing.html_part = incoming.html_part
+      matcher = lambda do
+        request.to.any? { |e| e[/\+#{pattern}@#{Regexp.escape(domain)}/] } 
+      end
+
+      callbacks << { :matcher  => matcher, :callback => callback }
+    end
+
+    def default(&callback)
+      self.default_callback = callback
+    end
+
+    def call(params)
+      controller = Controller.new(params)      
+      trigger_callbacks(controller)
+    end
+
+    def trigger_callbacks(controller)
+      matched_callbacks = callbacks.select do |e| 
+        matcher = e[:matcher]
+        controller.instance_exec(&matcher)
+      end
+
+      if matched_callbacks.empty?
+        controller.instance_exec(&default_callback)
       else
-        outgoing.body = incoming.body.to_s
+        matched_callbacks.each do |e|
+          callback = e[:callback]
+          controller.instance_exec(&callback)
+        end
       end
     end
 
-    def filter(type, pattern)
-      case type
-      when :sender
-        ->(mail) { mail.to.any? { |e| e[pattern] } }
+    private
+
+    attr_accessor :callbacks, :default_callback
+  end
+
+  class Controller
+    def initialize(params)
+      self.config   = params.fetch(:config)
+      self.request  = params.fetch(:request)
+      self.response = params.fetch(:response)
+    end
+
+    def sender
+      request.from.first.to_s
+    end
+
+    def domain
+      config[:domain]
+    end
+
+    def forward_message
+      response.from      = request.from
+      response.reply_to  = config[:default_address]
+      response.subject   = request.subject
+
+      if request.multipart?
+        response.text_part = request.text_part
+        response.html_part = request.html_part
       else
-        ->(mail) { false }
+        response.body = request.body.to_s
       end
     end
+
+    private
+
+    attr_accessor :config, :request, :response
   end
 
   require "pstore"

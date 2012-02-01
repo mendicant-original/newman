@@ -1,38 +1,40 @@
 require_relative "../lib/postal_service"
-require_relative "config"
 
 list = PostalService::MailingList.new("db/lists/simple_mailing_list.store")
 
-PostalService.run(CONFIGURATION_DATA) do |incoming, outgoing|
-  from_address = sender(incoming) 
+app = PostalService::Application.new do
+  to(:tag, "subscribe") do
+    if list.subscriber?(sender)
+      response.subject = "ERROR: Already subscribed"
+      response.body    = "You are already subscribed, you can't subscribe again"
+    else
+      list.subscribe(sender)
+      response.subject = "SUBSCRIBED!"
+      response.body    = "Welcome to the club, buddy"
+    end
+  end
 
-  case incoming
-  when filter(:sender, /\+subscribe@#{CONFIGURATION_DATA[:domain]}/)
-    if list.subscriber?(from_address)
-      outgoing.subject = "ERROR: Already subscribed"
-      outgoing.body    = "You are already subscribed, you can't subscribe again"
+  to(:tag, "unsubscribe") do
+    if list.subscriber?(sender)
+      list.unsubscribe(sender)
+      response.subject = "UNSUBSCRIBED!"
+      response.body    = "Sorry to see you go!"
     else
-      list.subscribe(from_address)
-      outgoing.subject = "SUBSCRIBED!"
-      outgoing.body    = "Welcome to the club, buddy"
+      response.subject = "ERROR: Not on subscriber list"
+      response.body    = "You tried to unsubscribe, but you are not on our list!"
     end
-  when filter(:sender, /\+unsubscribe@#{CONFIGURATION_DATA[:domain]}/)
-    if list.subscriber?(from_address)
-      list.unsubscribe(from_address)
-      outgoing.subject = "UNSUBSCRIBED!"
-      outgoing.body    = "Sorry to see you go!"
+  end
+
+  default do
+    if list.subscriber?(sender)
+      response.bcc = list.subscribers.join(", ")
+      forward_message
     else
-      outgoing.subject = "ERROR: Not on subscriber list"
-      outgoing.body    = "You tried to unsubscribe, but you are not on our list!"
-    end
-  else
-    if list.subscriber?(from_address)
-      outgoing.bcc = list.subscribers.join(", ")
-      forward(incoming, outgoing)
-    else
-      outgoing.subject = "You are not subscribed"
-      outgoing.body    = "You must be a member to post on this list"
+      response.subject = "You are not subscribed"
+      response.body    = "You must be a member to post on this list"
     end
   end
 end
 
+PostalService::Server.run(:config => eval(File.read("config.rb")), 
+                          :apps   => [app])
