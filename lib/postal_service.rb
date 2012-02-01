@@ -48,13 +48,7 @@ module PostalService
     end
   end
 
-  class Application
-    def initialize(&block)
-      self.callbacks  = []
-
-      instance_eval(&block) if block_given?
-    end
-
+  module Commands
     def to(pattern_type, pattern, &callback)
       raise NotImplementedError unless pattern_type == :tag
 
@@ -88,6 +82,16 @@ module PostalService
           controller.instance_exec(&callback)
         end
       end
+    end
+  end
+
+  class Application
+    include Commands
+
+    def initialize(&block)
+      self.callbacks  = []
+
+      instance_eval(&block) if block_given?
     end
 
     private
