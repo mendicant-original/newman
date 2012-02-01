@@ -2,11 +2,11 @@ require_relative "../lib/postal_service"
 
 app = PostalService::Application.new do
   to(:tag, "ping") do
-    response.subject = "pong"
+    respond(:subject => "pong")
   end
 
   default do
-    response.subject = "unknown command"
+    respond(:subject => "unknown command")
   end
 end
 
