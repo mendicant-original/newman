@@ -3,7 +3,10 @@ require "eventmachine"
 
 module PostalService
   class << self
-    def run(params)
+    def run(params, &callback)
+      application = Object.new
+      application.extend(Helpers)
+
       configure_mailer(params)
       interval = params.fetch(:polling_interval, 10)
 
@@ -12,7 +15,7 @@ module PostalService
           Mail.all(:delete_after_find => true).each do |incoming|
             outgoing = Mail.new(:to   => incoming.from, 
                                 :from => params[:default_sender])
-            yield(incoming, outgoing)
+            application.instance_exec(incoming, outgoing, &callback)
             outgoing.deliver
           end
         end
