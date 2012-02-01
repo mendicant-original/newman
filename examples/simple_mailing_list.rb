@@ -1,37 +1,39 @@
 require_relative "../lib/postal_service"
 
+
 list = PostalService::MailingList.new("db/lists/simple_mailing_list.store")
 
 app = PostalService::Application.new do
   to(:tag, "subscribe") do
     if list.subscriber?(sender)
-      response.subject = "ERROR: Already subscribed"
-      response.body    = "You are already subscribed, you can't subscribe again"
+      respond :subject => "ERROR: Already subscribed",
+              :body    => template("subscribe-error")
     else
       list.subscribe(sender)
-      response.subject = "SUBSCRIBED!"
-      response.body    = "Welcome to the club, buddy"
+
+      respond :subject => "SUBSCRIBED!",
+              :body    => template("subscribe-success")
     end
   end
 
   to(:tag, "unsubscribe") do
     if list.subscriber?(sender)
       list.unsubscribe(sender)
-      response.subject = "UNSUBSCRIBED!"
-      response.body    = "Sorry to see you go!"
+
+      respond :subject => "UNSUBSCRIBED!",
+              :body    => template("unsubscribe-success")
     else
-      response.subject = "ERROR: Not on subscriber list"
-      response.body    = "You tried to unsubscribe, but you are not on our list!"
+      respond :subject => "ERROR: Not on subscriber list",
+              :body    => template("unsubscribe-error")
     end
   end
 
   default do
     if list.subscriber?(sender)
-      response.bcc = list.subscribers.join(", ")
-      forward_message
+      forward_message :bcc => list.subscribers.join(", ")
     else
-      response.subject = "You are not subscribed"
-      response.body    = "You must be a member to post on this list"
+      respond :subject => "You are not subscribed",
+              :body    => template("non-subscriber-error")
     end
   end
 end

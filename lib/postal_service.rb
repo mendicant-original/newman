@@ -1,4 +1,5 @@
 require "mail"
+require "tilt"
 
 module PostalService
   Server = Object.new
@@ -101,6 +102,15 @@ module PostalService
       self.response = params.fetch(:response)
     end
 
+    def respond(params)
+      params.each { |k,v| response.send("#{k}=", v) }
+    end
+
+    def template(name)
+      Tilt.new(Dir.glob("#{config[:templates_dir]}/#{name}.*").first)
+          .render(self)
+    end
+
     def sender
       request.from.first.to_s
     end
@@ -109,10 +119,12 @@ module PostalService
       config[:domain]
     end
 
-    def forward_message
+    def forward_message(params={})
       response.from      = request.from
       response.reply_to  = config[:default_address]
       response.subject   = request.subject
+
+      response.bcc = params[:bcc] if params[:bcc]
 
       if request.multipart?
         response.text_part = request.text_part

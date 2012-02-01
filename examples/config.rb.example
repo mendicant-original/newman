@@ -7,5 +7,6 @@ CONFIGURATION_DATA = {
   :smtp_password    => "kittens",
   :domain           => "example.com",
   :default_address  => "example@example.com",
-  :polling_interval => 30
+  :polling_interval => 30,
+  :templates_dir    => "views" 
 }
