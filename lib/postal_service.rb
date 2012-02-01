@@ -1,17 +1,9 @@
 require "mail"
 require "eventmachine"
-require "pstore"
 
 module PostalService
   class << self
-    attr_accessor :application_dir 
-
-    def run(config_file="config.rb", &callback)
-      self.application_dir ||= "#{File.dirname(caller[0][/(.*\.rb)/, 1])}"
-
-      load "#{application_dir}/#{config_file}"
-      params = CONFIGURATION_DATA
-
+    def run(params, &callback)
       application = Object.new
       application.extend(Helpers)
 
@@ -67,19 +59,15 @@ module PostalService
 
     def filter(type, pattern)
       case type
-      when :to
+      when :sender
         ->(mail) { mail.to.any? { |e| e[pattern] } }
       else
         ->(mail) { false }
       end
     end
-
-    def mailing_list(name)
-      lists_dir = "#{PostalService.application_dir}/db/lists"
-      FileUtils.mkdir_p(lists_dir)
-      MailingList.new("#{lists_dir}/#{name}.store")
-    end
   end
+
+  require "pstore"
 
   class MailingList
     def initialize(filename)
