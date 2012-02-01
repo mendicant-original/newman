@@ -1,12 +1,24 @@
 require_relative "../lib/postal_service"
 require_relative "config"
 
-
-mailing_list = PostalService::MailingList.new("simple_mailing_list.store")
-
 def sender(mail)
   mail.from.first.to_s
 end
+
+def forward(incoming, outgoing)
+  outgoing.from      = incoming.from
+  outgoing.reply_to  = CONFIGURATION_DATA[:default_sender]
+  outgoing.subject   = incoming.subject
+
+  if incoming.multipart?
+    outgoing.text_part = incoming.text_part
+    outgoing.html_part = incoming.html_part
+  else
+    outgoing.body = incoming.body.to_s
+  end
+end
+
+mailing_list = PostalService::MailingList.new("simple_mailing_list.store")
 
 PostalService.run(CONFIGURATION_DATA) do |incoming, outgoing|
   from_address = sender(incoming) 
@@ -31,17 +43,8 @@ PostalService.run(CONFIGURATION_DATA) do |incoming, outgoing|
     end
   else
     if mailing_list.subscriber?(from_address)
-      outgoing.from      = incoming.from
-      outgoing.reply_to  = CONFIGURATION_DATA[:default_sender]
-      outgoing.bcc       = mailing_list.subscribers.join(", ")
-      outgoing.subject   = incoming.subject
-
-      if incoming.multipart?
-        outgoing.text_part = incoming.text_part
-        outgoing.html_part = incoming.html_part
-      else
-        outgoing.body = incoming.body.to_s
-      end
+      outgoing.bcc = mailing_list.subscribers.join(", ")
+      forward(incoming, outgoing)
     else
       outgoing.subject = "You are not subscribed"
       outgoing.body    = "You must be a member to post on this list"
