@@ -1,28 +1,28 @@
 require_relative "../lib/postal_service"
 require_relative "config"
-require "pstore"
 
 
-store = PStore.new("simple_mailing_list.store")
-store.transaction { store["members"] ||= [] }
+mailing_list = PostalService::MailingList.new("simple_mailing_list.store")
 
 def sender(mail)
   mail.from.first.to_s
 end
 
 PostalService.run(CONFIGURATION_DATA) do |incoming, outgoing|
-  list_members = store.transaction(true) { store["members"] }
+  from_address = sender(incoming) 
 
   if incoming.to.any? { |e| e[/\+subscribe@#{CONFIGURATION_DATA[:domain]}/] }
-    if list_members.include?(sender(incoming))
+    if mailing_list.subscriber?(from_address)
       outgoing.subject = "ERROR: Already subscribed"
       outgoing.body    = "You are already subscribed, you can't subscribe again"
     else
+      mailing_list.subscribe(from_address)
       outgoing.subject = "SUBSCRIBED!"
-      store.transaction { store["members"] << sender(incoming) }
+      outgoing.body    = "Welcome to the club, buddy"
     end
    elsif incoming.to.any? { |e| e[/\+unsubscribe@#{CONFIGURATION_DATA[:domain]}/] }
-    if store.transaction { store["members"].delete(sender(incoming)) }
+    if mailing_list.subscriber?(from_address)
+      mailing_list.unsubscribe(from_address)
       outgoing.subject = "UNSUBSCRIBED!"
       outgoing.body    = "Sorry to see you go!"
     else
@@ -30,10 +30,10 @@ PostalService.run(CONFIGURATION_DATA) do |incoming, outgoing|
       outgoing.body    = "You tried to unsubscribe, but you are not on our list!"
     end
   else
-    if list_members.include?(sender(incoming))
+    if mailing_list.subscriber?(from_address)
       outgoing.from      = incoming.from
       outgoing.reply_to  = CONFIGURATION_DATA[:default_sender]
-      outgoing.bcc       = list_members.join(", ")
+      outgoing.bcc       = mailing_list.subscribers.join(", ")
       outgoing.subject   = incoming.subject
 
       if incoming.multipart?
