@@ -59,7 +59,7 @@ module PostalService
     def to(pattern_type, pattern, &callback)
       raise NotImplementedError unless pattern_type == :tag
 
-      pattern = pattern.gsub('.','\.').gsub(/\{(.*)\}/) { |m| "(?<#{$1}>#{matchers[$1]})" } 
+      pattern = compile(pattern)
 
       matcher = lambda do
         request.to.each do |e| 
@@ -71,6 +71,20 @@ module PostalService
       end
 
       callbacks << { :matcher  => matcher, :callback => callback }
+    end
+
+    def subject(pattern_type, pattern, &callback)
+      raise NotImplementedError unless pattern_type == :match
+
+      pattern = compile_pattern(pattern)
+
+      matcher = lambda do
+        md = request.subject.match(/#{pattern}/)
+
+        md || false
+      end
+
+      callbacks << { :matcher => matcher, :callback => callback }
     end
 
     def default(&callback)
@@ -88,10 +102,15 @@ module PostalService
       else
         matched_callbacks.each do |e|
           callback = e[:callback]
-          controller.params = e.fetch(:match_data, {})
+          controller.params = e[:match_data] || {}
           controller.instance_exec(&callback)
         end
       end
+    end
+
+    def compile_pattern(pattern)
+      pattern.gsub('.','\.')
+             .gsub(/\{(.*?)\}/) { |m| "(?<#{$1}>#{matchers[$1]})" } 
     end
   end
 
