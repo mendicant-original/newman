@@ -1,24 +1,22 @@
 require_relative "../lib/postal_service"
-require_relative "config"
 
-mailing_list = PostalService::MailingList.new("simple_mailing_list.store")
-
-PostalService.run(CONFIGURATION_DATA) do |incoming, outgoing|
+PostalService.run do |incoming, outgoing|
+  list         = mailing_list("simple_mailing_list")
   from_address = sender(incoming) 
 
   case incoming
-  when filter(:sender, /\+subscribe@#{CONFIGURATION_DATA[:domain]}/)
-    if mailing_list.subscriber?(from_address)
+  when filter(:to, /\+subscribe@#{CONFIGURATION_DATA[:domain]}/)
+    if list.subscriber?(from_address)
       outgoing.subject = "ERROR: Already subscribed"
       outgoing.body    = "You are already subscribed, you can't subscribe again"
     else
-      mailing_list.subscribe(from_address)
+      list.subscribe(from_address)
       outgoing.subject = "SUBSCRIBED!"
       outgoing.body    = "Welcome to the club, buddy"
     end
-  when filter(:sender, /\+unsubscribe@#{CONFIGURATION_DATA[:domain]}/)
-    if mailing_list.subscriber?(from_address)
-      mailing_list.unsubscribe(from_address)
+  when filter(:to, /\+unsubscribe@#{CONFIGURATION_DATA[:domain]}/)
+    if list.subscriber?(from_address)
+      list.unsubscribe(from_address)
       outgoing.subject = "UNSUBSCRIBED!"
       outgoing.body    = "Sorry to see you go!"
     else
@@ -26,8 +24,8 @@ PostalService.run(CONFIGURATION_DATA) do |incoming, outgoing|
       outgoing.body    = "You tried to unsubscribe, but you are not on our list!"
     end
   else
-    if mailing_list.subscriber?(from_address)
-      outgoing.bcc = mailing_list.subscribers.join(", ")
+    if list.subscriber?(from_address)
+      outgoing.bcc = list.subscribers.join(", ")
       forward(incoming, outgoing)
     else
       outgoing.subject = "You are not subscribed"
