@@ -1,6 +1,9 @@
 require "mail"
 require "tilt"
 
+
+# TODO: BREAK UP INTO FILES
+
 module PostalService
   Server = Object.new
 
@@ -49,11 +52,22 @@ module PostalService
   end
 
   module Commands
+    def match(id, pattern)
+      matchers[id.to_s] = pattern
+    end
+
     def to(pattern_type, pattern, &callback)
       raise NotImplementedError unless pattern_type == :tag
 
+      pattern = pattern.gsub('.','\.').gsub(/\{(.*)\}/) { |m| "(?<#{$1}>#{matchers[$1]})" } 
+
       matcher = lambda do
-        request.to.any? { |e| e[/\+#{pattern}@#{Regexp.escape(domain)}/] } 
+        request.to.each do |e| 
+          md = e.match(/\+#{pattern}@#{Regexp.escape(domain)}/)
+          return md if md
+        end
+
+        false
       end
 
       callbacks << { :matcher  => matcher, :callback => callback }
@@ -66,14 +80,15 @@ module PostalService
     def trigger_callbacks(controller)
       matched_callbacks = callbacks.select do |e| 
         matcher = e[:matcher]
-        controller.instance_exec(&matcher)
+        e[:match_data] = controller.instance_exec(&matcher)
       end
 
       if matched_callbacks.empty?
-        controller.instance_exec(&default_callback)
+        controller.instance_exec(&default_callback) 
       else
         matched_callbacks.each do |e|
           callback = e[:callback]
+          controller.params = e.fetch(:match_data, {})
           controller.instance_exec(&callback)
         end
       end
@@ -85,6 +100,7 @@ module PostalService
 
     def initialize(&block)
       self.callbacks  = []
+      self.matchers   = {}
 
       instance_eval(&block) if block_given?
     end
@@ -96,7 +112,7 @@ module PostalService
 
     private
 
-    attr_accessor :callbacks, :default_callback
+    attr_accessor :callbacks, :default_callback, :matchers
   end
 
   class Controller
@@ -105,6 +121,8 @@ module PostalService
       self.request  = params.fetch(:request)
       self.response = params.fetch(:response)
     end
+
+    attr_accessor :params
 
     def respond(params)
       params.each { |k,v| response.send("#{k}=", v) }
@@ -128,7 +146,9 @@ module PostalService
       response.reply_to  = config[:default_address]
       response.subject   = request.subject
 
-      response.bcc = params[:bcc] if params[:bcc]
+      params.each do |k,v|
+        response.send("#{k}=", v)
+      end
 
       if request.multipart?
         response.text_part = request.text_part
