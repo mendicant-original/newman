@@ -34,5 +34,6 @@ app = PostalService::Application.new do
   end
 end
 
-PostalService::Server.run(:config => eval(File.read("config/config.rb")), 
-                          :apps   => [app])
+settings = PostalService::Settings.from_file("config/config.rb")
+
+PostalService::Server.run(:settings => settings, :apps => [app])

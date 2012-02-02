@@ -1,11 +1,12 @@
-{ :imap_address     => "mail.<<DOMAIN>>",
-  :imap_user        => "<<USERNAME>>@<<DOMAIN>>",
-  :imap_password    => "<<PASSWORD>>",
-  :smtp_address     => "mail.<<DOMAIN>>",
-  :smtp_user        => "<<USERNAME>>@<<DOMAIN>>",
-  :smtp_password    => "<<PASSWORD>>",
-  :domain           => "<<DOMAIN>>",
-  :default_address  => "<<USERNAME>>@<<DOMAIN>>",
-  :polling_interval => 10,
-  :templates_dir    => "views"
-}
+imap.address   = "mail.<<DOMAIN>>"
+imap.user      = "<<USERNAME>>@<<DOMAIN>>"
+imap.password  = "<<PASSWORD>>"
+
+smtp.address   = "mail.<<DOMAIN>>"
+smtp.user      = "<<USER>>@<<DOMAIN>>"
+smtp.password  = "<<PASSWORD>>" 
+
+service.domain           = "<<DOMAIN>>"
+service.templates_dir    = "views"
+service.default_sender   = "<<USERNAME>>@<<DOMAIN>>"
+service.polling_interval = 10

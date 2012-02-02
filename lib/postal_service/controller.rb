@@ -1,7 +1,7 @@
 module PostalService
   class Controller
     def initialize(params)
-      self.config   = params.fetch(:config)
+      self.settings = params.fetch(:settings)
       self.request  = params.fetch(:request)
       self.response = params.fetch(:response)
     end
@@ -13,7 +13,7 @@ module PostalService
     end
 
     def template(name)
-      Tilt.new(Dir.glob("#{config[:templates_dir]}/#{name}.*").first)
+      Tilt.new(Dir.glob("#{settings.service.templates_dir}/#{name}.*").first)
           .render(self)
     end
 
@@ -22,12 +22,12 @@ module PostalService
     end
 
     def domain
-      config[:domain]
+      settings.service.domain 
     end
 
     def forward_message(params={})
       response.from      = request.from
-      response.reply_to  = config[:default_address]
+      response.reply_to  = settings.service.default_sender 
       response.subject   = request.subject
 
       params.each do |k,v|
@@ -44,6 +44,6 @@ module PostalService
 
     private
 
-    attr_accessor :config, :request, :response
+    attr_accessor :settings, :request, :response
   end
 end
