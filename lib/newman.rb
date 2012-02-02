@@ -1,5 +1,6 @@
 require "pstore"
 require "ostruct"
+require "fileutils"
 
 require "mail"
 require "tilt"

@@ -3,6 +3,8 @@ require_relative "store/recorder"
 module Newman
   class Store 
     def initialize(filename)
+      FileUtils.mkdir_p(File.dirname(filename))
+
       self.data = PStore.new(filename)
 
       write do
