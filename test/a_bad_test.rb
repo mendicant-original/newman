@@ -2,12 +2,6 @@ require "mail"
 
 config_data = eval(File.read("config.rb"))
 
-pid = fork do
-  Dir.chdir("../examples") do
-    system("ruby ping_pong.rb")
-  end
-end
-
 Mail.defaults do
   retriever_method :imap, 
     :address    => config_data[:imap_address],
@@ -48,5 +42,3 @@ loop do
     abort "Expected pong, got #{all.first.subject}"
   end
 end
-
-Process.kill(pid)
