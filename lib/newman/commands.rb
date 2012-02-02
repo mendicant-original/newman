@@ -1,5 +1,13 @@
 module Newman 
   module Commands
+    def use(extension)
+      extensions << extension
+    end
+
+    def helpers(&block)
+      extensions << Module.new(&block)
+    end
+
     def match(id, pattern)
       matchers[id.to_s] = pattern
     end
