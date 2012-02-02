@@ -1,0 +1,15 @@
+{ :imap_address     => "imap.gmail.com",
+  :imap_user        => "<<USERNAME>>@gmail.com",
+  :imap_password    => "<<PASSWORD>>",
+  :imap_enable_ssl  => true,
+  :imap_port        => 993,
+  :smtp_address     => "smtp.gmail.com",
+  :smtp_user        => "<<USERNAME>>@gmail.com",
+  :smtp_password    => "<<PASSWORD>>",
+  :smtp_starttls    => true,
+  :smtp_port        => 587,
+  :domain           => "gmail.com",
+  :default_address  => "<<USERNAME>>@gmail.com",
+  :polling_interval => 10,
+  :templates_dir    => "views"
+}

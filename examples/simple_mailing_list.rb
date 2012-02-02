@@ -1,5 +1,4 @@
-require_relative "../lib/postal_service"
-
+require_relative "example_helper"
 
 list = PostalService::MailingList.new("db/lists/simple_mailing_list.store")
 
@@ -38,5 +37,5 @@ app = PostalService::Application.new do
   end
 end
 
-PostalService::Server.run(:config => eval(File.read("config.rb")), 
+PostalService::Server.run(:config => eval(File.read("config/config.rb")), 
                           :apps   => [app])

@@ -1,2 +1,4 @@
 config.rb
+config.gmail.rb
+config.dreamhost.rb
 *.store

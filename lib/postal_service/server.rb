@@ -9,8 +9,6 @@ module PostalService
       configure_mailer(config)
 
       loop do
-        sleep config[:polling_interval]
-
         Mail.all(:delete_after_find => true).each do |request|
           response = Mail.new(:to   => request.from, 
                               :from => config[:default_address])
@@ -23,6 +21,8 @@ module PostalService
 
           response.deliver
         end
+
+        sleep config[:polling_interval]
       end
     end
 
@@ -33,14 +33,17 @@ module PostalService
         retriever_method :imap, 
           :address    => config_data[:imap_address],
           :user_name  => config_data[:imap_user],
-          :password   => config_data[:imap_password]
+          :password   => config_data[:imap_password],
+          :enable_ssl => config_data.fetch(:imap_enable_ssl, false),
+          :port       => config_data.fetch(:imap_port, nil)
 
         delivery_method :smtp,
-          :address              => config_data[:smtp_address], 
+          :address              => config_data[:smtp_address],
           :user_name            => config_data[:smtp_user],
           :password             => config_data[:smtp_password],
           :authentication       => :plain,
-          :enable_starttls_auto => false
+          :enable_starttls_auto => config_data.fetch(:smtp_starttls, false),
+          :port                 => config_data.fetch(:smtp_port, nil)
       end
     end
   end

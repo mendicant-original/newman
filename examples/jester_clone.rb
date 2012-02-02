@@ -1,4 +1,4 @@
-require_relative "../lib/postal_service"
+require_relative "example_helper"
 
 app = PostalService::Application.new do
   match :genre, '\S+'
@@ -34,5 +34,5 @@ app = PostalService::Application.new do
   end
 end
 
-PostalService::Server.run(:config => eval(File.read("config.rb")), 
+PostalService::Server.run(:config => eval(File.read("config/config.rb")), 
                           :apps   => [app])
