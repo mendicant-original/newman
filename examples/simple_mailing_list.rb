@@ -43,5 +43,5 @@ module Newman
 end
 
 if __FILE__ == $PROGRAM_NAME
-  Newman::Server.simple(Newman::Examples::SimpleList, "config/config.rb")
+  Newman::Server.simple(Newman::Examples::SimpleList, "config/environment.rb")
 end

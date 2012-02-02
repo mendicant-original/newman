@@ -15,5 +15,5 @@ module Newman
 end
 
 if __FILE__ == $PROGRAM_NAME
-  Newman::Server.simple(Newman::Examples::PingPong, "config/config.rb")
+  Newman::Server.simple(Newman::Examples::PingPong, "config/environment.rb")
 end

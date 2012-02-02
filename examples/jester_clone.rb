@@ -39,5 +39,5 @@ module Newman
 end
 
 if __FILE__ == $PROGRAM_NAME
-  Newman::Server.simple(Newman::Examples::Jester, "config/config.rb")
+  Newman::Server.simple(Newman::Examples::Jester, "config/environment.rb")
 end
