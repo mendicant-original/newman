@@ -1,6 +1,6 @@
 require_relative "example_helper"
 
-app = PostalService::Application.new do
+app = Newman::Application.new do
   to(:tag, "ping") do
     respond(:subject => "pong")
   end
@@ -10,6 +10,6 @@ app = PostalService::Application.new do
   end
 end
 
-settings = PostalService::Settings.from_file("config/config.rb")
+settings = Newman::Settings.from_file("config/config.rb")
 
-PostalService::Server.run(:settings => settings, :apps => [app])
+Newman::Server.run(:settings => settings, :apps => [app])

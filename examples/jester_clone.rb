@@ -1,6 +1,6 @@
 require_relative "example_helper"
 
-app = PostalService::Application.new do
+app = Newman::Application.new do
   match :genre, '\S+'
   match :title, '.*'
   match :email, '[\w\d\._-]+@[\w\d\._-]+' #not legit, I'm sure
@@ -34,6 +34,6 @@ app = PostalService::Application.new do
   end
 end
 
-settings = PostalService::Settings.from_file("config/config.rb")
+settings = Newman::Settings.from_file("config/config.rb")
 
-PostalService::Server.run(:settings => settings, :apps => [app])
+Newman::Server.run(:settings => settings, :apps => [app])

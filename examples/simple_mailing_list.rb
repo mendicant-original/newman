@@ -1,8 +1,8 @@
 require_relative "example_helper"
 
-list = PostalService::MailingList.new("db/lists/simple_mailing_list.store")
+list = Newman::MailingList.new("db/lists/simple_mailing_list.store")
 
-app = PostalService::Application.new do
+app = Newman::Application.new do
   to(:tag, "subscribe") do
     if list.subscriber?(sender)
       respond :subject => "ERROR: Already subscribed",
@@ -38,6 +38,6 @@ app = PostalService::Application.new do
 end
 
 
-settings = PostalService::Settings.from_file("config/config.rb")
+settings = Newman::Settings.from_file("config/config.rb")
 
-PostalService::Server.run(:settings => settings, :apps => [app])
+Newman::Server.run(:settings => settings, :apps => [app])

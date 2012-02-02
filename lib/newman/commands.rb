@@ -1,4 +1,4 @@
-module PostalService
+module Newman 
   module Commands
     def match(id, pattern)
       matchers[id.to_s] = pattern

@@ -1,4 +1,4 @@
-module PostalService
+module Newman
   class MailingList
     def initialize(filename)
       self.store = PStore.new(filename)

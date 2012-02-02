@@ -1,4 +1,4 @@
-module PostalService
+module Newman
   class Controller
     def initialize(params)
       self.settings = params.fetch(:settings)

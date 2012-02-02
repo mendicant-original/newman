@@ -1,10 +1,10 @@
 require_relative "example_helper"
 
 def load_list(name)
-  PostalService::MailingList.new("db/lists/libre-#{name}.store")
+  Newman::MailingList.new("db/lists/libre-#{name}.store")
 end
 
-app = PostalService::Application.new do
+app = Newman::Application.new do
   match :list_id, "[^.]+"
 
   to(:tag, "{list_id}.subscribe") do
@@ -56,6 +56,6 @@ app = PostalService::Application.new do
   end
 end
 
-settings = PostalService::Settings.from_file("config/config.rb")
+settings = Newman::Settings.from_file("config/config.rb")
 
-PostalService::Server.run(:settings => settings, :apps => [app])
+Newman::Server.run(:settings => settings, :apps => [app])

@@ -1,4 +1,4 @@
-module PostalService
+module Newman 
   class Application
     include Commands
 

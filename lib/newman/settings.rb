@@ -1,4 +1,4 @@
-module PostalService
+module Newman 
   class Settings
     def self.from_file(filename)
       new.tap { |o| o.load_config(filename) }

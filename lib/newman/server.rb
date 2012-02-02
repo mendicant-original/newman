@@ -1,4 +1,4 @@
-module PostalService
+module Newman
   Server = Object.new
 
   class << Server
