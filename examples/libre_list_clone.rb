@@ -1,7 +1,8 @@
 require_relative "example_helper"
 
 def load_list(name)
-  Newman::MailingList.new("db/lists/libre-#{name}.store")
+  store = Newman::Store.new("db/lists/libre.store")
+  Newman::MailingList.new(name, store)
 end
 
 app = Newman::Application.new do

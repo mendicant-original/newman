@@ -1,32 +1,29 @@
 module Newman
   class MailingList
-    def initialize(filename)
-      self.store = PStore.new(filename)
-      db { store[:subscribers] ||= [] }
+    def initialize(name, store)
+      self.name  = name
+      self.store = store
     end
 
     def subscribe(email)
-      db { store[:subscribers] |= [email] }
+      store[name].create(email)
     end
 
     def unsubscribe(email)
-      db { store[:subscribers].delete(email) }
+      record = store[name].find { |e| e.contents == email } 
+      store[name].destroy(record.id)
     end
 
     def subscriber?(email)
-      db(:readonly) { store[:subscribers].include?(email) }
+      store[name].any? { |r| r.contents == email }
     end
 
     def subscribers
-      db(:readonly) { store[:subscribers] }
+      store[name].map { |r| r.contents } 
     end
 
     private
 
-    attr_accessor :store
-
-    def db(read_only=false)
-      store.transaction(read_only) { yield }
-    end
+    attr_accessor :name, :store
   end
 end

@@ -1,6 +1,7 @@
 require_relative "example_helper"
 
-list = Newman::MailingList.new("db/lists/simple_mailing_list.store")
+store = Newman::Store.new("db/lists/simple_mailing_list.store")
+list  = Newman::MailingList.new("simple_list", store)
 
 app = Newman::Application.new do
   to(:tag, "subscribe") do
