@@ -1,4 +1,4 @@
-## Postal Services
+## Newman: A mail application microframework 
 
 This is going to be an experiment in building a simple framework for developing
 email-based applications. It is based on ideas from an exercise in 
