@@ -8,7 +8,7 @@ module Newman
     LibreList = Newman::Application.new do
       helpers do
         def load_list(name)
-          store = Newman::Store.new("db/lists/libre.store")
+          store = Newman::Store.new(settings.application.librelist_db)
           Newman::MailingList.new(name, store)
         end
       end

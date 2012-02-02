@@ -2,10 +2,16 @@ require_relative "example_helper"
 
 module Newman
   module Examples
-    store = Newman::Store.new("db/lists/simple_mailing_list.store")
-    list  = Newman::MailingList.new("simple_list", store)
 
     SimpleList = Newman::Application.new do
+      helpers do
+        def list
+          store = Newman::Store.new(settings.application.simplelist_db)
+          
+          Newman::MailingList.new("simple_list", store)
+        end
+      end
+
       to(:tag, "subscribe") do
         if list.subscriber?(sender)
           respond :subject => "ERROR: Already subscribed",

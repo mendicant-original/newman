@@ -10,3 +10,8 @@ service.domain           = "<<DOMAIN>>"
 service.templates_dir    = "views"
 service.default_sender   = "<<USERNAME>>@<<DOMAIN>>"
 service.polling_interval = 10
+
+application.simplelist_db   = "db/lists/simple_mailing_list.store"
+application.librelist_db    = "db/lists/libre.store"
+application.ping_email      = "<<USERNAME>>+ping@<<DOMAIN>>"
+application.live_test_delay = 5

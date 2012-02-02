@@ -11,7 +11,6 @@ module Newman
       mailer.configure(settings)
     end
 
-    # loads settings from a file and configures mailer
     def simple(apps, settings_file)
       self.settings = Newman::Settings.from_file(settings_file)
       self.mailer   = Newman::Mailer
