@@ -24,8 +24,8 @@ Mail.deliver(:to      => config_data[:ping_address],
 attempts = 0
 
 loop do
+  abort "Did not succeed!" if attempts == 3
   attempts += 1
-  abort "Did not succeed!" if attempts == 5
 
   all = Mail.all(:delete_after_find => true)
 
