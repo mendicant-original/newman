@@ -1,52 +1,75 @@
 module Newman
-  Server = Object.new
+  class Server
+    def initialize(settings)
+      self.settings = settings
 
-  class << Server
-    def run(params)
-      settings = params[:settings]
-      apps     = params[:apps]
+      configure_mailer
+    end
 
-      configure_mailer(settings)
-
+    def run(*apps)
       loop do
-        Mail.all(:delete_after_find => true).each do |request|
-          response = Mail.new(:to   => request.from, 
-                              :from => settings.service.default_sender)
+        tick(*apps)
+        sleep settings.service.polling_interval
+      end
+    end
 
-          apps.each do |a| 
-            a.call(:request  => request, 
-                   :response => response, 
-                   :settings => settings)
-          end
+    def tick(*apps)
+      apps = Array(*apps)
+           
+      inbox.each do |request|
+        response = Mail.new(:to   => request.from, 
+                            :from => settings.service.default_sender)
 
-          response.deliver
+        apps.each do |a| 
+          a.call(:request  => request, 
+                 :response => response, 
+                 :settings => settings)
         end
 
-        sleep settings.service.polling_interval
+        response.deliver
       end
     end
 
     private
 
-    def configure_mailer(settings)
-      imap = settings.imap
-      smtp = settings.smtp
+    attr_accessor :settings
 
-      Mail.defaults do
-        retriever_method :imap, 
-          :address    => imap.address,
-          :user_name  => imap.user,
-          :password   => imap.password,
-          :enable_ssl => imap.ssl_enabled || false,
-          :port       => imap.port
+    def inbox
+      if settings.service.test_mode 
+        deliveries = Marshal.load(Marshal.dump(Mail::TestMailer.deliveries))
+        Mail::TestMailer.deliveries.clear
+        deliveries
+      else
+        Mail.all(:delete_after_find => true)
+      end
+    end
 
-        delivery_method :smtp,
-          :address              => smtp.address,
-          :user_name            => smtp.user,
-          :password             => smtp.password,
-          :authentication       => :plain,
-          :enable_starttls_auto => smtp.starttls_enabled || false,
-          :port                 => smtp.port
+    def configure_mailer
+      if settings.service.test_mode
+        Mail.defaults do
+          retriever_method :test
+          delivery_method  :test
+        end
+      else
+        imap = settings.imap
+        smtp = settings.smtp
+
+        Mail.defaults do
+          retriever_method :imap, 
+            :address    => imap.address,
+            :user_name  => imap.user,
+            :password   => imap.password,
+            :enable_ssl => imap.ssl_enabled || false,
+            :port       => imap.port
+
+          delivery_method :smtp,
+            :address              => smtp.address,
+            :user_name            => smtp.user,
+            :password             => smtp.password,
+            :authentication       => :plain,
+            :enable_starttls_auto => smtp.starttls_enabled || false,
+            :port                 => smtp.port
+        end
       end
     end
   end

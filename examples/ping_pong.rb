@@ -12,4 +12,5 @@ end
 
 settings = Newman::Settings.from_file("config/config.rb")
 
-Newman::Server.run(:settings => settings, :apps => [app])
+server = Newman::Server.new(settings)
+server.run(app)
