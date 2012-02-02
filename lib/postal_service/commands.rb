@@ -7,7 +7,7 @@ module PostalService
     def to(pattern_type, pattern, &callback)
       raise NotImplementedError unless pattern_type == :tag
 
-      pattern = compile(pattern)
+      pattern = compile_pattern(pattern)
 
       matcher = lambda do
         request.to.each do |e| 
