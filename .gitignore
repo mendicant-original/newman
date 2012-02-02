@@ -1,4 +1,3 @@
-config.rb
-config.gmail.rb
-config.dreamhost.rb
+examples/config/*.rb
+test/config*.rb
 *.store
