@@ -1,4 +1,7 @@
+
 ## Newman: Because the mail never stops!
+
+![Newman](http://i.imgur.com/92bZB.jpg)
 
 This is going to be an experiment in building a simple framework for developing
 email-based applications. It is based on ideas from an exercise in 
