@@ -23,6 +23,8 @@ module Newman
 
       record = store[name].find { |e| e.contents == email } 
       store[name].destroy(record.id)
+
+      true
     end
 
     def subscriber?(email)
