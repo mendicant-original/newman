@@ -11,32 +11,30 @@ module Newman
       mailer.configure(settings)
     end
 
-    def simple(apps, settings_file)
+    def simple(app, settings_file)
       self.settings = Newman::Settings.from_file(settings_file)
       self.mailer   = Newman::Mailer
       
       mailer.configure(settings)
 
-      run(apps)
+      run(app)
     end
 
-    def run(apps)
+    def run(app)
       loop do
-        tick(apps)
+        tick(app)
         sleep settings.service.polling_interval
       end
     end
 
-    def tick(apps)           
+    def tick(app)           
       mailer.messages.each do |request|
         response = mailer.new_message(:to   => request.from, 
                                       :from => settings.service.default_sender)
 
-        Array(apps).each do |a| 
-          a.call(:request  => request, 
+        app.call(:request  => request, 
                  :response => response, 
                  :settings => settings)
-        end
 
         response.deliver
       end
