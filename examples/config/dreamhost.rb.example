@@ -3,7 +3,7 @@ imap.user      = "<<USERNAME>>@<<DOMAIN>>"
 imap.password  = "<<PASSWORD>>"
 
 smtp.address   = "mail.<<DOMAIN>>"
-smtp.user      = "<<USER>>@<<DOMAIN>>"
+smtp.user      = "<<USERNAME>>@<<DOMAIN>>"
 smtp.password  = "<<PASSWORD>>" 
 
 service.domain           = "<<DOMAIN>>"
