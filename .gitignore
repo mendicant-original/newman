@@ -2,3 +2,4 @@ examples/config/*.rb
 test/config*.rb
 *.store
 Gemfile.lock
+.bundle
