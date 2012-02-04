@@ -36,7 +36,7 @@ module Newman
                  :response => response, 
                  :settings => settings)
 
-        response.deliver if response
+        response.deliver
       end
     end
   end

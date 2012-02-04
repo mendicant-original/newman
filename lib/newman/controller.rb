@@ -26,7 +26,7 @@ module Newman
     end
 
     def skip_response
-      response = nil
+      response.perform_deliveries = false
     end
 
     def forward_message(params={})
