@@ -57,3 +57,24 @@ describe "SimpleList" do
     end
   end
 end
+
+
+# move this when test suite set up
+
+noop = Newman::Application.new do
+  default do
+    skip_response
+  end
+end
+
+describe "skip_response" do
+  
+  it "should not send response" do
+    mailer.deliver_message(:from => 'tester@test.com',
+                           :to   => 'test+noop@test.com')
+    server.tick(noop)
+    assert_empty mailer.messages
+  end
+
+end
+

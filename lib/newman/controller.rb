@@ -25,6 +25,10 @@ module Newman
       settings.service.domain 
     end
 
+    def skip_response
+      response = nil
+    end
+
     def forward_message(params={})
       response.from      = request.from
       response.reply_to  = settings.service.default_sender 
