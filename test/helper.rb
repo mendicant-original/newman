@@ -1,3 +1,4 @@
+gem "minitest" if RUBY_VERSION < '1.9.3'
 require "minitest/autorun"
 require "purdytest"
 require_relative "../lib/newman"
