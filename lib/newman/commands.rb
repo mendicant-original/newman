@@ -65,8 +65,8 @@ module Newman
     end
 
     def compile_pattern(pattern)
-      pattern.gsub('.','\.')
-             .gsub(/\{(.*?)\}/) { |m| "(?<#{$1}>#{matchers[$1]})" } 
+      Regexp.escape(pattern)
+            .gsub(/\\{(.*?)\\}/) { |m| "(?<#{$1}>#{matchers[$1]})" } 
     end
   end
 end
