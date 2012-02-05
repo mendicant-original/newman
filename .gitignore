@@ -3,3 +3,4 @@ test/config*.rb
 *.store
 Gemfile.lock
 .bundle
+coverage

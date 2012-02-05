@@ -14,6 +14,9 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'mail', "~> 2.3.0"
   s.add_runtime_dependency 'tilt', "~> 1.3.3"
 
+  s.add_development_dependency 'simplecov'
+  s.add_development_dependency 'purdytest'
+
   s.required_ruby_version = ">= 1.9.2"
   s.required_rubygems_version = ">= 1.3.6"
   s.rubyforge_project = "newman"

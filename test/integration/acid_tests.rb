@@ -1,12 +1,10 @@
-require_relative "ping_pong"
-require_relative "simple_mailing_list"
+require_relative "../helper"
 
-require "minitest/autorun"
+require_relative "../../examples/ping_pong"
+require_relative "../../examples/simple_mailing_list"
 
-server = Newman::Server
-server.test_mode("config/test.rb")
-
-mailer = server.mailer
+server = Newman::TestServer
+mailer = Newman::TestServer.mailer
 
 describe "Ping Pong" do
   it "responds to an email sent to test+ping@test.com" do
