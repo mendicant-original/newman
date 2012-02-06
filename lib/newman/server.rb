@@ -1,20 +1,27 @@
-module Newman
-  Server = Object.new  
-  
-  class << Server
+module Newman  
+  class Server
+    def self.test_mode(settings_file)
+      settings = Settings.from_file(settings_file)
+      mailer   = TestMailer.new(settings)
+
+      new(settings, mailer)
+    end
+
+    def self.simple(app, settings_file)
+      settings = Settings.from_file(settings_file)
+      mailer   = Mailer.new(settings)
+
+      server = new(settings, mailer)
+
+      server.run(app)
+    end
+
+    def initialize(settings, mailer)
+      self.settings = settings
+      self.mailer   = mailer
+    end
+
     attr_accessor :settings, :mailer
-
-    def test_mode(settings_file)
-      self.settings = Newman::Settings.from_file(settings_file)
-      self.mailer   = Newman::TestMailer.new(settings)
-    end
-
-    def simple(app, settings_file)
-      self.settings = Newman::Settings.from_file(settings_file)
-      self.mailer   = Newman::Mailer.new(settings)
-
-      run(app)
-    end
 
     def run(app)
       loop do
