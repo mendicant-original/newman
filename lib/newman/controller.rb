@@ -6,7 +6,8 @@ module Newman
       self.response = params.fetch(:response)
     end
 
-    attr_accessor :params
+    attr_accessor :params, :settings, :request, :response
+
 
     def respond(params)
       params.each { |k,v| response.send("#{k}=", v) }
@@ -45,9 +46,5 @@ module Newman
         response.body = request.body.to_s
       end
     end
-
-    private
-
-    attr_accessor :settings, :request, :response
   end
 end
