@@ -32,6 +32,9 @@ module Newman
 
     def tick(app)           
       mailer.messages.each do |request|
+        log("REQUEST from #{request.from} to #{request.to}. "+
+            "Subject: #{request.subject.inspect}")
+        
         response = mailer.new_message(:to   => request.from, 
                                       :from => settings.service.default_sender)
 
@@ -40,7 +43,19 @@ module Newman
                  :settings => settings)
 
         response.deliver
+
+        log("RESPONSE from #{response.from} to #{response.to}. "+
+           "Subject: #{response.subject.inspect}, "+
+           "Bcc: #{response.bcc.inspect}, "+
+           "Reply To: #{response.reply_to.inspect}")
       end
+    end
+
+
+    private
+
+    def log(message)
+      STDERR.puts("#{message}\n\n") if settings.service.debug_mode
     end
   end
 end
