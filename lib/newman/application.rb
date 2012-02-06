@@ -32,6 +32,11 @@ module Newman
       matchers[id.to_s] = pattern
     end
 
+    def callback(action, filter)
+      callbacks << { :filter   => filter, 
+                     :action   => action }
+    end
+
     private
 
     attr_accessor :callbacks, :default_callback, :matchers, :extensions
@@ -39,11 +44,6 @@ module Newman
     def compile_regex(pattern)
       regex = Regexp.escape(pattern)
                     .gsub(/\\{(.*?)\\}/) { |m| "(?<#{$1}>#{matchers[$1]})" } 
-    end
-
-    def callback(action, filter)
-      callbacks << { :filter   => filter, 
-                     :action   => action }
     end
 
     def trigger_callbacks(controller)
