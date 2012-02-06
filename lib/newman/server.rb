@@ -38,9 +38,14 @@ module Newman
         response = mailer.new_message(:to   => request.from, 
                                       :from => settings.service.default_sender)
 
-        app.call(:request  => request, 
-                 :response => response, 
-                 :settings => settings)
+        begin
+          app.call(:request  => request, 
+                   :response => response, 
+                   :settings => settings)
+        rescue StandardError => e
+          log("ERROR: #{e.inspect}\n"+e.backtrace.join("\n  "))
+          next
+        end
 
         response.deliver
 
