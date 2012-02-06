@@ -6,7 +6,7 @@ require "mail"
 require "tilt"
 
 require_relative "newman/server"
-require_relative "newman/commands"
+require_relative "newman/filters"
 require_relative "newman/application"
 require_relative "newman/controller"
 require_relative "newman/mailing_list"

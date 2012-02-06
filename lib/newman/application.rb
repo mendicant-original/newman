@@ -1,6 +1,6 @@
 module Newman 
   class Application
-    include Commands
+    include Filters
 
     def initialize(&block)
       self.callbacks  = []

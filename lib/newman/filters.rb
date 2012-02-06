@@ -1,7 +1,7 @@
 module Newman 
-  module Commands
-    def to(pattern_type, pattern, &action)
-      raise NotImplementedError unless pattern_type == :tag
+  module Filters
+    def to(filter_type, pattern, &action)
+      raise NotImplementedError unless filter_type == :tag
 
       regex = compile_regex(pattern)
 
@@ -16,8 +16,8 @@ module Newman
 
     end
 
-    def subject(pattern_type, pattern, &action)
-      raise NotImplementedError unless pattern_type == :match
+    def subject(filter_type, pattern, &action)
+      raise NotImplementedError unless filter_type == :match
 
       regex = compile_regex(pattern)
 
