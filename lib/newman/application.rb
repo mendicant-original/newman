@@ -49,7 +49,7 @@ module Newman
     def trigger_callbacks(controller)
       matched_callbacks = callbacks.select do |e| 
         filter = e[:filter]
-        e[:match_data] = controller.instance_exec(&filter)
+        e[:match_data] = filter.call(controller)
       end
 
       if matched_callbacks.empty?

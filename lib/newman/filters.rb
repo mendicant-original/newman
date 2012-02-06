@@ -5,9 +5,9 @@ module Newman
 
       regex = compile_regex(pattern)
 
-      callback action, -> {
-        request.to.each do |e| 
-          md = e.match(/\+#{regex}@#{Regexp.escape(domain)}/)
+      callback action, ->(controller) {
+        controller.request.to.each do |e| 
+          md = e.match(/\+#{regex}@#{Regexp.escape(controller.domain)}/)
           return md if md
         end
 
@@ -21,8 +21,8 @@ module Newman
 
       regex = compile_regex(pattern)
 
-      callback action, -> {
-        md = request.subject.match(/#{regex}/)
+      callback action, ->(controller) {
+        md = controller.request.subject.match(/#{regex}/)
 
         md || false
       }
