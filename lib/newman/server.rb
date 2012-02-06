@@ -44,7 +44,12 @@ module Newman
                    :settings => settings)
         rescue StandardError => e
           log("ERROR: #{e.inspect}\n"+e.backtrace.join("\n  "))
-          next
+
+          if settings.service.raise_exceptions
+            raise
+          else
+            next
+          end
         end
 
         response.deliver

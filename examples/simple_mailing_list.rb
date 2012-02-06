@@ -12,7 +12,7 @@ module Newman
         end
       end
 
-      to(:tag, "subscribe") do
+      subject(:match, "subscribe") do
         if list.subscriber?(sender)
           respond :subject => "ERROR: Already subscribed",
                   :body    => template("subscribe-error")
@@ -24,7 +24,7 @@ module Newman
         end
       end
 
-      to(:tag, "unsubscribe") do
+      subject(:match, "unsubscribe") do
         if list.subscriber?(sender)
           list.unsubscribe(sender)
 

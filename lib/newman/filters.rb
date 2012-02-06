@@ -22,9 +22,11 @@ module Newman
       regex = compile_regex(pattern)
 
       callback action, ->(controller) {
-        md = controller.request.subject.match(/#{regex}/)
+        subject = controller.request.subject
 
-        md || false
+        return false unless subject
+
+        subject.match(/#{regex}/) || false
       }
     end
   end

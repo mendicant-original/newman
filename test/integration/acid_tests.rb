@@ -22,14 +22,16 @@ end
 
 describe "SimpleList" do
   it "emulates a simple mailing list" do
-    mailer.deliver_message(:from => "tester@test.com",
-                           :to   => "test@test.com")
+    mailer.deliver_message(:from    => "tester@test.com",
+                           :to      => "test@test.com")
 
     server.tick(Newman::Examples::SimpleList)
+
     mailer.messages.first.subject.must_equal("You are not subscribed")
 
-    mailer.deliver_message(:from => "tester@test.com",
-                           :to   => "test+subscribe@test.com")
+    mailer.deliver_message(:from    => "tester@test.com",
+                           :to      => "test+subscribe@test.com",
+                           :subject => "subscribe")
 
     server.tick(Newman::Examples::SimpleList)
     mailer.messages.first.subject.must_equal("SUBSCRIBED!")
@@ -42,8 +44,9 @@ describe "SimpleList" do
     server.tick(Newman::Examples::SimpleList)
     mailer.messages.first.subject.must_equal("WIN!")
 
-    mailer.deliver_message(:from => "tester@test.com",
-                           :to   => "test+unsubscribe@test.com")
+    mailer.deliver_message(:from    => "tester@test.com",
+                           :to      => "test@test.com",
+                           :subject => "unsubscribe")
 
     server.tick(Newman::Examples::SimpleList)
     mailer.messages.first.subject.must_equal("UNSUBSCRIBED!")
