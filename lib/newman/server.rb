@@ -7,15 +7,13 @@ module Newman
     def test_mode(settings_file)
       self.settings = Newman::Settings.from_file(settings_file)
       self.mailer   = Newman::TestMailer
-
-      mailer.configure(settings)
+      
+      Newman::TestMailer.configure(settings)
     end
 
     def simple(app, settings_file)
       self.settings = Newman::Settings.from_file(settings_file)
-      self.mailer   = Newman::Mailer
-      
-      mailer.configure(settings)
+      self.mailer   = Newman::Mailer.new(settings)
 
       run(app)
     end

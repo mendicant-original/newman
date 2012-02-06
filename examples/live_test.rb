@@ -3,8 +3,7 @@ require_relative "ping_pong"
 
 settings = Newman::Settings.from_file("config/environment.rb")
 
-mailer = Newman::Mailer
-mailer.configure(settings)
+mailer = Newman::Mailer.new(settings)
 
 server = Newman::Server
 server.settings = settings
