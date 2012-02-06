@@ -1,12 +1,21 @@
 module Newman
-  TestMailer = Object.new
+  class TestMailer
+    class << self
+      def new(settings)
+        return self.instance if instance
 
-  class << TestMailer
-    def configure(settings)
-      Mail.defaults do
-        retriever_method :test
-        delivery_method  :test      
+        # FIXME: It'd be nice to find a non-singleton way to do this
+        # and if it can be found, then Newman::TestMailer needn't 
+        # be a singleton.
+        Mail.defaults do
+          retriever_method :test
+          delivery_method  :test      
+        end
+
+        self.instance = allocate
       end
+
+      attr_accessor :instance
     end
 
     def messages

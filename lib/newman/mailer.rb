@@ -5,20 +5,20 @@ module Newman
       smtp = settings.smtp
 
       self.retriever_settings = {
-           :address    => imap.address,
-           :user_name  => imap.user,
-           :password   => imap.password,
-           :enable_ssl => imap.ssl_enabled || false,
-           :port       => imap.port
+         :address    => imap.address,
+         :user_name  => imap.user,
+         :password   => imap.password,
+         :enable_ssl => imap.ssl_enabled || false,
+         :port       => imap.port
       }
       
       self.delivery_settings = {
-           :address              => smtp.address,
-           :user_name            => smtp.user,
-           :password             => smtp.password,
-           :authentication       => :plain,
-           :enable_starttls_auto => smtp.starttls_enabled || false,
-           :port                 => smtp.port
+         :address              => smtp.address,
+         :user_name            => smtp.user,
+         :password             => smtp.password,
+         :authentication       => :plain,
+         :enable_starttls_auto => smtp.starttls_enabled || false,
+         :port                 => smtp.port
       }
     end
     
