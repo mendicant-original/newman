@@ -82,8 +82,9 @@ setup:</p>
 end
 </code></pre>
 
-<p>Because this method runs the <code>pattern</code> through <code>Application#compile_regex</code>,
-it can also be used in combination with <code>Application#match</code> to do more
+<p>Because this method runs the <code>pattern</code> through 
+<code>Newman::Application#compile_regex</code>, it can also be used in 
+combination with <code>Newman::Application#match</code> to do more
 complex matching. For example, the code below could be used to support
 complex TO field mappings, such as <code>USERNAME+somelist.subscribe@HOST</code>:</p>
 
@@ -141,7 +142,40 @@ whole email address at some point in the future.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-5">&#182;</a>
         </div>
-        <p>fill me in</p>
+        <p>The <code>subject</code> method takes a <code>filter_type</code>, a <code>pattern</code>, and an <code>action</code> and
+then registers a callback which gets run for each new request the
+application handles.</p>
+
+<p>Currently, the only supported <code>filter_type</code> is <code>:match</code>, which matches the
+pattern against the full SUBJECT field. This can be used for simple
+subject based filtering, such as the code shown below:</p>
+
+<pre><code>subject(:match, &ldquo;what stories do you know?&rdquo;) do
+  respond :subject =&gt; &ldquo;All of Jester&rsquo;s stories&rdquo;,
+         :body =&gt; story_library.map { |e| e.title }.join(&ldquo;\n&rdquo;)
+end
+</code></pre>
+
+<p>Because this method runs the <code>pattern</code> through 
+<code>Newman::Application#compile_regex</code>, it can also be used in 
+combination with <code>Newman::Application#match</code> to do more
+complex matching, such as in the following example:</p>
+
+<p>match :genre, &lsquo;\S+&rsquo;
+  match :title, &lsquo;.*&rsquo;</p>
+
+<p>subject(:match, &ldquo;a {genre} story &lsquo;{title}&rsquo;&rdquo;) do
+    story<em>library.add</em>story(:genre =&gt; params[:genre],
+                            :title =&gt; params[:title],
+                            :body =&gt; request.body.to_s)</p>
+
+<pre><code>respond :subject =&gt; &ldquo;Jester saved &lsquo;#{params[:title]}&rsquo;&rdquo;
+</code></pre>
+
+<p>end</p>
+
+<p>It&rsquo;d be nice to support more kinds of matching strategies at some point in
+the future, so be sure to let us know if you have ideas.</p>
 
       </td>
       <td class=code>
