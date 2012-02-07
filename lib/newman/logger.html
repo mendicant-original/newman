@@ -51,19 +51,66 @@ the code in this file. Just be sure to note that if you add
 <code>service.debug_mode = true</code> to your configuration file, or set the Ruby 
 <code>$DEBUG</code> global variable, you will get much more verbose output from 
 Newman&rsquo;s logging system.</p>
-
       </td>
       <td class=code>
         <div class='highlight'><pre><span class="k">module</span> <span class="nn">Newman</span>
-  <span class="k">module</span> <span class="nn">EmailLogger</span>
-    <span class="k">def</span> <span class="nf">log</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">email</span><span class="p">)</span>
+  <span class="k">module</span> <span class="nn">EmailLogger</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-2'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-2">&#182;</a>
+        </div>
+        <hr>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre></pre></div>
+      </td>
+    </tr>
+    <tr id='section-3'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-3">&#182;</a>
+        </div>
+        <p>Takes a logger object, a prefix, and a <code>Mail</code> object and then outputs
+relevant debugging details. </p>
+
+<p>This method always at least provides a summary of the provided <code>email</code>
+at the <code>INFO</code> level When in debugging mode, the full contents of 
+the <code>email</code> will also gets logged.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">log</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">email</span><span class="p">)</span>
       <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span> <span class="p">{</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="si">#{</span><span class="n">email</span><span class="si">}</span><span class="s2">&quot;</span> <span class="p">}</span>
       <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span> <span class="p">{</span> <span class="n">summary</span><span class="p">(</span><span class="n">email</span><span class="p">)</span> <span class="p">}</span>
     <span class="k">end</span>
 
-    <span class="kp">private</span>
-    
-    <span class="k">def</span> <span class="nf">summary</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
+    <span class="kp">private</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-4'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-4">&#182;</a>
+        </div>
+        <hr>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    </pre></div>
+      </td>
+    </tr>
+    <tr id='section-5'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-5">&#182;</a>
+        </div>
+        <p>This method provides a hash with a summary of the provided <code>email</code>. It is
+an implementation detail and should not be depended upon.</p>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">summary</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
       <span class="p">{</span> <span class="ss">:from</span>     <span class="o">=&gt;</span> <span class="n">email</span><span class="o">.</span><span class="n">from</span><span class="p">,</span>
         <span class="ss">:to</span>       <span class="o">=&gt;</span> <span class="n">email</span><span class="o">.</span><span class="n">to</span><span class="p">,</span>
         <span class="ss">:bcc</span>      <span class="o">=&gt;</span> <span class="n">email</span><span class="o">.</span><span class="n">bcc</span><span class="p">,</span>
