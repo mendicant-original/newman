@@ -5,6 +5,7 @@ require "fileutils"
 require "mail"
 require "tilt"
 
+require_relative "newman/logger"
 require_relative "newman/server"
 require_relative "newman/filters"
 require_relative "newman/application"

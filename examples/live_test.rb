@@ -5,6 +5,7 @@ settings = Newman::Settings.from_file("config/environment.rb")
 mailer = Newman::Mailer.new(settings)
 
 server = Newman::Server.new(settings, mailer)
+server.apps << Newman::Examples::PingPong
 
 mailer.deliver_message(:to   => settings.application.ping_email,
                        :from => settings.service.default_sender)
@@ -16,7 +17,7 @@ settings.application.live_test_delay.downto(1) do |i|
 end
 puts
 
-server.tick(Newman::Examples::PingPong)
+server.tick
 
 remaining_attempts = 3
 loop do

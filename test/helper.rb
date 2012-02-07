@@ -7,9 +7,12 @@ require_relative "../lib/newman"
 module Newman
   TEST_DIR   =  File.dirname(__FILE__) 
 
-  TestServer =  Newman::Server.test_mode(TEST_DIR + "/settings.rb")
-  TestServer.settings.application.simplelist_db = TEST_DIR + "/test.store"
+  def self.new_test_server(app)
+    server = Newman::Server.test_mode(TEST_DIR + "/settings.rb")
+    server.apps << app
+    server.settings.application.simplelist_db = TEST_DIR + "/test.store"
+    server.settings.service.templates_dir = TEST_DIR + "/../examples/views"
 
-  # TODO: This should probably be moved into test
-  TestServer.settings.service.templates_dir = TEST_DIR + "/../examples/views"
+    server
+  end
 end
