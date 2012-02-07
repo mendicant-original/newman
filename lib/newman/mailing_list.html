@@ -70,7 +70,12 @@ be provided.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-3">&#182;</a>
         </div>
-        <p>This method checks to see if an email is already on the current list</p>
+        <p>If the subscribers email address is already on the list, this method
+simply returns false and does not modify any records.</p>
+
+<p>However, if the email address is for a new subscriber, a new record gets
+created containing that subscribers email address and the method returns
+true.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">subscribe</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
@@ -89,7 +94,7 @@ be provided.</p>
         </div>
         <p>returns true if the user is sucessfully unsubscribed,
 false if the email does not match anyone on the 
-subscriber list</p>
+subscriber list. </p>
 
       </td>
       <td class=code>
