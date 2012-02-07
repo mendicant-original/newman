@@ -4,3 +4,4 @@ test/config*.rb
 Gemfile.lock
 .bundle
 coverage
+docs/
