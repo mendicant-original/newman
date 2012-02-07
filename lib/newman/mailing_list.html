@@ -40,9 +40,9 @@
         <div class="pilwrap">
           <a class="pilcrow" href="#section-1">&#182;</a>
         </div>
-        <p>Newman::MailingList implements a simple mechanism for storing lists of email
+        <p><code>Newman::MailingList</code> implements a simple mechanism for storing lists of email
 addresses keyed by a name. This is meant to be used in conjunction with a
-Newman::Store object which is PStore backed, but would fairly easily map to
+<code>Newman::Store</code> object which is <code>PStore</code> backed, but would fairly easily map to
 arbitrary data stores via adapter objects.</p>
       </td>
       <td class=code>
@@ -66,7 +66,7 @@ arbitrary data stores via adapter objects.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-3">&#182;</a>
         </div>
-        <p>To initialize a Newman::MailingList, a list name and a store object must
+        <p>To initialize a <code>Newman::MailingList</code>, a list name and a store object must
 be provided, i.e:</p>
 
 <pre><code>store = Newman::Store.new(&lsquo;simple.store&rsquo;)
@@ -202,7 +202,11 @@ returns false otherwise.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-11">&#182;</a>
         </div>
-        <p>TODO: Docuement</p>
+        <p>Use <code>subscribers</code> to get an array of all email addresses for the mailing
+list&rsquo;s subscribers, i.e:</p>
+
+<pre><code>members = mailing_list.subscribers
+</code></pre>
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">subscribers</span>
