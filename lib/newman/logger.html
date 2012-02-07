@@ -73,17 +73,21 @@ Newman&rsquo;s logging system.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-3">&#182;</a>
         </div>
-        <p>Takes a logger object, a prefix, and a <code>Mail</code> object and then outputs
-relevant debugging details. </p>
+        <p>The <code>log_email</code> method takes a logger object, a prefix, and a <code>Mail</code> object and 
+then outputs relevant debugging details. </p>
 
 <p>This method always at least provides a summary of the provided <code>email</code>
 at the <code>INFO</code> level When in debugging mode, the full contents of 
 the <code>email</code> will also gets logged.</p>
+
+<p>The main purpose of this method is to be used by <code>Newman::RequestLogger</code>
+and <code>Newman::ResponseLogger</code>, but may also optionally be used as a helper
+for those who are rolling their own logging systems.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">log</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">email</span><span class="p">)</span>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">log_email</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">email</span><span class="p">)</span>
       <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span> <span class="p">{</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="si">#{</span><span class="n">email</span><span class="si">}</span><span class="s2">&quot;</span> <span class="p">}</span>
-      <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span> <span class="p">{</span> <span class="n">summary</span><span class="p">(</span><span class="n">email</span><span class="p">)</span> <span class="p">}</span>
+      <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span> <span class="p">{</span> <span class="n">email_summary</span><span class="p">(</span><span class="n">email</span><span class="p">)</span> <span class="p">}</span>
     <span class="k">end</span>
 
     <span class="kp">private</span></pre></div>
@@ -110,7 +114,7 @@ an implementation detail and should not be depended upon.</p>
 
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">summary</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">email_summary</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
       <span class="p">{</span> <span class="ss">:from</span>     <span class="o">=&gt;</span> <span class="n">email</span><span class="o">.</span><span class="n">from</span><span class="p">,</span>
         <span class="ss">:to</span>       <span class="o">=&gt;</span> <span class="n">email</span><span class="o">.</span><span class="n">to</span><span class="p">,</span>
         <span class="ss">:bcc</span>      <span class="o">=&gt;</span> <span class="n">email</span><span class="o">.</span><span class="n">bcc</span><span class="p">,</span>
@@ -126,7 +130,7 @@ an implementation detail and should not be depended upon.</p>
     <span class="kp">include</span> <span class="no">EmailLogger</span>
 
     <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
-      <span class="n">log</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:logger</span><span class="o">]</span><span class="p">,</span> <span class="s2">&quot;REQUEST&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">[</span><span class="ss">:request</span><span class="o">]</span><span class="p">)</span>
+      <span class="n">log_email</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:logger</span><span class="o">]</span><span class="p">,</span> <span class="s2">&quot;REQUEST&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">[</span><span class="ss">:request</span><span class="o">]</span><span class="p">)</span>
     <span class="k">end</span>
   <span class="k">end</span>
 
@@ -134,7 +138,7 @@ an implementation detail and should not be depended upon.</p>
     <span class="kp">include</span> <span class="no">EmailLogger</span>
 
     <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
-      <span class="n">log</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:logger</span><span class="o">]</span><span class="p">,</span> <span class="s2">&quot;RESPONSE&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">[</span><span class="ss">:response</span><span class="o">]</span><span class="p">)</span>
+      <span class="n">log_email</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:logger</span><span class="o">]</span><span class="p">,</span> <span class="s2">&quot;RESPONSE&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">[</span><span class="ss">:response</span><span class="o">]</span><span class="p">)</span>
     <span class="k">end</span>
   <span class="k">end</span>
 <span class="k">end</span></pre></div>
