@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>mailing_list.rb</title>
+  <link rel="stylesheet" href="http://jashkenas.github.com/docco/resources/docco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div id="jump_to">
+    Jump To &hellip;
+    <div id="jump_wrapper">
+      <div id="jump_page">
+          <a class="source" href="../newman.html">newman.rb</a>
+          <a class="source" href="application.html">application.rb</a>
+          <a class="source" href="controller.html">controller.rb</a>
+          <a class="source" href="filters.html">filters.rb</a>
+          <a class="source" href="mailer.html">mailer.rb</a>
+          <a class="source" href="mailing_list.html">mailing_list.rb</a>
+          <a class="source" href="server.html">server.rb</a>
+          <a class="source" href="settings.html">settings.rb</a>
+          <a class="source" href="store.html">store.rb</a>
+          <a class="source" href="store/recorder.html">recorder.rb</a>
+          <a class="source" href="test_mailer.html">test_mailer.rb</a>
+          <a class="source" href="version.html">version.rb</a>
+      </div>
+    </div>
+  </div>
+  <table cellspacing=0 cellpadding=0>
+  <thead>
+    <tr>
+      <th class=docs><h1>mailing_list.rb</h1></th>
+      <th class=code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr id='section-1'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-1">&#182;</a>
+        </div>
+        
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="k">module</span> <span class="nn">Newman</span>
+  <span class="k">class</span> <span class="nc">MailingList</span>
+    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="n">store</span><span class="p">)</span>
+      <span class="nb">self</span><span class="o">.</span><span class="n">name</span>  <span class="o">=</span> <span class="nb">name</span>
+      <span class="nb">self</span><span class="o">.</span><span class="n">store</span> <span class="o">=</span> <span class="n">store</span>
+    <span class="k">end</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-2'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-2">&#182;</a>
+        </div>
+        <p>returns true if the subscription is new,
+false if the subscription already exists</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">subscribe</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
+      <span class="k">return</span> <span class="kp">false</span> <span class="k">if</span> <span class="n">subscriber?</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
+
+      <span class="n">store</span><span class="o">[</span><span class="nb">name</span><span class="o">].</span><span class="n">create</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
+
+      <span class="kp">true</span>
+    <span class="k">end</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-3'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-3">&#182;</a>
+        </div>
+        <p>returns true if the user is sucessfully unsubscribed,
+false if the email does not match anyone on the 
+subscriber list</p>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">unsubscribe</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
+      <span class="k">return</span> <span class="kp">false</span> <span class="k">unless</span> <span class="n">subscriber?</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
+
+      <span class="n">record</span> <span class="o">=</span> <span class="n">store</span><span class="o">[</span><span class="nb">name</span><span class="o">].</span><span class="n">find</span> <span class="p">{</span> <span class="o">|</span><span class="n">e</span><span class="o">|</span> <span class="n">e</span><span class="o">.</span><span class="n">contents</span> <span class="o">==</span> <span class="n">email</span> <span class="p">}</span> 
+      <span class="n">store</span><span class="o">[</span><span class="nb">name</span><span class="o">].</span><span class="n">destroy</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+      <span class="kp">true</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">subscriber?</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
+      <span class="n">store</span><span class="o">[</span><span class="nb">name</span><span class="o">].</span><span class="n">any?</span> <span class="p">{</span> <span class="o">|</span><span class="n">r</span><span class="o">|</span> <span class="n">r</span><span class="o">.</span><span class="n">contents</span> <span class="o">==</span> <span class="n">email</span> <span class="p">}</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">subscribers</span>
+      <span class="n">store</span><span class="o">[</span><span class="nb">name</span><span class="o">].</span><span class="n">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">r</span><span class="o">|</span> <span class="n">r</span><span class="o">.</span><span class="n">contents</span> <span class="p">}</span> 
+    <span class="k">end</span>
+
+    <span class="kp">private</span>
+
+    <span class="kp">attr_accessor</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:store</span>
+  <span class="k">end</span>
+<span class="k">end</span></pre></div>
+      </td>
+    </tr>
+  </table>
+</div>
+</body>
