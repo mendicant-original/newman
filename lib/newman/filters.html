@@ -66,9 +66,10 @@ tags in their TO field. For example, we could build a filter that responds
 to messages sent to <code>username+ping@host.com</code> using the following filter
 setup:</p>
 
-<p>to(:tag, &ldquo;ping&rdquo;) do
-   respond(:subject =&gt; &ldquo;pong&rdquo;)
- end</p>
+<pre><code>to(:tag, &ldquo;ping&rdquo;) do
+  respond(:subject =&gt; &ldquo;pong&rdquo;)
+end
+</code></pre>
 
       </td>
       <td class=code>
