@@ -129,7 +129,10 @@ method does not modify the mailing list.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-7">&#182;</a>
         </div>
-        <p>Use this method to remove subscribers from the mailing list.</p>
+        <p>Use this method to remove subscribers from the mailing list, i.e.</p>
+
+<pre><code>mailing_list.unsubscribe(&lsquo;gregory.t.brown@gmail.com&rsquo;)
+</code></pre>
 
 <p>If the provided email address is for an existing subscriber, the record
 for that subscriber is destroyed, removing their email from the list. 
