@@ -56,10 +56,7 @@ Newman&rsquo;s logging system.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre><span class="k">module</span> <span class="nn">Newman</span>  
-  <span class="no">ResponseLogger</span> <span class="o">=</span> <span class="no">Object</span><span class="o">.</span><span class="n">new</span>
-
-  <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="no">ResponseLogger</span>
-    <span class="kp">include</span> <span class="no">EmailLogger</span></pre></div>
+  </pre></div>
       </td>
     </tr>
     <tr id='section-2'>
@@ -67,16 +64,35 @@ Newman&rsquo;s logging system.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-2">&#182;</a>
         </div>
-        <hr>
+        <p><code>Newman::ResponseLogger</code> is a singleton object, because it is completely stateless in
+nature. It can be added directly as an app to any <code>Newman::Server</code> instance.
+The <code>Newman::Server.simple</code> helper method automatically places a
+<code>ResponseLogger</code> at the end of the call chain, but it can be inserted at any
+point and will output the response email object at that point in the call chain.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre></pre></div>
+        <div class='highlight'><pre>  
+  <span class="no">ResponseLogger</span> <span class="o">=</span> <span class="no">Object</span><span class="o">.</span><span class="n">new</span>
+
+  <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="no">ResponseLogger</span>
+    <span class="kp">include</span> <span class="no">EmailLogger</span></pre></div>
       </td>
     </tr>
     <tr id='section-3'>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-3">&#182;</a>
+        </div>
+        <hr>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre></pre></div>
+      </td>
+    </tr>
+    <tr id='section-4'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-4">&#182;</a>
         </div>
         <p>The <code>call</code> method simply delegates to <code>EmailLogger#log_email</code>, passing it
 a logger instance, the RESPONSE prefix for the log line, and an instance
