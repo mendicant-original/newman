@@ -11,7 +11,7 @@ module Newman
       settings     = Settings.from_file(settings_file)
       mailer       = Mailer.new(settings)
       server       = new(settings, mailer)
-      server.apps = [RequestLogger.new, app, ResponseLogger.new]
+      server.apps = [RequestLogger, app, ResponseLogger]
 
       server.run
     end

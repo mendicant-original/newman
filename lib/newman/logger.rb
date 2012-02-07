@@ -18,7 +18,10 @@ module Newman
     end
   end
 
-  class RequestLogger 
+  RequestLogger  = Object.new
+  ResponseLogger = Object.new
+
+  class << RequestLogger
     include EmailLogger
 
     def call(params)
@@ -26,7 +29,7 @@ module Newman
     end
   end
 
-  class ResponseLogger
+  class << ResponseLogger
     include EmailLogger
 
     def call(params)

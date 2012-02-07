@@ -7,7 +7,7 @@ module Newman
       self.logger   = params.fetch(:logger)
     end
 
-    attr_accessor :settings, :request, :response, :logger
+    attr_accessor :settings, :request, :response, :logger, :params
 
     def respond(params)
       params.each { |k,v| response.send("#{k}=", v) }
