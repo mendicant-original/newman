@@ -74,11 +74,29 @@ application handles.</p>
 <p>Currently, the only supported <code>filter_type</code> is <code>:tag</code>, which leverages the
 &lsquo;+&rsquo; extension syntax for email addresses to filter out emails with certain
 tags in their TO field. For example, we could build a filter that responds
-to messages sent to <code>username+ping@host.com</code> using the following filter
+to messages sent to <code>USERNAME+ping@HOST</code> using the following filter
 setup:</p>
 
 <pre><code>to(:tag, &ldquo;ping&rdquo;) do
   respond(:subject =&gt; &ldquo;pong&rdquo;)
+end
+</code></pre>
+
+<p>Because this method runs the <code>pattern</code> through <code>Application#compile_regex</code>,
+it can also be used in combination with <code>Application#match</code> to do more
+complex matching. For example, the code below could be used to support
+complex TO field mappings, such as <code>USERNAME+somelist.subscribe@HOST</code>:</p>
+
+<pre><code>match :list_id, &ldquo;[^.]+&rdquo;
+
+to(:tag, &ldquo;{list_id}.subscribe&rdquo;) do
+  list = load_list(params[:list_id]) 
+
+  if list.subscriber?(sender)
+    # send failure email, already subscribed
+  else
+    # add user to list and send success email
+  end
 end
 </code></pre>
 
