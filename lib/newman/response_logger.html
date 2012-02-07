@@ -64,11 +64,12 @@ Newman&rsquo;s logging system.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-2">&#182;</a>
         </div>
-        <p><code>Newman::ResponseLogger</code> is a singleton object, because it is completely stateless in
-nature. It can be added directly as an app to any <code>Newman::Server</code> instance.
-The <code>Newman::Server.simple</code> helper method automatically places a
-<code>ResponseLogger</code> at the end of the call chain, but it can be inserted at any
-point and will output the response email object at that point in the call chain.</p>
+        <p><code>Newman::ResponseLogger</code> is implemented as a singleton object and is 
+completely stateless in nature. It can be added directly as an app to 
+any <code>Newman::Server</code> instance. The <code>Newman::Server.simple</code> helper method 
+automatically places a <code>ResponseLogger</code> at the end of the call chain, but 
+it can be inserted at any point and will output the response email object
+at that point in the call chain.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>  <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="no">ResponseLogger</span>
