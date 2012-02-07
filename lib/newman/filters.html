@@ -161,18 +161,17 @@ end
 combination with <code>Newman::Application#match</code> to do more
 complex matching, such as in the following example:</p>
 
-<p>match :genre, &lsquo;\S+&rsquo;
-  match :title, &lsquo;.*&rsquo;</p>
+<pre><code>match :genre, &lsquo;\S+&rsquo;
+match :title, &lsquo;.*&rsquo;
 
-<p>subject(:match, &ldquo;a {genre} story &lsquo;{title}&rsquo;&rdquo;) do
-    story<em>library.add</em>story(:genre =&gt; params[:genre],
-                            :title =&gt; params[:title],
-                            :body =&gt; request.body.to_s)</p>
+subject(:match, &ldquo;a {genre} story &lsquo;{title}&rsquo;&rdquo;) do
+  story_library.add_story(:genre =&gt; params[:genre],
+                          :title =&gt; params[:title],
+                          :body =&gt; request.body.to_s)
 
-<pre><code>respond :subject =&gt; &ldquo;Jester saved &lsquo;#{params[:title]}&rsquo;&rdquo;
+  respond :subject =&gt; &ldquo;Jester saved &lsquo;#{params[:title]}&rsquo;&rdquo;
+end
 </code></pre>
-
-<p>end</p>
 
 <p>It&rsquo;d be nice to support more kinds of matching strategies at some point in
 the future, so be sure to let us know if you have ideas.</p>
