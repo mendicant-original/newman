@@ -70,12 +70,11 @@ be provided.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-3">&#182;</a>
         </div>
-        <p>If the subscribers email address is already on the list, this method
-simply returns false and does not modify any records.</p>
-
-<p>However, if the email address is for a new subscriber, a new record gets
+        <p>If the provided email address is for a new subscriber, a new record gets
 created containing that subscribers email address and the method returns
 true.</p>
+
+<p>Otherwise, this method simply returns false and does not modify any records.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">subscribe</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
