@@ -56,7 +56,7 @@ Newman&rsquo;s logging system.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre><span class="k">module</span> <span class="nn">Newman</span>  
-  </pre></div>
+  <span class="no">ResponseLogger</span> <span class="o">=</span> <span class="no">Object</span><span class="o">.</span><span class="n">new</span></pre></div>
       </td>
     </tr>
     <tr id='section-2'>
@@ -71,10 +71,7 @@ The <code>Newman::Server.simple</code> helper method automatically places a
 point and will output the response email object at that point in the call chain.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>  
-  <span class="no">ResponseLogger</span> <span class="o">=</span> <span class="no">Object</span><span class="o">.</span><span class="n">new</span>
-
-  <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="no">ResponseLogger</span>
+        <div class='highlight'><pre>  <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="no">ResponseLogger</span>
     <span class="kp">include</span> <span class="no">EmailLogger</span></pre></div>
       </td>
     </tr>
