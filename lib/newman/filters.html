@@ -36,6 +36,52 @@
     </tr>
   </thead>
   <tbody>
+    <tr id='section-1'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-1">&#182;</a>
+        </div>
+        <p>The <code>Newman::Filters</code> module provides the standard filtering mechanisms for 
+Newman applications. Unless you are building a server-side extension for
+Newman, you probably only need to be familiar with how these filter methods
+are used and can treat their implementation details as a black box.</p>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="k">module</span> <span class="nn">Newman</span> 
+  <span class="k">module</span> <span class="nn">Filters</span>
+    <span class="k">def</span> <span class="nf">to</span><span class="p">(</span><span class="n">filter_type</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">action</span><span class="p">)</span>
+      <span class="k">raise</span> <span class="no">NotImplementedError</span> <span class="k">unless</span> <span class="n">filter_type</span> <span class="o">==</span> <span class="ss">:tag</span>
+
+      <span class="n">regex</span> <span class="o">=</span> <span class="n">compile_regex</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+
+      <span class="n">callback</span> <span class="n">action</span><span class="p">,</span> <span class="o">-&gt;</span><span class="p">(</span><span class="n">controller</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">controller</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">to</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">e</span><span class="o">|</span> 
+          <span class="n">md</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sr">/\+</span><span class="si">#{</span><span class="n">regex</span><span class="si">}</span><span class="sr">@</span><span class="si">#{</span><span class="no">Regexp</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">controller</span><span class="o">.</span><span class="n">domain</span><span class="p">)</span><span class="si">}</span><span class="sr">/</span><span class="p">)</span>
+          <span class="k">return</span> <span class="n">md</span> <span class="k">if</span> <span class="n">md</span>
+        <span class="k">end</span>
+
+        <span class="kp">false</span>
+      <span class="p">}</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">subject</span><span class="p">(</span><span class="n">filter_type</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">action</span><span class="p">)</span>
+      <span class="k">raise</span> <span class="no">NotImplementedError</span> <span class="k">unless</span> <span class="n">filter_type</span> <span class="o">==</span> <span class="ss">:match</span>
+
+      <span class="n">regex</span> <span class="o">=</span> <span class="n">compile_regex</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+
+      <span class="n">callback</span> <span class="n">action</span><span class="p">,</span> <span class="o">-&gt;</span><span class="p">(</span><span class="n">controller</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">subject</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">subject</span>
+
+        <span class="k">return</span> <span class="kp">false</span> <span class="k">unless</span> <span class="n">subject</span>
+
+        <span class="n">subject</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sr">/</span><span class="si">#{</span><span class="n">regex</span><span class="si">}</span><span class="sr">/</span><span class="p">)</span> <span class="o">||</span> <span class="kp">false</span>
+      <span class="p">}</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span></pre></div>
+      </td>
+    </tr>
   </table>
 </div>
 </body>
