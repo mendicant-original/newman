@@ -74,7 +74,9 @@ be provided.</p>
 created containing that subscribers email address and the method returns
 true.</p>
 
-<p>Otherwise, this method simply returns false and does not modify any records.</p>
+<p>Otherwise, this method does not modify any records.</p>
+
+<p>Returns true if list was modified, returns false otherwise.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">subscribe</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
@@ -91,9 +93,12 @@ true.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-4">&#182;</a>
         </div>
-        <p>returns true if the user is sucessfully unsubscribed,
-false if the email does not match anyone on the 
-subscriber list. </p>
+        <p>If the provided email address is for an existing subscriber, the record
+for that subscriber is destroyed, removing their email from the list.</p>
+
+<p>Otherwise, this method does not modify any records.</p>
+
+<p>Returns true if list was modified, returns false otherwise.</p>
 
       </td>
       <td class=code>
