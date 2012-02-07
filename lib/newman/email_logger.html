@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>email_logger.rb</title>
+  <link rel="stylesheet" href="http://jashkenas.github.com/docco/resources/docco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div id="jump_to">
+    Jump To &hellip;
+    <div id="jump_wrapper">
+      <div id="jump_page">
+          <a class="source" href="../newman.html">newman.rb</a>
+          <a class="source" href="application.html">application.rb</a>
+          <a class="source" href="controller.html">controller.rb</a>
+          <a class="source" href="email_logger.html">email_logger.rb</a>
+          <a class="source" href="filters.html">filters.rb</a>
+          <a class="source" href="mailer.html">mailer.rb</a>
+          <a class="source" href="mailing_list.html">mailing_list.rb</a>
+          <a class="source" href="request_logger.html">request_logger.rb</a>
+          <a class="source" href="response_logger.html">response_logger.rb</a>
+          <a class="source" href="server.html">server.rb</a>
+          <a class="source" href="settings.html">settings.rb</a>
+          <a class="source" href="store.html">store.rb</a>
+          <a class="source" href="store/recorder.html">recorder.rb</a>
+          <a class="source" href="test_mailer.html">test_mailer.rb</a>
+          <a class="source" href="version.html">version.rb</a>
+      </div>
+    </div>
+  </div>
+  <table cellspacing=0 cellpadding=0>
+  <thead>
+    <tr>
+      <th class=docs><h1>email_logger.rb</h1></th>
+      <th class=code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr id='section-1'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-1">&#182;</a>
+        </div>
+        <p>Newman supports rudimentary request and response logging functionality, which is
+enabled by default when <code>Newman::Server.simple</code> is used to execute your
+applications. </p>
+
+<p>If you are only interested in making use of this logging functionality and not
+extending it or changing it in some way, you do not need to be familiar with
+the code in this file. Just be sure to note that if you add
+<code>service.debug_mode = true</code> to your configuration file, or set the Ruby 
+<code>$DEBUG</code> global variable, you will get much more verbose output from 
+Newman&rsquo;s logging system.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="k">module</span> <span class="nn">Newman</span>
+  <span class="k">module</span> <span class="nn">EmailLogger</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-2'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-2">&#182;</a>
+        </div>
+        <hr>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre></pre></div>
+      </td>
+    </tr>
+    <tr id='section-3'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-3">&#182;</a>
+        </div>
+        <p>The <code>log_email</code> method takes a logger object, a prefix, and a <code>Mail</code> object and 
+then outputs relevant debugging details. </p>
+
+<p>This method always at least provides a summary of the provided <code>email</code>
+at the <code>INFO</code> level When in debugging mode, the full contents of 
+the <code>email</code> will also gets logged.</p>
+
+<p>The main purpose of this method is to be used by <code>Newman::RequestLogger</code>
+and <code>Newman::ResponseLogger</code>, but may also optionally be used as a helper
+for those who are rolling their own logging functionality.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">log_email</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">email</span><span class="p">)</span>
+      <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span> <span class="p">{</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="si">#{</span><span class="n">email</span><span class="si">}</span><span class="s2">&quot;</span> <span class="p">}</span>
+      <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span> <span class="p">{</span> <span class="n">email_summary</span><span class="p">(</span><span class="n">email</span><span class="p">)</span> <span class="p">}</span>
+    <span class="k">end</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-4'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-4">&#182;</a>
+        </div>
+        <hr>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    
+    <span class="kp">private</span>
+    </pre></div>
+      </td>
+    </tr>
+    <tr id='section-5'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-5">&#182;</a>
+        </div>
+        <p>The <code>summary</code> method provides a hash with a summary of the provided <code>email</code>. It is
+an implementation detail and should not be depended upon.</p>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    
+    <span class="k">def</span> <span class="nf">email_summary</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
+      <span class="p">{</span> <span class="ss">:from</span>     <span class="o">=&gt;</span> <span class="n">email</span><span class="o">.</span><span class="n">from</span><span class="p">,</span>
+        <span class="ss">:to</span>       <span class="o">=&gt;</span> <span class="n">email</span><span class="o">.</span><span class="n">to</span><span class="p">,</span>
+        <span class="ss">:bcc</span>      <span class="o">=&gt;</span> <span class="n">email</span><span class="o">.</span><span class="n">bcc</span><span class="p">,</span>
+        <span class="ss">:subject</span>  <span class="o">=&gt;</span> <span class="n">email</span><span class="o">.</span><span class="n">subject</span><span class="p">,</span>
+        <span class="ss">:reply_to</span> <span class="o">=&gt;</span> <span class="n">email</span><span class="o">.</span><span class="n">reply_to</span> <span class="p">}</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span></pre></div>
+      </td>
+    </tr>
+  </table>
+</div>
+</body>
