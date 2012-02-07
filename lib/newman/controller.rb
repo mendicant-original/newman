@@ -4,10 +4,10 @@ module Newman
       self.settings = params.fetch(:settings)
       self.request  = params.fetch(:request)
       self.response = params.fetch(:response)
+      self.logger   = params.fetch(:logger)
     end
 
-    attr_accessor :params, :settings, :request, :response
-
+    attr_accessor :settings, :request, :response, :logger
 
     def respond(params)
       params.each { |k,v| response.send("#{k}=", v) }

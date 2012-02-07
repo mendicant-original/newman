@@ -13,7 +13,6 @@ module Newman
 
         false
       }
-
     end
 
     def subject(filter_type, pattern, &action)
