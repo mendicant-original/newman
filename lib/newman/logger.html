@@ -43,9 +43,13 @@
         </div>
         <p>Newman supports rudimentary request / response logging functionality, which is
 enabled by default when <code>Newman::Server.simple</code> is used to execute your
-applications. You&rsquo;ll only need to understand the details of how the code
-in this file works if you are writing extensions which change the way Newman does 
-its logging.</p>
+applications. </p>
+
+<p>If you are only interested in making use of this logging functionality and not
+extending it or changing it in some way, you do not need to be familiar with
+the code in this file. The only thing you need to know is that adding
+<code>service.debug_mode = true</code> to your configuration file will give you much 
+more verbose output from Newman&rsquo;s logging system.</p>
 
       </td>
       <td class=code>
