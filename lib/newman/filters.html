@@ -45,12 +45,28 @@
 Newman applications. Unless you are building a server-side extension for
 Newman, you probably only need to be familiar with how these filter methods
 are used and can treat their implementation details as a black box.</p>
-
       </td>
       <td class=code>
         <div class='highlight'><pre><span class="k">module</span> <span class="nn">Newman</span> 
-  <span class="k">module</span> <span class="nn">Filters</span>
-    <span class="k">def</span> <span class="nf">to</span><span class="p">(</span><span class="n">filter_type</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">action</span><span class="p">)</span>
+  <span class="k">module</span> <span class="nn">Filters</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-2'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-2">&#182;</a>
+        </div>
+        <p>The <code>to</code> method takes a <code>filter_type</code>, a <code>pattern</code>, and an <code>action</code> and
+then registers a callback which gets run for each new request the
+application handles.</p>
+
+<p>Currently, the only supported <code>filter_type</code> is <code>:tag</code>, which leverages the
+&lsquo;+&rsquo; extension syntax for email addresses to filter out emails with certain
+tags in their TO field. </p>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">to</span><span class="p">(</span><span class="n">filter_type</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">action</span><span class="p">)</span>
       <span class="k">raise</span> <span class="no">NotImplementedError</span> <span class="k">unless</span> <span class="n">filter_type</span> <span class="o">==</span> <span class="ss">:tag</span>
 
       <span class="n">regex</span> <span class="o">=</span> <span class="n">compile_regex</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
