@@ -69,7 +69,9 @@ are used and can treat their implementation details as a black box.</p>
         </div>
         <p>The <code>to</code> method takes a <code>filter_type</code>, a <code>pattern</code>, and an <code>action</code> and
 then registers a callback which gets run for each new request the
-application handles.</p>
+application handles. If the filter matches the incoming message, the
+<code>action</code> block gets run in the context of a <code>Newman::Controller</code> object.
+Otherwise, the <code>action</code> block does not get run at all.</p>
 
 <p>Currently, the only supported <code>filter_type</code> is <code>:tag</code>, which leverages the
 &lsquo;+&rsquo; extension syntax for email addresses to filter out emails with certain
@@ -144,7 +146,9 @@ whole email address at some point in the future.</p>
         </div>
         <p>The <code>subject</code> method takes a <code>filter_type</code>, a <code>pattern</code>, and an <code>action</code> and
 then registers a callback which gets run for each new request the
-application handles.</p>
+application handles. If the filter matches the incoming message, the
+<code>action</code> block gets run in the context of a <code>Newman::Controller</code> object.
+Otherwise, the <code>action</code> block does not get run at all.</p>
 
 <p>Currently, the only supported <code>filter_type</code> is <code>:match</code>, which matches the
 pattern against the full SUBJECT field. This can be used for simple
