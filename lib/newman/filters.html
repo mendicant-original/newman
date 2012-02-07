@@ -62,11 +62,18 @@ application handles.</p>
 
 <p>Currently, the only supported <code>filter_type</code> is <code>:tag</code>, which leverages the
 &lsquo;+&rsquo; extension syntax for email addresses to filter out emails with certain
-tags in their TO field. </p>
+tags in their TO field. For example, we could build a filter that responds
+to messages sent to <code>username+ping@host.com</code> using the following filter
+setup:</p>
+
+<p>to(:tag, &ldquo;ping&rdquo;) do
+   respond(:subject =&gt; &ldquo;pong&rdquo;)
+ end</p>
 
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">to</span><span class="p">(</span><span class="n">filter_type</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">action</span><span class="p">)</span>
+        <div class='highlight'><pre> 
+    <span class="k">def</span> <span class="nf">to</span><span class="p">(</span><span class="n">filter_type</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">action</span><span class="p">)</span>
       <span class="k">raise</span> <span class="no">NotImplementedError</span> <span class="k">unless</span> <span class="n">filter_type</span> <span class="o">==</span> <span class="ss">:tag</span>
 
       <span class="n">regex</span> <span class="o">=</span> <span class="n">compile_regex</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
