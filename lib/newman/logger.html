@@ -36,6 +36,58 @@
     </tr>
   </thead>
   <tbody>
+    <tr id='section-1'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-1">&#182;</a>
+        </div>
+        <p>Newman supports rudimentary request / response logging functionality, which is
+enabled by default when <code>Newman::Server.simple</code> is used to execute your
+applications. You&rsquo;ll only need to understand the details of how this code
+works if you are writing extensions which change the way Newman does its
+logging.</p>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="k">module</span> <span class="nn">Newman</span>
+  <span class="k">module</span> <span class="nn">EmailLogger</span>
+    <span class="k">def</span> <span class="nf">log</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">email</span><span class="p">)</span>
+      <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span> <span class="p">{</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="si">#{</span><span class="n">email</span><span class="si">}</span><span class="s2">&quot;</span> <span class="p">}</span>
+      <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span> <span class="p">{</span> <span class="n">summary</span><span class="p">(</span><span class="n">email</span><span class="p">)</span> <span class="p">}</span>
+    <span class="k">end</span>
+
+    <span class="kp">private</span>
+    
+    <span class="k">def</span> <span class="nf">summary</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
+      <span class="p">{</span> <span class="ss">:from</span>     <span class="o">=&gt;</span> <span class="n">email</span><span class="o">.</span><span class="n">from</span><span class="p">,</span>
+        <span class="ss">:to</span>       <span class="o">=&gt;</span> <span class="n">email</span><span class="o">.</span><span class="n">to</span><span class="p">,</span>
+        <span class="ss">:bcc</span>      <span class="o">=&gt;</span> <span class="n">email</span><span class="o">.</span><span class="n">bcc</span><span class="p">,</span>
+        <span class="ss">:subject</span>  <span class="o">=&gt;</span> <span class="n">email</span><span class="o">.</span><span class="n">subject</span><span class="p">,</span>
+        <span class="ss">:reply_to</span> <span class="o">=&gt;</span> <span class="n">email</span><span class="o">.</span><span class="n">reply_to</span> <span class="p">}</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="no">RequestLogger</span>  <span class="o">=</span> <span class="no">Object</span><span class="o">.</span><span class="n">new</span>
+  <span class="no">ResponseLogger</span> <span class="o">=</span> <span class="no">Object</span><span class="o">.</span><span class="n">new</span>
+
+  <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="no">RequestLogger</span>
+    <span class="kp">include</span> <span class="no">EmailLogger</span>
+
+    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+      <span class="n">log</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:logger</span><span class="o">]</span><span class="p">,</span> <span class="s2">&quot;REQUEST&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">[</span><span class="ss">:request</span><span class="o">]</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="no">ResponseLogger</span>
+    <span class="kp">include</span> <span class="no">EmailLogger</span>
+
+    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+      <span class="n">log</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:logger</span><span class="o">]</span><span class="p">,</span> <span class="s2">&quot;RESPONSE&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">[</span><span class="ss">:response</span><span class="o">]</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span></pre></div>
+      </td>
+    </tr>
   </table>
 </div>
 </body>
