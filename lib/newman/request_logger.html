@@ -55,11 +55,7 @@ the code in this file. Just be sure to note that if you add
 Newman&rsquo;s logging system.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre><span class="k">module</span> <span class="nn">Newman</span>
-  <span class="no">RequestLogger</span> <span class="o">=</span> <span class="no">Object</span><span class="o">.</span><span class="n">new</span>
-
-  <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="no">RequestLogger</span>
-    <span class="kp">include</span> <span class="no">EmailLogger</span></pre></div>
+        <div class='highlight'><pre></pre></div>
       </td>
     </tr>
     <tr id='section-2'>
@@ -70,7 +66,7 @@ Newman&rsquo;s logging system.</p>
         <hr>
       </td>
       <td class=code>
-        <div class='highlight'><pre></pre></div>
+        <div class='highlight'><pre><span class="k">module</span> <span class="nn">Newman</span></pre></div>
       </td>
     </tr>
     <tr id='section-3'>
@@ -78,9 +74,39 @@ Newman&rsquo;s logging system.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-3">&#182;</a>
         </div>
-        <p>The <code>call</code> method simply delegates to <code>EmailLogger#log_email</code>, passing it
-a logger instance, the REQUEST prefix for the log line, and an instance
-of an email object. See <code>Newman::Server.tick</code> and <code>Newman::EmailLogger.log_email</code>
+        <p><code>Newman::RequestLogger</code> is implemented as a singleton object and is 
+completely stateless in nature. It can be added directly as an app to 
+any <code>Newman::Server</code> instance. The <code>Newman::Server.simple</code> helper method 
+automatically places a <code>Newman::RequestLogger</code> at the end of the call chain, but 
+it can be inserted at any point and will output the response email object
+at that point in the call chain.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>  <span class="no">RequestLogger</span> <span class="o">=</span> <span class="no">Object</span><span class="o">.</span><span class="n">new</span>
+
+  <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="no">RequestLogger</span>
+    <span class="kp">include</span> <span class="no">EmailLogger</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-4'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-4">&#182;</a>
+        </div>
+        <hr>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre></pre></div>
+      </td>
+    </tr>
+    <tr id='section-5'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-5">&#182;</a>
+        </div>
+        <p>The <code>call</code> method simply delegates to <code>Newman::EmailLogger#log_email</code>, passing it
+a logger instance, the <code>&ldquo;REQUEST&rdquo;</code> prefix for the log line, and an instance
+of an email object. See <code>Newman::Server.tick</code> and <code>Newman::EmailLogger#log_email</code>
 for details.</p>
 
       </td>
