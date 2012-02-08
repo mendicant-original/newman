@@ -153,7 +153,20 @@ especially useful on its own.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-7">&#182;</a>
         </div>
-        <p><code>Newman::Application#default</code></p>
+        <p><code>Newman::Application#default</code> provides a way to define a default callback
+to run when no other callbacks match the incoming request. For example,
+you can define a callback such as the one below:</p>
+
+<pre><code>default do
+  respond(:subject =&gt; &ldquo;REQUEST NOT UNDERSTOOD&rdquo;)
+end
+</code></pre>
+
+<p>Unless you are building an application that will never fail to 
+match at least one of its filters, you MUST set up a default callback 
+if you want to avoid a possible application error. We know this is
+not exactly the most desireable behavior, and will try to fix this
+in a future version of Newman.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">default</span><span class="p">(</span><span class="o">&amp;</span><span class="n">callback</span><span class="p">)</span>
