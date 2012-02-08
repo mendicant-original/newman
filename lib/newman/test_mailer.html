@@ -96,7 +96,6 @@ signature for API compatibility reasons.</p>
 <p>With these caveats in mind, be sure to think long and hard about whether
 you actually need to explicitly build instances of this object before
 doing so :)</p>
-
       </td>
       <td class=code>
         <div class='highlight'><pre>      <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
@@ -111,9 +110,23 @@ doing so :)</p>
       <span class="k">end</span>
 
       <span class="kp">attr_accessor</span> <span class="ss">:instance</span>
-    <span class="k">end</span>
+    <span class="k">end</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-4'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-4">&#182;</a>
+        </div>
+        <p>Use the <code>messages</code> method to retrieve all messages currently in the inbox
+and then delete them from the underlying <code>Mail::TestMailer</code> object so that
+the inbox gets cleared. This returns an array of
+<code>Mail::Message</code> objects if any messages were found, and returns
+an empty array otherwise.</p>
 
-    <span class="k">def</span> <span class="nf">messages</span>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">messages</span>
       <span class="n">msgs</span> <span class="o">=</span> <span class="no">Marshal</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="no">Marshal</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="no">Mail</span><span class="o">::</span><span class="no">TestMailer</span><span class="o">.</span><span class="n">deliveries</span><span class="p">))</span>
       <span class="no">Mail</span><span class="o">::</span><span class="no">TestMailer</span><span class="o">.</span><span class="n">deliveries</span><span class="o">.</span><span class="n">clear</span>
 
