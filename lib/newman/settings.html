@@ -47,6 +47,13 @@
 configuration files. It is currently a thin wrapper on top of Ruby&rsquo;s
 <code>OpenStruct</code> construct, but will later add some domain specific validations
 and transformations for the various configuration options it supports.</p>
+
+<p>Unless you are looking to customize the way that Newman&rsquo;s configuration system
+works or make changes to your settings objects at runtime, you probably don&rsquo;t
+need to worry about how this object is implemented. Both
+<code>Newman::Server.simple</code> and <code>Newman::Server.test_mode</code> create a
+<code>Newman::Settings</code> object for you automatically, and you will typically be
+tweaking a sample settings file rather than crafting one from scratch.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre><span class="k">module</span> <span class="nn">Newman</span> 
@@ -81,6 +88,10 @@ the following code:</p>
 <pre><code>settings = Newman::Settings.new
 settings.load_config(&lsquo;config/environment.rb&rsquo;)
 </code></pre>
+
+<p>Because there currently is little advantage to explicitly instantiating a
+blank <code>Newman::Settings</code> object, this method is the preferred way of doing
+things.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">from_file</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
