@@ -38,6 +38,72 @@
     </tr>
   </thead>
   <tbody>
+    <tr id='section-1'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-1">&#182;</a>
+        </div>
+        <p><code>Newman::Settings</code> provides the base functionality that is used by Newman&rsquo;s
+configuration files. It is currently a thin wrapper on top of Ruby&rsquo;s
+<code>OpenStruct</code> construct, but will later add some domain specific validations
+and transformations for the various configuration options it supports.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="k">module</span> <span class="nn">Newman</span> 
+  <span class="k">class</span> <span class="nc">Settings</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-2'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-2">&#182;</a>
+        </div>
+        <hr>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    </pre></div>
+      </td>
+    </tr>
+    <tr id='section-3'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-3">&#182;</a>
+        </div>
+        <p>Use <code>from_file</code> to create a new <code>Newman::Settings</code> object and populate
+it with the data contained in the settings file, i.e.</p>
+
+<pre><code>settings = Newman::Settings.from_file(&lsquo;config/environment.rb&rsquo;)
+</code></pre>
+
+<p>This method is purely syntactic sugar, and is functionally equivalent to
+the following code:</p>
+
+<pre><code>settings = Newman::Settings.new
+settings.load_config(&lsquo;config/environment.rb&rsquo;)
+</code></pre>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">from_file</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+      <span class="kp">new</span><span class="o">.</span><span class="n">tap</span> <span class="p">{</span> <span class="o">|</span><span class="n">o</span><span class="o">|</span> <span class="n">o</span><span class="o">.</span><span class="n">load_config</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="p">}</span>
+    <span class="k">end</span>
+  
+    <span class="k">def</span> <span class="nf">initialize</span>
+      <span class="nb">self</span><span class="o">.</span><span class="n">imap</span>        <span class="o">=</span> <span class="no">OpenStruct</span><span class="o">.</span><span class="n">new</span>
+      <span class="nb">self</span><span class="o">.</span><span class="n">smtp</span>        <span class="o">=</span> <span class="no">OpenStruct</span><span class="o">.</span><span class="n">new</span>
+      <span class="nb">self</span><span class="o">.</span><span class="n">service</span>     <span class="o">=</span> <span class="no">OpenStruct</span><span class="o">.</span><span class="n">new</span>
+      <span class="nb">self</span><span class="o">.</span><span class="n">application</span> <span class="o">=</span> <span class="no">OpenStruct</span><span class="o">.</span><span class="n">new</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">load_config</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+      <span class="nb">eval</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">filename</span><span class="p">),</span> <span class="nb">binding</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="kp">attr_accessor</span> <span class="ss">:imap</span><span class="p">,</span> <span class="ss">:smtp</span><span class="p">,</span> <span class="ss">:service</span><span class="p">,</span> <span class="ss">:application</span>
+  <span class="k">end</span>
+<span class="k">end</span></pre></div>
+      </td>
+    </tr>
   </table>
 </div>
 </body>
