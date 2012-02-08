@@ -32,7 +32,7 @@ and so all of these features are subject to change or disappear entirely. But if
 you have a need for this sort of tool, it's worth noting that this software
 isn't entirely vaporware, and that we could use your help!
 
-### Scary Warning
+### Scary Warning:
 
 DON'T HOOK UP NEWMAN TO ANY EMAIL INBOX THAT YOU CAN'T COMPLETELY WIPE OUT EVERY TIME IT RUNS. NEWMAN **WILL** DELETE YOUR EMAILS!!!
 
