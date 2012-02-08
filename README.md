@@ -75,6 +75,8 @@ journal. The original inspiration for this project came from some code
 written by [Brent Vatne](http://community.mendicantuniversity.org/people/brentvatne), 
 as well as from the general ideas behind Rack and Sinatra.
 
+[View the full list of contributors](https://github.com/mendicant-university/newman/contributors) to see who else has helped out.
+
 ### License:
 
 Copyright (c) 2012 Gregory Brown, Eric Gjertsen, et al.
