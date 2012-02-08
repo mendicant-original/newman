@@ -148,17 +148,18 @@ which is preconfigured for use in integration testing is returned.</p>
 above, it&rsquo;d be possible to write a simple integration test using this
 method in the following way:</p>
 
-<p>server = Newman::Server.test<em>mode(&ldquo;config/environment.rb&rdquo;)
-   server.apps &lt;&lt; ping</em>pong</p>
+<pre><code>server = Newman::Server.test_mode(&ldquo;config/environment.rb&rdquo;)
+server.apps &lt;&lt; ping_pong
 
-<p>mailer = server.mailer</p>
+mailer = server.mailer
 
-<p>mailer.deliver_message(:to      =&gt; &ldquo;test@test.com&rdquo;,
-                          :subject =&gt; &ldquo;ping)</p>
+mailer.deliver_message(:to      =&gt; &ldquo;test@test.com&rdquo;,
+                      :subject =&gt; &ldquo;ping)
 
-<p>server.tick</p>
+server.tick
 
-<p>mailer.messages.first.subject.must_equal(&quot;pong&rdquo;)</p>
+mailer.messages.first.subject.must_equal(&quot;pong&rdquo;)
+</code></pre>
       </td>
       <td class=code>
         <div class='highlight'><pre>    
