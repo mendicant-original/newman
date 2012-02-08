@@ -10,8 +10,7 @@ That said, it is already capable of doing a number of interesting things:
 * A simple polling server provides a basic interface for
   reading email from a single inbox and then building up a response email.
 
-* Filters can be defined for handling messages based on their TO or
-  SUBJECT fields.
+* Filters are provided for handling emails based on their TO and SUBJECT fields.
 
 * Filters can also be defined for handling messages based on arbitrary
   conditions evaluated against a `Mail::Messsage` object.
