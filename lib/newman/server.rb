@@ -2,7 +2,7 @@
 # to applications as a request, and then delivers a response email after the
 # applications have had a chance to modify it.
 #
-# A `Newman::Server` object can be used in a three distinct ways:
+# A `Newman::Server` object can be used in three distinct ways:
 #
 # 1) Instantiated via `Newman::Server.test_mode` and then run tick by tick
 # in integration tests.
@@ -68,18 +68,24 @@ module Newman
     # above, it'd be possible to write a simple integration test using this
     # method in the following way:
     #
-    #    server = Newman::Server.test_mode("config/environment.rb")
-    #    server.apps << ping_pong
+    #     server = Newman::Server.test_mode("config/environment.rb")
+    #     server.apps << ping_pong
     #
-    #    mailer = server.mailer
+    #     mailer = server.mailer
+    #     mailer.deliver_message(:to      => "test@test.com",
+    #                            :subject => "ping)
     #
-    #    mailer.deliver_message(:to      => "test@test.com",
-    #                           :subject => "ping)
+    #     server.tick
     #
-    #    server.tick
+    #     mailer.messages.first.subject.must_equal("pong")
     #
-    #    mailer.messages.first.subject.must_equal("pong")
-    
+    # It's worth mentioning that although `Newman::Server.test_mode` is part of
+    # Newman's external interface, the `Newman::TestMailer` object is considered part
+    # of its internals. This is due to some ugly issues with global state and
+    # the overall brittleness of the current implementation. Expect a bit of
+    # weirdness if you plan to use this feature, at least until we improve upon
+    # it.
+
     def self.test_mode(settings_file)
       settings = Settings.from_file(settings_file)
       mailer   = TestMailer.new(settings)
@@ -88,8 +94,16 @@ module Newman
     end
 
     # ---
-    
-    # TODO
+   
+    # To initialize a `Newman::Server`, a settings object and mailer object must
+    # be provided, and a logger object may also be provided. If a logger object
+    # is not provided, `Newman::Server#default_logger` is called to create one.
+    #
+    # Instantiating a server object directly can be useful for building live
+    # integration tests, or for building cron jobs which process email
+    # periodically rather than in a busy-wait loop. See one of Newman's [live
+    # tests](https://github.com/mendicant-university/newman/blob/master/examples/live_test.rb)
+    # for an example of how this approach works.
     
     def initialize(settings, mailer, logger=nil)
       self.settings = settings
@@ -100,13 +114,22 @@ module Newman
 
     # ---
     
-    # TODO
+    # These accessors are mostly meant for use with server objects under test
+    # mode, or server objects that have been explicitly instantiated. If you are
+    # using `Newman::Server.simple` to run your apps, it's safe to treat these
+    # as an implementation detail; all important data will get passed down
+    # into your apps on each `tick`.
 
     attr_accessor :settings, :mailer, :apps,  :logger
 
     # ---
-    
-    # TODO
+
+    # `Newman::Server.run` kicks off a busy wait loop, alternating between
+    # calling `Newman::Server.tick` and sleeping for the amount of time
+    # specified by `settings.service.polling_interval`. We originally planned to
+    # use an EventMachine periodic timer here to potentially make running
+    # several servers within a single process easier, but had trouble coming up
+    # with a use case that made the extra dependency worth it.
 
     def run
       loop do
@@ -117,7 +140,27 @@ module Newman
 
     # ---
     
-    # TODO
+    # `Newman::Server.tick` runs the following sequence for each incoming
+    # request. 
+    #
+    # 1) A response is generated with the TO field set to the FROM field of the
+    # request, and the FROM field set to `settings.service.default_sender`.
+    # Applications can change these values later, but these are sensible
+    # defaults that work for most common needs.
+    #
+    # 2) The list of `apps` is iterated over sequentially, and each
+    # application's `call` method is invoked with a parameters hash which
+    # include the `request` email, the `response` email, the `settings` object
+    # being used by the server, and the `logger` object being used by the
+    # server.
+    #
+    # 2a) If any application raises an exception, that exception is caught and
+    # the processing of the current request is halted. Details about the failure
+    # are logged and if `settings.service.raise_exceptions` is enabled, the
+    # exception is re-raised, typically taking the server down with it. This
+    # setting is off by default.
+    #
+    # 3) Assuming an exception is not encountered, the response is delivered.
 
     def tick         
       mailer.messages.each do |request|        
@@ -147,14 +190,19 @@ module Newman
     end
 
     # ---
-    
-    # TODO
+
+    # **NOTE: Methods below this point in the file are implementation 
+    # details, and should not be depended upon**
 
     private
 
     # ---
     
-    # TODO
+    # `Newman::Server#default_logger` generates a logger object using 
+    # Ruby's standard library. This object outputs to `STDERR`, and
+    # runs at info level by default, but will run at debug level if 
+    # either `settings.service.debug_mode` or the Ruby `$DEBUG`
+    # variable is set.
 
     def default_logger
       self.logger = Logger.new(STDERR)
