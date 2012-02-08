@@ -373,7 +373,11 @@ implementation of the <code>Newman::Filters</code> module.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-17">&#182;</a>
         </div>
-        <p>TODO</p>
+        <p><code>Newman::Application#compile_regex</code> is used for converting pattern strings
+into a <code>Regexp</code> object suitable for use in filters. This method is a
+low-level feature, and is not meant for use by application developers. See
+the <code>Newman::Filters</code> module for how to use it to build your own callback
+filters.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">compile_regex</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
