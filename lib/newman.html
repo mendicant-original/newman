@@ -69,10 +69,23 @@ its source code.</p>
 <h3>External Interface (for application developers)</h3>
 
 <ul>
-<li><a href="http://mendicant-university.github.com/newman/lib/newman/server.html">Newman::Server</a> 
+<li><p><a href="http://mendicant-university.github.com/newman/lib/newman/server.html">Newman::Server</a> 
 takes incoming mesages from a mailer object and passes them to applications as a 
 request, and then delivers a response email that built up by its
-applications.</li>
+applications.</p></li>
+<li><p><a href="http://mendicant-university.github.com/newman/lib/newman/application.html">Newman::Application</a>
+provides the main entry point for Newman application developers, and exists to tie together 
+various Newman objects in a convenient way.</p></li>
+<li><p><a href="http://mendicant-university.github.com/newman/lib/newman/filters.html">Newman::Filters</a>
+provides high level filters for matching incoming requests.</p></li>
+<li><p><a href="http://mendicant-university.github.com/newman/lib/newman/mailing_list.html">Newman::MailingList</a>
+implements a simple mechanism for storing persistent lists of email addresses keyed 
+by a mailing list name. </p></li>
+<li><p><a href="http://mendicant-university.github.com/newman/lib/newman/store.html">Newman::Store</a> provides 
+a minimal persistence layer for storing non-relational data.</p></li>
+<li><p><a href="http://mendicant-university.github.com/newman/lib/newman/recorder.html">Newman::Recorder</a>
+provides a mechanism for storing records with autoincrementing identifiers
+within a <code>Newman::Store</code> and supports some rudimentary CRUD functionality.</p></li>
 </ul>
 
 <h3>Internal Interface (for extension developers)</h3>
