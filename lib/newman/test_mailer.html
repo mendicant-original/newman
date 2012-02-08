@@ -135,6 +135,10 @@ the inbox gets cleared. This method returns an array of
 <code>Mail::Message</code> objects if any messages were found, and returns
 an empty array otherwise.</p>
 
+<p>Keep in mind that because only a single <code>Newman::TestMailer</code> ever gets
+instantiated no matter how many times you call <code>Newman::TestMailer.new</code>,
+calling <code>messages</code> will clear <em>all</em> test emails.</p>
+
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">messages</span>
