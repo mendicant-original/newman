@@ -120,10 +120,14 @@ result in possible data store corruption.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-5">&#182;</a>
         </div>
-        <p>TODO</p>
+        <p><code>Newman::Recorder#each</code> iterates over all records stored in the column,
+yielding a <code>Newman::Record</code> object for each one. Because <code>Enumerable</code> is
+mixed into <code>Newman::Recorder</code>, all enumerable methods that get called on a
+recorder object end up making calls to this method.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">each</span>
+        <div class='highlight'><pre>    
+    <span class="k">def</span> <span class="nf">each</span>
       <span class="n">store</span><span class="o">.</span><span class="n">read</span> <span class="k">do</span> <span class="o">|</span><span class="n">data</span><span class="o">|</span>
         <span class="n">data</span><span class="o">[</span><span class="ss">:columns</span><span class="o">][</span><span class="n">column</span><span class="o">].</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="nb">id</span><span class="p">,</span> <span class="n">contents</span><span class="o">|</span> 
           <span class="k">yield</span><span class="p">(</span><span class="no">Record</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">contents</span><span class="p">))</span> 
@@ -148,10 +152,15 @@ result in possible data store corruption.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-7">&#182;</a>
         </div>
-        <p>TODO</p>
+        <p><code>Newman::Recorder#create</code> store an arbitrary Ruby object in the data
+store and returns a <code>Newman::Record</code> object which has fields for the
+<code>column</code> key, record <code>id</code>, and record <code>contents</code>. This method
+automatically generates new ids, starting with <code>id=1</code> for the 
+first record and then incrementing sequentially.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>
+        <div class='highlight'><pre> 
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>
       <span class="n">store</span><span class="o">.</span><span class="n">write</span> <span class="k">do</span> <span class="o">|</span><span class="n">data</span><span class="o">|</span> 
         <span class="nb">id</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="o">[</span><span class="ss">:identifiers</span><span class="o">][</span><span class="n">column</span><span class="o">]</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span>
         
