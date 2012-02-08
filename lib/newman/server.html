@@ -159,6 +159,12 @@ server.tick
 
 mailer.messages.first.subject.must_equal(&quot;pong&rdquo;)
 </code></pre>
+
+<p>It&rsquo;s worth mentioning that although <code>Newman::Server.test_mode</code> is part of
+our external interface, the <code>Newman::TestMailer</code> object is considered part
+of our internals. This is due to some ugly issues with global state and
+the overall brittleness of the current implementation. So please use this
+feature with caution. :)</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>    
