@@ -425,10 +425,24 @@ details, and should not be depended upon.</strong></p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-21">&#182;</a>
         </div>
-        <p>TODO</p>
+        <p><code>Newman::Application#trigger_callbacks</code> executes the following steps:</p>
+
+<p>1) Grabs the <code>filter</code> Proc for each callback and executes it, passing in
+the provided <code>controller</code>. Any <code>filter</code> proc that returns a logically true
+value is selected to be run.</p>
+
+<p>2) If the selection of <code>matched_callbacks</code> is empty, execute the default
+callback. Otherwise, run each callback in sequence, in the context of a
+controller object.</p>
+
+<p>This method has some issues, in that it relies on awkward state mutations
+that could be either done in a better way or replaced with a mostly
+stateless approach. We will look at fixing this in a future Newman
+release.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">trigger_callbacks</span><span class="p">(</span><span class="n">controller</span><span class="p">)</span>
+        <div class='highlight'><pre>    
+    <span class="k">def</span> <span class="nf">trigger_callbacks</span><span class="p">(</span><span class="n">controller</span><span class="p">)</span>
       <span class="n">matched_callbacks</span> <span class="o">=</span> <span class="n">callbacks</span><span class="o">.</span><span class="n">select</span> <span class="k">do</span> <span class="o">|</span><span class="n">e</span><span class="o">|</span> 
         <span class="n">filter</span> <span class="o">=</span> <span class="n">e</span><span class="o">[</span><span class="ss">:filter</span><span class="o">]</span>
         <span class="n">e</span><span class="o">[</span><span class="ss">:match_data</span><span class="o">]</span> <span class="o">=</span> <span class="n">filter</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">controller</span><span class="p">)</span>
