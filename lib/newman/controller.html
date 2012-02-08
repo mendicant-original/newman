@@ -94,7 +94,7 @@ will rely on <code>Newman::Application</code> to instantiate them for you.</p>
         <hr>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    </pre></div>
+        <div class='highlight'><pre></pre></div>
       </td>
     </tr>
     <tr id='section-5'>
@@ -102,10 +102,14 @@ will rely on <code>Newman::Application</code> to instantiate them for you.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-5">&#182;</a>
         </div>
-        <p>TODO</p>
+        <p>All of the fields on <code>Newman::Controller</code> are public, so that they can
+freely be manipulated by callbacks. We may lock this down a bit more
+in a future version of Newman once we figure out what data actually needs
+to be exposed in callbacks, but for now you can feel free to depend on
+any of these fields.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="kp">attr_accessor</span> <span class="ss">:settings</span><span class="p">,</span> <span class="ss">:request</span><span class="p">,</span> <span class="ss">:response</span><span class="p">,</span> <span class="ss">:logger</span><span class="p">,</span> <span class="ss">:params</span></pre></div>
+        <div class='highlight'><pre>    </pre></div>
       </td>
     </tr>
     <tr id='section-6'>
@@ -113,16 +117,27 @@ will rely on <code>Newman::Application</code> to instantiate them for you.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-6">&#182;</a>
         </div>
-        <hr>
+        <p>TODO</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    </pre></div>
+        <div class='highlight'><pre>    <span class="kp">attr_accessor</span> <span class="ss">:settings</span><span class="p">,</span> <span class="ss">:request</span><span class="p">,</span> <span class="ss">:response</span><span class="p">,</span> <span class="ss">:logger</span><span class="p">,</span> <span class="ss">:params</span></pre></div>
       </td>
     </tr>
     <tr id='section-7'>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-7">&#182;</a>
+        </div>
+        <hr>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    </pre></div>
+      </td>
+    </tr>
+    <tr id='section-8'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-8">&#182;</a>
         </div>
         <p>TODO</p>
       </td>
@@ -132,10 +147,10 @@ will rely on <code>Newman::Application</code> to instantiate them for you.</p>
     <span class="k">end</span></pre></div>
       </td>
     </tr>
-    <tr id='section-8'>
+    <tr id='section-9'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-8">&#182;</a>
+          <a class="pilcrow" href="#section-9">&#182;</a>
         </div>
         <hr>
       </td>
@@ -143,10 +158,10 @@ will rely on <code>Newman::Application</code> to instantiate them for you.</p>
         <div class='highlight'><pre>    </pre></div>
       </td>
     </tr>
-    <tr id='section-9'>
+    <tr id='section-10'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-9">&#182;</a>
+          <a class="pilcrow" href="#section-10">&#182;</a>
         </div>
         <p>TODO</p>
       </td>
@@ -157,10 +172,10 @@ will rely on <code>Newman::Application</code> to instantiate them for you.</p>
     <span class="k">end</span></pre></div>
       </td>
     </tr>
-    <tr id='section-10'>
+    <tr id='section-11'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-10">&#182;</a>
+          <a class="pilcrow" href="#section-11">&#182;</a>
         </div>
         <hr>
       </td>
@@ -168,10 +183,10 @@ will rely on <code>Newman::Application</code> to instantiate them for you.</p>
         <div class='highlight'><pre>    </pre></div>
       </td>
     </tr>
-    <tr id='section-11'>
+    <tr id='section-12'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-11">&#182;</a>
+          <a class="pilcrow" href="#section-12">&#182;</a>
         </div>
         <p>TODO</p>
       </td>
@@ -181,10 +196,10 @@ will rely on <code>Newman::Application</code> to instantiate them for you.</p>
     <span class="k">end</span></pre></div>
       </td>
     </tr>
-    <tr id='section-12'>
+    <tr id='section-13'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-12">&#182;</a>
+          <a class="pilcrow" href="#section-13">&#182;</a>
         </div>
         <hr>
       </td>
@@ -192,10 +207,10 @@ will rely on <code>Newman::Application</code> to instantiate them for you.</p>
         <div class='highlight'><pre>    </pre></div>
       </td>
     </tr>
-    <tr id='section-13'>
+    <tr id='section-14'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-13">&#182;</a>
+          <a class="pilcrow" href="#section-14">&#182;</a>
         </div>
         <p>TODO</p>
       </td>
@@ -205,10 +220,10 @@ will rely on <code>Newman::Application</code> to instantiate them for you.</p>
     <span class="k">end</span></pre></div>
       </td>
     </tr>
-    <tr id='section-14'>
+    <tr id='section-15'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-14">&#182;</a>
+          <a class="pilcrow" href="#section-15">&#182;</a>
         </div>
         <hr>
       </td>
@@ -216,10 +231,10 @@ will rely on <code>Newman::Application</code> to instantiate them for you.</p>
         <div class='highlight'><pre>    </pre></div>
       </td>
     </tr>
-    <tr id='section-15'>
+    <tr id='section-16'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-15">&#182;</a>
+          <a class="pilcrow" href="#section-16">&#182;</a>
         </div>
         <p>TODO</p>
       </td>
@@ -229,10 +244,10 @@ will rely on <code>Newman::Application</code> to instantiate them for you.</p>
     <span class="k">end</span></pre></div>
       </td>
     </tr>
-    <tr id='section-16'>
+    <tr id='section-17'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-16">&#182;</a>
+          <a class="pilcrow" href="#section-17">&#182;</a>
         </div>
         <hr>
       </td>
@@ -240,10 +255,10 @@ will rely on <code>Newman::Application</code> to instantiate them for you.</p>
         <div class='highlight'><pre>    </pre></div>
       </td>
     </tr>
-    <tr id='section-17'>
+    <tr id='section-18'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-17">&#182;</a>
+          <a class="pilcrow" href="#section-18">&#182;</a>
         </div>
         <p>TODO</p>
 
