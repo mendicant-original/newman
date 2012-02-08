@@ -45,8 +45,24 @@
         </div>
         <p>Newman::Version is used to determine which version of Newman is currently
 running and is part of Newman&rsquo;s <strong>external api</strong>.</p>
-
-<p>Our versioning policy is roughly as follows:</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="k">module</span> <span class="nn">Newman</span>
+  <span class="k">module</span> <span class="nn">Version</span>
+    <span class="no">MAJOR</span>  <span class="o">=</span> <span class="mi">0</span>
+    <span class="no">MINOR</span>  <span class="o">=</span> <span class="mi">1</span>
+    <span class="no">TINY</span>   <span class="o">=</span> <span class="mi">1</span>
+    <span class="no">STRING</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="no">MAJOR</span><span class="si">}</span><span class="s2">.</span><span class="si">#{</span><span class="no">MINOR</span><span class="si">}</span><span class="s2">.</span><span class="si">#{</span><span class="no">TINY</span><span class="si">}</span><span class="s2">&quot;</span>
+  <span class="k">end</span>
+<span class="k">end</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-2'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-2">&#182;</a>
+        </div>
+        <p>Our versioning policy is roughly as follows:</p>
 
 <p>1) Clearly mark each object that Newman provides as being part of either
 the &lsquo;external API&rsquo; or the &lsquo;internal API&rsquo;. The external API is for
@@ -57,10 +73,10 @@ extension developers</p>
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-2'>
+    <tr id='section-3'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-2">&#182;</a>
+          <a class="pilcrow" href="#section-3">&#182;</a>
         </div>
         <p>2) Before 1.0, allow backwards incompatible internal API changes during
 every release, and allow backwards incompatible external API changes
@@ -71,10 +87,10 @@ in tiny version bumps.</p>
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-3'>
+    <tr id='section-4'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-3">&#182;</a>
+          <a class="pilcrow" href="#section-4">&#182;</a>
         </div>
         <p>3) After 1.0, do not allow external or internal API changes during tiny
 version bumps (these will be bug fixes only). Allow changes to the
@@ -90,10 +106,10 @@ external API to be the &lsquo;public&rsquo; API.</p>
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-4'>
+    <tr id='section-5'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-4">&#182;</a>
+          <a class="pilcrow" href="#section-5">&#182;</a>
         </div>
         <p>We plan to get to 1.0 quickly to reach a stabilizing point for application
 developers and a slower moving target for extension developers. This means
@@ -102,14 +118,7 @@ necessarily a full-stack framework.</p>
 
       </td>
       <td class=code>
-        <div class='highlight'><pre><span class="k">module</span> <span class="nn">Newman</span>
-  <span class="k">module</span> <span class="nn">Version</span>
-    <span class="no">MAJOR</span>  <span class="o">=</span> <span class="mi">0</span>
-    <span class="no">MINOR</span>  <span class="o">=</span> <span class="mi">1</span>
-    <span class="no">TINY</span>   <span class="o">=</span> <span class="mi">1</span>
-    <span class="no">STRING</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="no">MAJOR</span><span class="si">}</span><span class="s2">.</span><span class="si">#{</span><span class="no">MINOR</span><span class="si">}</span><span class="s2">.</span><span class="si">#{</span><span class="no">TINY</span><span class="si">}</span><span class="s2">&quot;</span>
-  <span class="k">end</span>
-<span class="k">end</span></pre></div>
+        <div class='highlight'><pre></pre></div>
       </td>
     </tr>
   </table>
