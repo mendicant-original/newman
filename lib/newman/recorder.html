@@ -83,10 +83,17 @@ recorder  = Newman::Recorder.new(:subscribers, store)
 <p>However, in most cases you should not instantiate a
 <code>Newman::Recorder</code> directly, and instead should make use of
 <code>Newman::Store#[]</code> which is syntactic sugar for the same operation.</p>
+
+<p>The first time a particular <code>column</code> key is referenced, two mapping
+is created for the column in the underlying data store: one which
+keeps track of the autoincrementing ids, and one that keeps track
+of the data stored within the column. It&rsquo;s fine to treat these
+mappings as implementation details, but we treat them as part of Newman&rsquo;s
+external interface because backwards-incompatible changes to them will
+result in possible data store corruption.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    
-    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">store</span><span class="p">)</span>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">store</span><span class="p">)</span>
       <span class="nb">self</span><span class="o">.</span><span class="n">column</span> <span class="o">=</span> <span class="n">column</span>
       <span class="nb">self</span><span class="o">.</span><span class="n">store</span>  <span class="o">=</span> <span class="n">store</span>
 
