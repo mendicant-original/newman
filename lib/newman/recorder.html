@@ -114,24 +114,14 @@ result in possible data store corruption.</p>
           <a class="pilcrow" href="#section-4">&#182;</a>
         </div>
         <hr>
-      </td>
-      <td class=code>
-        <div class='highlight'><pre>     </pre></div>
-      </td>
-    </tr>
-    <tr id='section-5'>
-      <td class=docs>
-        <div class="pilwrap">
-          <a class="pilcrow" href="#section-5">&#182;</a>
-        </div>
-        <p><code>Newman::Recorder#each</code> iterates over all records stored in the column,
+
+<p><code>Newman::Recorder#each</code> iterates over all records stored in the column,
 yielding a <code>Newman::Record</code> object for each one. Because <code>Enumerable</code> is
 mixed into <code>Newman::Recorder</code>, all enumerable methods that get called on a
 recorder object end up making calls to this method.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre> 
-    <span class="k">def</span> <span class="nf">each</span>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">each</span>
       <span class="n">store</span><span class="o">.</span><span class="n">read</span> <span class="k">do</span> <span class="o">|</span><span class="n">data</span><span class="o">|</span>
         <span class="n">data</span><span class="o">[</span><span class="ss">:columns</span><span class="o">][</span><span class="n">column</span><span class="o">].</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="nb">id</span><span class="p">,</span> <span class="n">contents</span><span class="o">|</span> 
           <span class="k">yield</span><span class="p">(</span><span class="no">Record</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">contents</span><span class="p">))</span> 
@@ -140,10 +130,10 @@ recorder object end up making calls to this method.</p>
     <span class="k">end</span></pre></div>
       </td>
     </tr>
-    <tr id='section-6'>
+    <tr id='section-5'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-6">&#182;</a>
+          <a class="pilcrow" href="#section-5">&#182;</a>
         </div>
         <hr>
       </td>
@@ -151,10 +141,10 @@ recorder object end up making calls to this method.</p>
         <div class='highlight'><pre>     </pre></div>
       </td>
     </tr>
-    <tr id='section-7'>
+    <tr id='section-6'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-7">&#182;</a>
+          <a class="pilcrow" href="#section-6">&#182;</a>
         </div>
         <p><code>Newman::Recorder#create</code> store an arbitrary Ruby object in the data
 store and returns a <code>Newman::Record</code> object which has fields for the
@@ -174,10 +164,10 @@ first record and then incrementing sequentially.</p>
     <span class="k">end</span></pre></div>
       </td>
     </tr>
-    <tr id='section-8'>
+    <tr id='section-7'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-8">&#182;</a>
+          <a class="pilcrow" href="#section-7">&#182;</a>
         </div>
         <hr>
       </td>
@@ -185,10 +175,10 @@ first record and then incrementing sequentially.</p>
         <div class='highlight'><pre>     </pre></div>
       </td>
     </tr>
-    <tr id='section-9'>
+    <tr id='section-8'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-9">&#182;</a>
+          <a class="pilcrow" href="#section-8">&#182;</a>
         </div>
         <p><code>Newman::Recorder#read</code> looks up a record by <code>id</code> and returns a
 <code>Newman::Record</code> object.</p>
@@ -201,10 +191,10 @@ first record and then incrementing sequentially.</p>
     <span class="k">end</span></pre></div>
       </td>
     </tr>
-    <tr id='section-10'>
+    <tr id='section-9'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-10">&#182;</a>
+          <a class="pilcrow" href="#section-9">&#182;</a>
         </div>
         <hr>
       </td>
@@ -212,10 +202,10 @@ first record and then incrementing sequentially.</p>
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-11'>
+    <tr id='section-10'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-11">&#182;</a>
+          <a class="pilcrow" href="#section-10">&#182;</a>
         </div>
         <p><code>Newman::Recorder#update</code> looks up a record by <code>id</code> and yields its
 contents. The record contents are then replaced with the 
@@ -231,10 +221,10 @@ return value of the provided block.</p>
     <span class="k">end</span></pre></div>
       </td>
     </tr>
-    <tr id='section-12'>
+    <tr id='section-11'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-12">&#182;</a>
+          <a class="pilcrow" href="#section-11">&#182;</a>
         </div>
         <hr>
       </td>
@@ -242,10 +232,10 @@ return value of the provided block.</p>
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-13'>
+    <tr id='section-12'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-13">&#182;</a>
+          <a class="pilcrow" href="#section-12">&#182;</a>
         </div>
         <p><code>Newman::Recorder#destroy</code> looks up a record by <code>id</code> and then removes it
 from the data store. This method returns <code>true</code> whether or not a record
@@ -262,10 +252,10 @@ need to be fixed in a future version of Newman. Patches welcome!</p>
     <span class="k">end</span></pre></div>
       </td>
     </tr>
-    <tr id='section-14'>
+    <tr id='section-13'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-14">&#182;</a>
+          <a class="pilcrow" href="#section-13">&#182;</a>
         </div>
         <hr>
       </td>
@@ -273,10 +263,10 @@ need to be fixed in a future version of Newman. Patches welcome!</p>
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-15'>
+    <tr id='section-14'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-15">&#182;</a>
+          <a class="pilcrow" href="#section-14">&#182;</a>
         </div>
         <p>TODO</p>
       </td>
@@ -284,10 +274,10 @@ need to be fixed in a future version of Newman. Patches welcome!</p>
         <div class='highlight'><pre>    <span class="kp">private</span></pre></div>
       </td>
     </tr>
-    <tr id='section-16'>
+    <tr id='section-15'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-16">&#182;</a>
+          <a class="pilcrow" href="#section-15">&#182;</a>
         </div>
         <hr>
       </td>
@@ -295,10 +285,10 @@ need to be fixed in a future version of Newman. Patches welcome!</p>
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-17'>
+    <tr id='section-16'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-17">&#182;</a>
+          <a class="pilcrow" href="#section-16">&#182;</a>
         </div>
         <p>TODO</p>
 
