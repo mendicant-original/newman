@@ -122,7 +122,8 @@ called within the provided block, including those methods mixed in by
         <p><code>Newman::Application#call</code> accepts a hash of parameters which gets used to
 create a new <code>Newman::Controller</code> object. The controller is then extended
 by all of the modules stored in the <code>extensions</code> field on the application
-object, and is finally passed along to <code>trigger_callbacks</code>, which does the
+object, and is finally passed along to
+<code>Newman::Application#trigger_callbacks</code>, which does the
 magical work of figuring out which callbacks to run, if any.</p>
 
 <p>This method is meant to be run by a <code>Newman::Server</code> object, and isn&rsquo;t
@@ -144,7 +145,7 @@ especially useful on its own.</p>
         <hr>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    </pre></div>
+        <div class='highlight'><pre>   </pre></div>
       </td>
     </tr>
     <tr id='section-7'>
@@ -152,7 +153,7 @@ especially useful on its own.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-7">&#182;</a>
         </div>
-        <p>TODO</p>
+        <p><code>Newman::Application#default</code></p>
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">default</span><span class="p">(</span><span class="o">&amp;</span><span class="n">callback</span><span class="p">)</span>
