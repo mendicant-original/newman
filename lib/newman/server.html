@@ -112,8 +112,7 @@ Newman::Server.simple(ping_pong, &ldquo;config/environment.rb&rdquo;)
 server and run the simple <code>ping_pong</code> application.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre> 
-    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">simple</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">settings_file</span><span class="p">)</span>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">simple</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">settings_file</span><span class="p">)</span>
       <span class="n">settings</span>     <span class="o">=</span> <span class="no">Settings</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="n">settings_file</span><span class="p">)</span>
       <span class="n">mailer</span>       <span class="o">=</span> <span class="no">Mailer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
       <span class="n">server</span>       <span class="o">=</span> <span class="kp">new</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">mailer</span><span class="p">)</span>
