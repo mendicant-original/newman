@@ -226,8 +226,8 @@ rather than replying to it.</p>
 <code>Newman::Controller#response</code>, but copies the request FROM, SUBJECT
 and BODY fields and sets the REPLY TO field to be equal to
 <code>settings.service.default_sender</code>. This feature is convenient for
-implementing mailing-list style functionality, such as in the example
-below:</p>
+implementing mailing-list style functionality, such as in the 
+following example:</p>
 
 <pre><code>if list.subscriber?(sender)
   forward_message :bcc =&gt; list.subscribers.join(&ldquo;, &rdquo;)
