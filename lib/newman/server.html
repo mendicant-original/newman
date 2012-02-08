@@ -228,7 +228,11 @@ for an example of how this approach works.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-9">&#182;</a>
         </div>
-        <p>TODO</p>
+        <p>These accessors are mostly meant for use with server objects under test
+mode, or server objects that have been explicitly instantiated. If you are
+using <code>Newman::Server.simple</code> to run your apps, it&rsquo;s safe to treat these
+as an implementation detail, as all important data will get passed down
+into your apps.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="kp">attr_accessor</span> <span class="ss">:settings</span><span class="p">,</span> <span class="ss">:mailer</span><span class="p">,</span> <span class="ss">:apps</span><span class="p">,</span>  <span class="ss">:logger</span></pre></div>
