@@ -45,7 +45,7 @@ Check out [Newman's Rocco-based API documentation](http://mendicant-university.g
 
 Find seacreature in the #newman channel on Freenode or send an email to newman@librelist.org
 
-### Contributing
+### Contributing to Newman:
 
 We do not yet have a clear roadmap or contributor guidelines, so be sure to talk
 to us before working on bug fixes or patches. But assuming you do want to send
@@ -57,3 +57,15 @@ us some code, here is what you need to know:
 * Your code should come with tests. Integration tests are fine, but unit tests
   would be nice where appropriate. Right now Newman is under tested and we don't
   want to make that problem worse.
+
+### Authorship
+
+Newman is being developed by Gregory Brown and Eric Gjertsen, along with help
+from several other folks. 
+
+It is based on an assignment from Mendicant University's January 2011 core
+skills course, and was also used as a sample application for the Practicing Ruby
+newsletter. The original inspiration for this project came from some code
+written by Brent Vatne, as well as from the general ideas behind Rack and Sinatra.
+
+### License
