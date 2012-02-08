@@ -44,9 +44,13 @@
           <a class="pilcrow" href="#section-1">&#182;</a>
         </div>
         <p><code>Newman::MailingList</code> implements a simple mechanism for storing lists of email
-addresses keyed by a name. This is meant to be used in conjunction with a
+addresses keyed by a mailing list name. </p>
+
+<p>This object is meant to be used in conjunction with a
 <code>Newman::Store</code> object which is <code>PStore</code> backed, but would fairly easily map to
-arbitrary data stores via adapter objects.</p>
+arbitrary data stores via adapter objects. </p>
+
+<p><code>Newman::MailingList</code> is part of Newman&rsquo;s <strong>external interface</strong>.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre><span class="k">module</span> <span class="nn">Newman</span>
@@ -99,7 +103,8 @@ mailing_list = Newman::MailingList.new(&ldquo;simple_list&rdquo;, store)
         <div class="pilwrap">
           <a class="pilcrow" href="#section-5">&#182;</a>
         </div>
-        <p>Use <code>subscribe</code> to add subscribers to the mailing list, i.e.</p>
+        <p><code>Newman::MailingList#subscribe</code> is used to add subscribers to 
+the mailing list, i.e.</p>
 
 <pre><code>mailing_list.subscribe(&lsquo;gregory.t.brown@gmail.com&rsquo;)
 </code></pre>
@@ -136,7 +141,8 @@ method does not modify the mailing list.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-7">&#182;</a>
         </div>
-        <p>Use <code>unsubscribe</code> to remove subscribers from the mailing list, i.e.</p>
+        <p><code>Newman::MailingList#unsubscribe</code> is used to remove subscribers from 
+the mailing list, i.e.</p>
 
 <pre><code>mailing_list.unsubscribe(&lsquo;gregory.t.brown@gmail.com&rsquo;)
 </code></pre>
