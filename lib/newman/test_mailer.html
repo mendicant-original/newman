@@ -46,6 +46,15 @@
         <p><code>Newman::TestMailer</code> is a drop-in replacement for <code>Newman::Mailer</code> meant for
 use in automated testing. It is a thin wrapper on top of the built in testing
 functionality provided by the mail gem.</p>
+
+<p><code>Newman::TestMailer</code> may be a useful tool for Newman application developers,
+at some point but is a bit tricky to work with due to the fact that it 
+relies on global state. This is a known issue and will hopefully be solved in
+a future version of Newman.</p>
+
+<p><code>Newman::TestMailer</code> is part of Newman&rsquo;s <strong>internal interface</strong>, but may
+become part of the <strong>external interface</strong> if we can make it less brittle.
+Patches are welcome!</p>
       </td>
       <td class=code>
         <div class='highlight'><pre><span class="k">module</span> <span class="nn">Newman</span>
@@ -129,7 +138,7 @@ doing so :)</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-5">&#182;</a>
         </div>
-        <p>Use the <code>messages</code> method to retrieve all messages currently in the inbox
+        <p><code>Newman::TestMailer#messages</code> is used to retrieve all messages currently in the inbox
 and then delete them from the underlying <code>Mail::TestMailer</code> object so that
 the inbox gets cleared. This method returns an array of
 <code>Mail::Message</code> objects if any messages were found, and returns
@@ -164,7 +173,7 @@ you only get one test inbox per process.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-7">&#182;</a>
         </div>
-        <p>Use the <code>new_message</code> method to construct a new <code>Mail::Message</code> object,
+        <p><code>Newman::TestMailer#new_message</code> is used to construct a new <code>Mail::Message</code> object,
 with the delivery settings set to test mode. 
 This method passes all its arguments on to <code>Mail.new</code>, so be sure 
 to refer to the <a href="http://github.com/mikel/mail">mail gem&rsquo;s documentation</a>
@@ -192,7 +201,7 @@ for details.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-9">&#182;</a>
         </div>
-        <p>Use the <code>deliver_message</code> method to construct and immediately deliver a
+        <p><code>Newman::TestMailer#deliver_message</code> method to construct and immediately deliver a
 message with the delivery settings set to test mode.</p>
 
       </td>
