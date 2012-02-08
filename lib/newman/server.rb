@@ -1,6 +1,6 @@
 # `Newman::Server` takes incoming mesages from a mailer object and passes them
 # to applications as a request, and then delivers a response email after the
-# applications have had a chance to modify it.
+# applications have modified it.
 #
 # A `Newman::Server` object can be used in three distinct ways:
 #
@@ -47,7 +47,7 @@ module Newman
     #
     # Given a properly configured settings file, this code will launch a polling
     # server and run the simple `ping_pong` application.
-    
+
     def self.simple(app, settings_file)
       settings     = Settings.from_file(settings_file)
       mailer       = Mailer.new(settings)
@@ -58,7 +58,7 @@ module Newman
     end
 
     # ---
-    
+     
     # `Newman::Server.test_mode` automatically generates a `Newman::TestMailer` object
     # and `Newman::Settings` object from the provided `settings_file`. These
     # objects are then passed on to `Newman::Server.new` and a server instance
@@ -94,8 +94,8 @@ module Newman
     end
 
     # ---
-   
-    # To initialize a `Newman::Server`, a settings object and mailer object must
+    
+    # To initialize a `Newman::Server` object, a settings object and mailer object must
     # be provided, and a logger object may also be provided. If a logger object
     # is not provided, `Newman::Server#default_logger` is called to create one.
     #
@@ -104,7 +104,7 @@ module Newman
     # periodically rather than in a busy-wait loop. See one of Newman's [live
     # tests](https://github.com/mendicant-university/newman/blob/master/examples/live_test.rb)
     # for an example of how this approach works.
-    
+
     def initialize(settings, mailer, logger=nil)
       self.settings = settings
       self.mailer   = mailer

@@ -15,7 +15,7 @@ module Newman
   module EmailLogger
 
     # ---
-
+    
     # `Newman::EmailLogger#log_email` takes a logger object, a prefix, and a `Mail` object and 
     # then outputs relevant debugging details. 
     #
@@ -42,7 +42,7 @@ module Newman
     # ---
     
     # `Newman::EmailLogger#email_summary` returns a hash with a summary of the provided `email` object. 
-    
+
     def email_summary(email)
       { :from     => email.from,
         :to       => email.to,

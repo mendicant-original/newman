@@ -40,7 +40,7 @@ module Newman
     end
 
     # ---
-
+     
     # A `Newman::Settings` object is a blank slate upon creation. It simply
     # assigns an empty `OpenStruct` object for each type of settings data it 
     # supports.     
@@ -54,7 +54,7 @@ module Newman
     # We are aware of the fact that the current configuration system is way too
     # flexible and a breeding ground for subtle bugs. This will be fixed in a
     # future version of Newman.
-    
+
     def initialize
       self.imap        = OpenStruct.new
       self.smtp        = OpenStruct.new

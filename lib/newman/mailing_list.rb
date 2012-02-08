@@ -11,8 +11,8 @@ module Newman
   class MailingList
 
     # ---
-    
-    # To initialize a `Newman::MailingList`, a list name and a store object must
+     
+    # To initialize a `Newman::MailingList` object, a list name and a store object must
     # be provided, i.e:
     #
     #     store        = Newman::Store.new('simple.store')
@@ -97,7 +97,7 @@ module Newman
     # ---
 
     # **NOTE: Methods below this point in the file are implementation 
-    # details, and should not be depended upon**
+    # details, and should not be depended upon.**
 
     private
 

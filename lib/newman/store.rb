@@ -13,7 +13,8 @@ module Newman
 
     # ---
 
-    # To initialize a `Newman::Store`, a `filename` must be provided, i.e.
+    # To initialize a `Newman::Store` object, a `filename` string must 
+    # be provided, i.e.
     #
     #     store = Newman::Store.new("simple.store")
     #
