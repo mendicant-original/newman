@@ -158,7 +158,8 @@ a <code>Newman::Recorder</code> object directly. </p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-7">&#182;</a>
         </div>
-        <p>TODO</p>
+        <p><code>Newman::Store#read</code> initiates a read only transaction and then yields
+the underlying <code>PStore</code> object stored in the <code>data</code> field.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">read</span>
@@ -182,7 +183,8 @@ a <code>Newman::Recorder</code> object directly. </p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-9">&#182;</a>
         </div>
-        <p>TODO</p>
+        <p><code>Newman::Store#read</code> initiates a read/write transaction and then yields
+the underlying <code>PStore</code> object stored in the <code>data</code> field.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">write</span>
@@ -198,7 +200,7 @@ a <code>Newman::Recorder</code> object directly. </p>
         <hr>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    </pre></div>
+        <div class='highlight'><pre></pre></div>
       </td>
     </tr>
     <tr id='section-11'>
@@ -206,10 +208,12 @@ a <code>Newman::Recorder</code> object directly. </p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-11">&#182;</a>
         </div>
-        <p>TODO</p>
+        <p><strong>NOTE: Methods below this point in the file are implementation 
+details, and should not be depended upon</strong></p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="kp">private</span></pre></div>
+        <div class='highlight'><pre>    
+    <span class="kp">private</span></pre></div>
       </td>
     </tr>
     <tr id='section-12'>
@@ -228,7 +232,10 @@ a <code>Newman::Recorder</code> object directly. </p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-13">&#182;</a>
         </div>
-        <p>TODO</p>
+        <p>The <code>data</code> accessor is kept private because a <code>Newman::Store</code> object is
+meant to wrap a single <code>PStore</code> object once created, and because we want
+to force every interaction with a <code>Newman::Store</code> to be transactional in
+nature. </p>
 
       </td>
       <td class=code>
