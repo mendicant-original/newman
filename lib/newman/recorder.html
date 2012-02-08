@@ -130,7 +130,7 @@ mixed into <code>Newman::Recorder</code>, all enumerable methods that get called
 recorder object end up making calls to this method.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre> 
+        <div class='highlight'><pre>     
     <span class="k">def</span> <span class="nf">each</span>
       <span class="n">store</span><span class="o">.</span><span class="n">read</span> <span class="k">do</span> <span class="o">|</span><span class="n">data</span><span class="o">|</span>
         <span class="n">data</span><span class="o">[</span><span class="ss">:columns</span><span class="o">][</span><span class="n">column</span><span class="o">].</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="nb">id</span><span class="p">,</span> <span class="n">contents</span><span class="o">|</span> 
