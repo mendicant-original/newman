@@ -425,7 +425,7 @@ details, and should not be depended upon.</strong></p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-21">&#182;</a>
         </div>
-        <p><code>Newman::Application#trigger_callbacks</code> executes the following steps:</p>
+        <p><code>Newman::Application#trigger_callbacks</code> runs a two step process:</p>
 
 <p>1) Grabs the <code>filter</code> Proc for each callback and executes it, passing in
 the provided <code>controller</code>. Any <code>filter</code> proc that returns a logically true
