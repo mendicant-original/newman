@@ -85,7 +85,10 @@ you and is the easiest way to run a single Newman application.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-3">&#182;</a>
         </div>
-        <p>TODO</p>
+        <p><code>Newman::Server.test_mode</code> automatically generates a <code>Newman::TestMailer</code> object
+and <code>Newman::Settings</code> object from the provided <code>settings_file</code>. These
+objects are then passed on to <code>Newman::Server.new</code> and a server instance
+which is preconfigured for use in integration testing is returned.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">test_mode</span><span class="p">(</span><span class="n">settings_file</span><span class="p">)</span>
