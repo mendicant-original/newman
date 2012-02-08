@@ -129,7 +129,16 @@ any of these fields.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-7">&#182;</a>
         </div>
-        <p>TODO</p>
+        <p><code>Newman::Controller#respond</code> is used to modify the response email object,
+and is used in the manner shown below:</p>
+
+<pre><code>respond :subject =&gt; &ldquo;Hello There&rdquo;, :body =&gt; &ldquo;It is nice to meet you!&rdquo;
+</code></pre>
+
+<p>Because this method simply provides syntactic sugar on top of the
+<code>Mail::Message</code> object&rsquo;s interface, you should be sure to take a look at
+the documentation for the <a href="http://github.com/mikel/mail">mail gem</a> to
+discover what options are available.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">respond</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
