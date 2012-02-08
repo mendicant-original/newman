@@ -23,9 +23,8 @@ particular:
 
 * Basic support for email templates are provided via Tilt
 
-* A barebones configuration system that allows configuring email settings, service
-  settings, and application specific settings is provided.
-
+* A barebones configuration system allows configuring email settings, service
+  settings, and application specific settings.
 
 ### For a demonstration of how Newman is used:
 
