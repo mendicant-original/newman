@@ -38,6 +38,108 @@
     </tr>
   </thead>
   <tbody>
+    <tr id='section-1'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-1">&#182;</a>
+        </div>
+        <p><code>Newman::Server</code> takes incoming mesages from a mailer object and passes them
+to applications as a request, and then delivers a response email after the
+applications have had a chance to modify it.</p>
+
+<p>A <code>Newman::Server</code> object can be used in a three distinct ways:</p>
+
+<p>1) Instantiated via <code>Newman::Server.test_mode</code> and then run tick by tick
+     in integration tests.
+  2) Instantiated via <code>Newman::Server.simple</code> which immediately executes
+     an infinite polling loop.
+  3) Instantiated explicitly and manually configured, for maximum control.</p>
+
+<p>All of these different workflows are supported, but if you are simply looking
+to build applications with <code>Newman</code>, you are most likely going to end up using
+<code>Newman::Server.simple</code> because it takes care of most of the setup work for
+you and is the easiest way to run a single Newman application.</p>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="k">module</span> <span class="nn">Newman</span>  
+  <span class="k">class</span> <span class="nc">Server</span>
+    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">test_mode</span><span class="p">(</span><span class="n">settings_file</span><span class="p">)</span>
+      <span class="n">settings</span> <span class="o">=</span> <span class="no">Settings</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="n">settings_file</span><span class="p">)</span>
+      <span class="n">mailer</span>   <span class="o">=</span> <span class="no">TestMailer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+
+      <span class="kp">new</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">mailer</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">simple</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">settings_file</span><span class="p">)</span>
+      <span class="n">settings</span>     <span class="o">=</span> <span class="no">Settings</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="n">settings_file</span><span class="p">)</span>
+      <span class="n">mailer</span>       <span class="o">=</span> <span class="no">Mailer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+      <span class="n">server</span>       <span class="o">=</span> <span class="kp">new</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">mailer</span><span class="p">)</span>
+      <span class="n">server</span><span class="o">.</span><span class="n">apps</span> <span class="o">=</span> <span class="o">[</span><span class="no">RequestLogger</span><span class="p">,</span> <span class="n">app</span><span class="p">,</span> <span class="no">ResponseLogger</span><span class="o">]</span>
+
+      <span class="n">server</span><span class="o">.</span><span class="n">run</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">mailer</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="kp">nil</span><span class="p">)</span>
+      <span class="nb">self</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="n">settings</span>
+      <span class="nb">self</span><span class="o">.</span><span class="n">mailer</span>   <span class="o">=</span> <span class="n">mailer</span>
+      <span class="nb">self</span><span class="o">.</span><span class="n">logger</span>   <span class="o">=</span> <span class="n">logger</span> <span class="o">||</span> <span class="n">default_logger</span>
+      <span class="nb">self</span><span class="o">.</span><span class="n">apps</span>     <span class="o">=</span> <span class="o">[]</span>
+    <span class="k">end</span>
+
+    <span class="kp">attr_accessor</span> <span class="ss">:settings</span><span class="p">,</span> <span class="ss">:mailer</span><span class="p">,</span> <span class="ss">:apps</span><span class="p">,</span>  <span class="ss">:logger</span>
+
+    <span class="k">def</span> <span class="nf">run</span>
+      <span class="kp">loop</span> <span class="k">do</span>
+        <span class="n">tick</span>
+        <span class="nb">sleep</span> <span class="n">settings</span><span class="o">.</span><span class="n">service</span><span class="o">.</span><span class="n">polling_interval</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">tick</span>         
+      <span class="n">mailer</span><span class="o">.</span><span class="n">messages</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">request</span><span class="o">|</span>        
+        <span class="n">response</span> <span class="o">=</span> <span class="n">mailer</span><span class="o">.</span><span class="n">new_message</span><span class="p">(</span><span class="ss">:to</span>   <span class="o">=&gt;</span> <span class="n">request</span><span class="o">.</span><span class="n">from</span><span class="p">,</span> 
+                                      <span class="ss">:from</span> <span class="o">=&gt;</span> <span class="n">settings</span><span class="o">.</span><span class="n">service</span><span class="o">.</span><span class="n">default_sender</span><span class="p">)</span>
+        
+        <span class="k">begin</span>
+          <span class="n">apps</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">app</span><span class="o">|</span>
+            <span class="n">app</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="ss">:request</span>  <span class="o">=&gt;</span> <span class="n">request</span><span class="p">,</span> 
+                     <span class="ss">:response</span> <span class="o">=&gt;</span> <span class="n">response</span><span class="p">,</span> 
+                     <span class="ss">:settings</span> <span class="o">=&gt;</span> <span class="n">settings</span><span class="p">,</span>
+                     <span class="ss">:logger</span>   <span class="o">=&gt;</span> <span class="n">logger</span><span class="p">)</span>
+          <span class="k">end</span>
+        <span class="k">rescue</span> <span class="no">StandardError</span> <span class="o">=&gt;</span> <span class="n">e</span>
+          <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;FAIL&quot;</span><span class="p">)</span> <span class="p">{</span> <span class="n">e</span><span class="o">.</span><span class="n">to_s</span> <span class="p">}</span>
+          <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;FAIL&quot;</span><span class="p">)</span> <span class="p">{</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">e</span><span class="o">.</span><span class="n">inspect</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">+</span><span class="n">e</span><span class="o">.</span><span class="n">backtrace</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  &quot;</span><span class="p">)</span> <span class="p">}</span>
+
+          <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">service</span><span class="o">.</span><span class="n">raise_exceptions</span>
+            <span class="k">raise</span>
+          <span class="k">else</span>
+            <span class="k">next</span>
+          <span class="k">end</span>
+        <span class="k">end</span>
+
+        <span class="n">response</span><span class="o">.</span><span class="n">deliver</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+
+    <span class="kp">private</span>
+
+    <span class="k">def</span> <span class="nf">default_logger</span>
+      <span class="nb">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="no">Logger</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">STDERR</span><span class="p">)</span>
+
+      <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">service</span><span class="o">.</span><span class="n">debug_mode</span> <span class="o">||</span> <span class="vg">$DEBUG</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="no">Logger</span><span class="o">::</span><span class="no">DEBUG</span>
+      <span class="k">else</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="no">Logger</span><span class="o">::</span><span class="no">INFO</span>
+      <span class="k">end</span>
+
+      <span class="n">logger</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span></pre></div>
+      </td>
+    </tr>
   </table>
 </div>
 </body>
