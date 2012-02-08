@@ -26,6 +26,11 @@ particular:
 * A barebones configuration system allows configuring email settings, service
   settings, and application specific settings.
 
+We are still working on figuring out what belongs in Newman and what doesn't,
+and so all of these features are subject to change or disappear entirely. But if
+you have a need for this sort of tool, it's worth noting that this software
+isn't entirely vaporware, and that we could use your help!
+
 ### For a demonstration of how Newman is used:
 
 Check out [Jester](http://github.com/mendicant-university/jester) as well as some of the
