@@ -36,7 +36,10 @@ isn't entirely vaporware, and that we could use your help!
 Check out [Jester](http://github.com/mendicant-university/jester) as well as some of the
 simple examples in this repository.
 
+### For a walkthrough of Newman's codebase:
+
+Check out the [Rocco-based API documentation](http://mendicant-university.github.com/newman/lib/newman.html).
+
 ### For general discussion, questions, and ideas about newman:
 
 Find seacreature in the #newman channel on Freenode or send an email to newman@librelist.org
-
