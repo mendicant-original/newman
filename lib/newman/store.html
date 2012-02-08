@@ -119,11 +119,22 @@ incompatible changes to the databases created by <code>Newman::Store</code>.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-5">&#182;</a>
         </div>
-        <p>TODO</p>
+        <p><code>Newman::Store#[]</code> is syntactic sugar for initializing a
+<code>Newman::Recorder</code> object, and is meant to be used for
+accessing and manipulating column data by <code>column_key</code>, i.e.</p>
+
+<pre><code>store[:subscriptions].create(&ldquo;gregory.t.brown@gmail.com&rdquo;)
+</code></pre>
+
+<p>This method is functionally equivalent to the following code:</p>
+
+<pre><code>recorder = Newman::Recorder.new(:subscriptions, store)
+recorder.create(&ldquo;gregory.t.brown@gmail.com&rdquo;)
+</code></pre>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">[]</span><span class="p">(</span><span class="n">column</span><span class="p">)</span>
-      <span class="no">Recorder</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="nb">self</span><span class="p">)</span> 
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">[]</span><span class="p">(</span><span class="n">column_key</span><span class="p">)</span>
+      <span class="no">Recorder</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">column_key</span><span class="p">,</span> <span class="nb">self</span><span class="p">)</span> 
     <span class="k">end</span></pre></div>
       </td>
     </tr>
