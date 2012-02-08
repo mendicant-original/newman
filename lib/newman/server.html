@@ -376,9 +376,10 @@ details, and should not be depended upon</strong></p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-17">&#182;</a>
         </div>
-        <p>Generates a logger object using Ruby&rsquo;s standard library. This object
-outputs to <code>STDERR</code>, and runs at info level by default, but will run at
-debug level if either <code>settings.service.debug_mode</code> or the Ruby <code>$DEBUG</code>
+        <p><code>Newman::Server#default_logger</code> generates a logger object using 
+Ruby&rsquo;s standard library. This object outputs to <code>STDERR</code>, and
+runs at info level by default, but will run at debug level if 
+either <code>settings.service.debug_mode</code> or the Ruby <code>$DEBUG</code>
 variable is set.</p>
 
       </td>
