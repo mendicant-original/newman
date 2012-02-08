@@ -1,7 +1,7 @@
 ![Newman](http://i.imgur.com/92bZB.jpg)
 
-Newman is an experimental framework for building email-based applications which
-aims to do for email what Rack and Sinatra have done for web programming.
+Newman is an experimental framework which aims to do for email-based 
+applications what Rack and Sinatra have done for web programming.
 
 ### For a demonstration of how Newman is used:
 
