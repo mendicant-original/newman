@@ -143,9 +143,26 @@ server and run the simple <code>ping_pong</code> application.</p>
 and <code>Newman::Settings</code> object from the provided <code>settings_file</code>. These
 objects are then passed on to <code>Newman::Server.new</code> and a server instance
 which is preconfigured for use in integration testing is returned.</p>
+
+<p>Using the application from the <code>Newman::Server.simple</code> documentation
+above, it&rsquo;d be possible to write a simple integration test using this
+method in the following way:</p>
+
+<p>server = Newman::Server.test<em>mode(&ldquo;config/environment.rb&rdquo;)
+   server.apps &lt;&lt; ping</em>pong</p>
+
+<p>mailer = server.mailer</p>
+
+<p>mailer.deliver_message(:to      =&gt; &ldquo;test@test.com&rdquo;,
+                          :subject =&gt; &ldquo;ping)</p>
+
+<p>server.tick</p>
+
+<p>mailer.messages.first.subject.must_equal(&quot;pong&rdquo;)</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">test_mode</span><span class="p">(</span><span class="n">settings_file</span><span class="p">)</span>
+        <div class='highlight'><pre>    
+    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">test_mode</span><span class="p">(</span><span class="n">settings_file</span><span class="p">)</span>
       <span class="n">settings</span> <span class="o">=</span> <span class="no">Settings</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="n">settings_file</span><span class="p">)</span>
       <span class="n">mailer</span>   <span class="o">=</span> <span class="no">TestMailer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
 
