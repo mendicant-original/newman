@@ -81,14 +81,35 @@ the following code:</p>
 <pre><code>settings = Newman::Settings.new
 settings.load_config(&lsquo;config/environment.rb&rsquo;)
 </code></pre>
-
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">from_file</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
       <span class="kp">new</span><span class="o">.</span><span class="n">tap</span> <span class="p">{</span> <span class="o">|</span><span class="n">o</span><span class="o">|</span> <span class="n">o</span><span class="o">.</span><span class="n">load_config</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="p">}</span>
-    <span class="k">end</span>
-  
-    <span class="k">def</span> <span class="nf">initialize</span>
+    <span class="k">end</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-4'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-4">&#182;</a>
+        </div>
+        <p>A <code>Newman::Settings</code> object is a blank slate upon creation. It simply
+assigns an empty <code>OpenStruct</code> object for each type of settings data it 
+supports. The <code>imap</code> and <code>smtp</code> fields are used by <code>Newman::Mailer</code>, 
+the <code>service</code> field is used throughout Newman, particular in
+<code>Newman::Server</code>, and <code>Newman::Application</code> is reserved for
+application-specific configurations.</p>
+
+<p>In most situations, you will not instantiate a <code>Newman::Settings</code> object
+directly but instead will make use of a configuration file and the
+<code>Newman::Settings.from_file</code> method. Newman provides sample configuration
+files in its <code>examples/</code> and <code>test/</code> directories, and applications should do the
+same. This will help minimize the amount the user needs to discover for 
+themselves what fields can be set.</p>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">initialize</span>
       <span class="nb">self</span><span class="o">.</span><span class="n">imap</span>        <span class="o">=</span> <span class="no">OpenStruct</span><span class="o">.</span><span class="n">new</span>
       <span class="nb">self</span><span class="o">.</span><span class="n">smtp</span>        <span class="o">=</span> <span class="no">OpenStruct</span><span class="o">.</span><span class="n">new</span>
       <span class="nb">self</span><span class="o">.</span><span class="n">service</span>     <span class="o">=</span> <span class="no">OpenStruct</span><span class="o">.</span><span class="n">new</span>
