@@ -60,7 +60,14 @@ us some code, here is what you need to know:
 
 * Your code should come with tests. Integration tests are fine, but unit tests
   would be nice where appropriate. Right now Newman is under tested and we don't
-  want to make that problem worse.
+  want to make that problem worse. You can of course submit a pull request for
+  feedback BEFORE writing tests.
+
+* Your code should be fully documented, and properly formatted for use with
+  Rocco. Please try to emulate the style and conventions we've been using where
+  possible. Do the best you can with this, and we'll help tighten up wording and
+  clean up formatting as needed. You can of course submit a pull request for
+  feedback BEFORE writing documentation.
 
 * Newman is taking a use-case oriented approach to design. Be prepared to
   justify any proposed change with real or realistic scenarios, rather than

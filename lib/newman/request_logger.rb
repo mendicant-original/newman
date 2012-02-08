@@ -11,9 +11,10 @@
 #
 # `Newman::RequestLogger` is part of Newman's **internal interface**.
 
-# ---
-
 module Newman
+  RequestLogger = Object.new
+
+  # ---
 
   # `Newman::RequestLogger` is implemented as a singleton object and is 
   # completely stateless in nature. It can be added directly as an app to 
@@ -21,8 +22,6 @@ module Newman
   # automatically places a `Newman::RequestLogger` at the beginning of the call chain, 
   # but  it can be inserted at any point and will output the request email 
   # object at that point in the call chain.
-
-  RequestLogger = Object.new
 
   class << RequestLogger
     include EmailLogger

@@ -11,9 +11,10 @@
 #
 # `Newman::ResponseLogger` is part of Newman's **internal interface**.
 
-# ---
-
 module Newman  
+  ResponseLogger = Object.new
+
+  # ---
 
   # `Newman::ResponseLogger` is implemented as a singleton object and is 
   # completely stateless in nature. It can be added directly as an app to 
@@ -21,8 +22,6 @@ module Newman
   # automatically places a `ResponseLogger` at the end of the call chain, but 
   # it can be inserted at any point and will output the response email object
   # at that point in the call chain.
-
-  ResponseLogger = Object.new
 
   class << ResponseLogger
     include EmailLogger
