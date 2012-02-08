@@ -60,13 +60,15 @@ us some code, here is what you need to know:
 
 ### Authorship:
 
-Newman is being developed by Gregory Brown and Eric Gjertsen, along with help
-from several other folks. 
+Newman is being developed by [Gregory Brown](http://community.mendicantuniversity.org/people/sandal)
+and [Eric Gjertsen](http://community.mendicantuniversity.org/people/ericgj), along with 
+help from several other folks. 
 
 It is based on an assignment from Mendicant University's January 2011 core
 skills course, and was also used as a sample application for the Practicing Ruby
 newsletter. The original inspiration for this project came from some code
-written by Brent Vatne, as well as from the general ideas behind Rack and Sinatra.
+written by [Brent Vatne](http://community.mendicantuniversity.org/people/brentvatne), 
+as well as from the general ideas behind Rack and Sinatra.
 
 ### License:
 
