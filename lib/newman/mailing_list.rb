@@ -7,13 +7,13 @@ module Newman
   class MailingList
 
     # ---
-
+    
     # To initialize a `Newman::MailingList`, a list name and a store object must
     # be provided, i.e:
     #
     #     store        = Newman::Store.new('simple.store')
     #     mailing_list = Newman::MailingList.new("simple_list", store)
- 
+
     def initialize(name, store)
       self.name  = name
       self.store = store
