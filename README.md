@@ -65,7 +65,7 @@ and [Eric Gjertsen](http://community.mendicantuniversity.org/people/ericgj), alo
 help from several other folks. 
 
 It is based on an assignment from [Mendicant
-University](http://mendicantuniversity.org) 's January 2011 core
+University](http://mendicantuniversity.org)'s January 2011 core
 skills course, and was also used as a sample application for the [Practicing Ruby](http://practicingruby.com)
 journal. The original inspiration for this project came from some code
 written by [Brent Vatne](http://community.mendicantuniversity.org/people/brentvatne), 
