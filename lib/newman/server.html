@@ -195,6 +195,12 @@ it.</p>
         <p>To initialize a <code>Newman::Server</code>, a settings object and mailer object must
 be provided, and a logger object may also be provided. If a logger object
 is not provided, <code>Newman::Server#default_logger</code> is called to create one.</p>
+
+<p>Instantiating a server object directly can be useful for building live
+integration tests, or for building cron jobs which process email
+periodically rather than in a busy-wait loop. See one of Newman&rsquo;s <a href="https://github.com/mendicant-university/newman/blob/master/examples/live_test.rb">live
+tests</a>
+for an example of how this approach works.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>    
