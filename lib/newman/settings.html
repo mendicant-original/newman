@@ -117,10 +117,7 @@ things.</p>
         </div>
         <p>A <code>Newman::Settings</code> object is a blank slate upon creation. It simply
 assigns an empty <code>OpenStruct</code> object for each type of settings data it 
-supports. The <code>imap</code> and <code>smtp</code> fields are used by <code>Newman::Mailer</code>, 
-the <code>service</code> field is used throughout Newman, particular in
-<code>Newman::Server</code>, and <code>Newman::Application</code> is reserved for
-application-specific configurations.</p>
+supports.     </p>
 
 <p>In most situations, you will not instantiate a <code>Newman::Settings</code> object
 directly but instead will make use of a configuration file and the
@@ -158,6 +155,31 @@ future version of Newman.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-7">&#182;</a>
         </div>
+        <p>The <code>imap</code> and <code>smtp</code> fields are used by <code>Newman::Mailer</code>, 
+the <code>service</code> field is used throughout Newman, particular in
+<code>Newman::Server</code>, and <code>Newman::Application</code> is reserved for
+application-specific configurations.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="kp">attr_accessor</span> <span class="ss">:imap</span><span class="p">,</span> <span class="ss">:smtp</span><span class="p">,</span> <span class="ss">:service</span><span class="p">,</span> <span class="ss">:application</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-8'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-8">&#182;</a>
+        </div>
+        <hr>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre></pre></div>
+      </td>
+    </tr>
+    <tr id='section-9'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-9">&#182;</a>
+        </div>
         <p>The <code>Newman::Settings#load_config</code> method is used for evaluating
 the contents of a file within the context of a <code>Newman::Settings</code>
 instance. </p>
@@ -172,10 +194,10 @@ multiple settings files to a single <code>Newman::Settings</code> object</p>
     <span class="k">end</span></pre></div>
       </td>
     </tr>
-    <tr id='section-8'>
+    <tr id='section-10'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-8">&#182;</a>
+          <a class="pilcrow" href="#section-10">&#182;</a>
         </div>
         <hr>
       </td>
@@ -183,17 +205,16 @@ multiple settings files to a single <code>Newman::Settings</code> object</p>
         <div class='highlight'><pre>    </pre></div>
       </td>
     </tr>
-    <tr id='section-9'>
+    <tr id='section-11'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-9">&#182;</a>
+          <a class="pilcrow" href="#section-11">&#182;</a>
         </div>
         <p>TODO</p>
 
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="kp">attr_accessor</span> <span class="ss">:imap</span><span class="p">,</span> <span class="ss">:smtp</span><span class="p">,</span> <span class="ss">:service</span><span class="p">,</span> <span class="ss">:application</span>
-  <span class="k">end</span>
+        <div class='highlight'><pre>  <span class="k">end</span>
 <span class="k">end</span></pre></div>
       </td>
     </tr>
