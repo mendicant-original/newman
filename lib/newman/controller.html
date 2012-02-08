@@ -48,16 +48,12 @@ and provides most of the core functionality for preparing a response email.</p>
 
 <p>For a full example of <code>Newman::Controller</code> in action, be sure to check out
 <a href="https://github.com/mendicant-university/jester">Jester</a>.</p>
+
+<p><code>Newman::Controller</code> is part of Newman&rsquo;s <strong>external interface</strong>.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre><span class="k">module</span> <span class="nn">Newman</span>
-  <span class="k">class</span> <span class="nc">Controller</span>
-    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
-      <span class="nb">self</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="ss">:settings</span><span class="p">)</span>
-      <span class="nb">self</span><span class="o">.</span><span class="n">request</span>  <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="ss">:request</span><span class="p">)</span>
-      <span class="nb">self</span><span class="o">.</span><span class="n">response</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="ss">:response</span><span class="p">)</span>
-      <span class="nb">self</span><span class="o">.</span><span class="n">logger</span>   <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="ss">:logger</span><span class="p">)</span>
-    <span class="k">end</span></pre></div>
+  <span class="k">class</span> <span class="nc">Controller</span></pre></div>
       </td>
     </tr>
     <tr id='section-2'>
@@ -76,10 +72,18 @@ and provides most of the core functionality for preparing a response email.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-3">&#182;</a>
         </div>
-        <p>TODO</p>
+        <p>A <code>Newman::Controller</code> object is initialized with parameters that match
+what is provided by the low level <code>Newman::Server</code> object. Generally
+speaking, you won&rsquo;t instantiate controller objects yourself, but instead
+will rely on <code>Newman::Application</code> to instantiate them for you.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="kp">attr_accessor</span> <span class="ss">:settings</span><span class="p">,</span> <span class="ss">:request</span><span class="p">,</span> <span class="ss">:response</span><span class="p">,</span> <span class="ss">:logger</span><span class="p">,</span> <span class="ss">:params</span></pre></div>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+      <span class="nb">self</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="ss">:settings</span><span class="p">)</span>
+      <span class="nb">self</span><span class="o">.</span><span class="n">request</span>  <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="ss">:request</span><span class="p">)</span>
+      <span class="nb">self</span><span class="o">.</span><span class="n">response</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="ss">:response</span><span class="p">)</span>
+      <span class="nb">self</span><span class="o">.</span><span class="n">logger</span>   <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="ss">:logger</span><span class="p">)</span>
+    <span class="k">end</span></pre></div>
       </td>
     </tr>
     <tr id='section-4'>
@@ -101,9 +105,7 @@ and provides most of the core functionality for preparing a response email.</p>
         <p>TODO</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">respond</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
-      <span class="n">params</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="o">|</span> <span class="n">response</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">#{</span><span class="n">k</span><span class="si">}</span><span class="s2">=&quot;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="p">}</span>
-    <span class="k">end</span></pre></div>
+        <div class='highlight'><pre>    <span class="kp">attr_accessor</span> <span class="ss">:settings</span><span class="p">,</span> <span class="ss">:request</span><span class="p">,</span> <span class="ss">:response</span><span class="p">,</span> <span class="ss">:logger</span><span class="p">,</span> <span class="ss">:params</span></pre></div>
       </td>
     </tr>
     <tr id='section-6'>
@@ -125,9 +127,8 @@ and provides most of the core functionality for preparing a response email.</p>
         <p>TODO</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">template</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
-      <span class="no">Tilt</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">Dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">#{</span><span class="n">settings</span><span class="o">.</span><span class="n">service</span><span class="o">.</span><span class="n">templates_dir</span><span class="si">}</span><span class="s2">/</span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">.*&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">)</span>
-          <span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="nb">self</span><span class="p">)</span>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">respond</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+      <span class="n">params</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="o">|</span> <span class="n">response</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">#{</span><span class="n">k</span><span class="si">}</span><span class="s2">=&quot;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="p">}</span>
     <span class="k">end</span></pre></div>
       </td>
     </tr>
@@ -150,8 +151,9 @@ and provides most of the core functionality for preparing a response email.</p>
         <p>TODO</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">sender</span>
-      <span class="n">request</span><span class="o">.</span><span class="n">from</span><span class="o">.</span><span class="n">first</span><span class="o">.</span><span class="n">to_s</span>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">template</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+      <span class="no">Tilt</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">Dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">#{</span><span class="n">settings</span><span class="o">.</span><span class="n">service</span><span class="o">.</span><span class="n">templates_dir</span><span class="si">}</span><span class="s2">/</span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">.*&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">)</span>
+          <span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="nb">self</span><span class="p">)</span>
     <span class="k">end</span></pre></div>
       </td>
     </tr>
@@ -174,8 +176,8 @@ and provides most of the core functionality for preparing a response email.</p>
         <p>TODO</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">domain</span>
-      <span class="n">settings</span><span class="o">.</span><span class="n">service</span><span class="o">.</span><span class="n">domain</span> 
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">sender</span>
+      <span class="n">request</span><span class="o">.</span><span class="n">from</span><span class="o">.</span><span class="n">first</span><span class="o">.</span><span class="n">to_s</span>
     <span class="k">end</span></pre></div>
       </td>
     </tr>
@@ -198,8 +200,8 @@ and provides most of the core functionality for preparing a response email.</p>
         <p>TODO</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">skip_response</span>
-      <span class="n">response</span><span class="o">.</span><span class="n">perform_deliveries</span> <span class="o">=</span> <span class="kp">false</span>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">domain</span>
+      <span class="n">settings</span><span class="o">.</span><span class="n">service</span><span class="o">.</span><span class="n">domain</span> 
     <span class="k">end</span></pre></div>
       </td>
     </tr>
@@ -218,6 +220,30 @@ and provides most of the core functionality for preparing a response email.</p>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-15">&#182;</a>
+        </div>
+        <p>TODO</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">skip_response</span>
+      <span class="n">response</span><span class="o">.</span><span class="n">perform_deliveries</span> <span class="o">=</span> <span class="kp">false</span>
+    <span class="k">end</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-16'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-16">&#182;</a>
+        </div>
+        <hr>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    </pre></div>
+      </td>
+    </tr>
+    <tr id='section-17'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-17">&#182;</a>
         </div>
         <p>TODO</p>
 
