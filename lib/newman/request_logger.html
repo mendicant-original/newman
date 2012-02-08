@@ -106,8 +106,9 @@ object at that point in the call chain.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-5">&#182;</a>
         </div>
-        <p>The <code>call</code> method simply delegates to <code>Newman::EmailLogger#log_email</code>, passing it
-a logger instance, the <code>&ldquo;REQUEST&rdquo;</code> prefix for the log line, and an instance
+        <p><code>Newman::RequestLogger#call</code> simply delegates to
+<code>Newman::EmailLogger#log_email</code>, passing it a logger instance, the 
+<code>&ldquo;REQUEST&rdquo;</code> prefix for the log line, and an instance
 of an email object. See <code>Newman::Server.tick</code> and <code>Newman::EmailLogger#log_email</code>
 for details.</p>
 
