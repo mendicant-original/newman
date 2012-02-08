@@ -1,3 +1,7 @@
+# WARNING: DON'T HOOK UP NEWMAN TO ANY EMAIL INBOX THAT
+# YOU CAN'T COMPLETELY WIPE OUT EVERY TIME IT RUNS.
+# NEWMAN **WILL** DELETE YOUR EMAILS!!!
+
 imap.address   = "mail.<<DOMAIN>>"
 imap.user      = "<<USERNAME>>@<<DOMAIN>>"
 imap.password  = "<<PASSWORD>>"
