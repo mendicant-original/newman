@@ -345,7 +345,7 @@ setting is off by default.</p>
         <hr>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    </pre></div>
+        <div class='highlight'><pre></pre></div>
       </td>
     </tr>
     <tr id='section-15'>
@@ -353,7 +353,8 @@ setting is off by default.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-15">&#182;</a>
         </div>
-        <p>TODO</p>
+        <p><strong>NOTE: Methods below this point in the file are implementation 
+details, and should not be depended upon</strong></p>
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="kp">private</span></pre></div>
@@ -375,7 +376,10 @@ setting is off by default.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-17">&#182;</a>
         </div>
-        <p>TODO</p>
+        <p>Generates a logger object using Ruby&rsquo;s standard library. This object
+outputs to <code>STDERR</code>, and runs at info level by default, but will run at
+debug level if either <code>settings.service.debug_mode</code> or the Ruby <code>$DEBUG</code>
+variable is set.</p>
 
       </td>
       <td class=code>
