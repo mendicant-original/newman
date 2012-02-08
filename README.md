@@ -1,8 +1,7 @@
 ![Newman](http://i.imgur.com/92bZB.jpg)
 
-Newman exists to make building simple email based applications as easy as
-Sinatra makes building simple web applications, and to make sharing useful email
-processing extensions as easy as Rack makes sharing web framework extensions.
+Newman is an experimental framework for building email-based applications which
+aims to do for email what Rack and Sinatra have done for web programming.
 
 ### For a demonstration of how Newman is used:
 
