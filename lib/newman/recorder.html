@@ -47,6 +47,10 @@
 records within a <code>Newman::Store</code> with autoincrementing identifiers. It
 supports basic CRUD operations, and also acts as an <code>Enumerable</code> object.</p>
 
+<p>For an example of how to make use of <code>Newman::Recorder</code> to implement arbitrary
+persistent models, be sure to check out the implementatiomn of the
+<code>Newman::MailingList</code> object.</p>
+
 <p><code>Newman::Recorder</code> is part of Newman&rsquo;s <strong>external interface</strong>.</p>
       </td>
       <td class=code>
@@ -178,7 +182,7 @@ first record and then incrementing sequentially.</p>
         <hr>
       </td>
       <td class=code>
-        <div class='highlight'><pre></pre></div>
+        <div class='highlight'><pre>    </pre></div>
       </td>
     </tr>
     <tr id='section-9'>
@@ -186,7 +190,8 @@ first record and then incrementing sequentially.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-9">&#182;</a>
         </div>
-        <p>TODO</p>
+        <p><code>Newman::Recorder#read</code> looks up a record by <code>id</code> and returns a
+<code>Newman::Record</code> object.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
@@ -212,7 +217,9 @@ first record and then incrementing sequentially.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-11">&#182;</a>
         </div>
-        <p>TODO</p>
+        <p><code>Newman::Recorder#update</code> looks up a record by <code>id</code> and yields its
+contents. The record contents are then replaced with the 
+return value of the provided block.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
@@ -240,7 +247,10 @@ first record and then incrementing sequentially.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-13">&#182;</a>
         </div>
-        <p>TODO</p>
+        <p><code>Newman::Recorder#destroy</code> looks up a record by <code>id</code> and then removes it
+from the data store. This method returns <code>true</code> whether or not a record
+was actually destroyed, which is a somewhat useless behavior and may
+need to be fixed in a future version of Newman.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">destroy</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
