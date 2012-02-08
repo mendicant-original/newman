@@ -1,7 +1,6 @@
 ### 0.2.0 (2012-02-08)
 
-- Internals mostly rewritten, changes too numerous to outline meaningfully.
-  (We'll keep better track of these changes in the future)
+- Internals mostly rewritten, changes too numerous to outline meaningfully. We'll keep better track of these changes in the future.
 
 - Basic logging support added
 
