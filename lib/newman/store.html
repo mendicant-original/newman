@@ -131,6 +131,10 @@ accessing and manipulating column data by <code>column_key</code>, i.e.</p>
 <pre><code>recorder = Newman::Recorder.new(:subscriptions, store)
 recorder.create(&ldquo;gregory.t.brown@gmail.com&rdquo;)
 </code></pre>
+
+<p>For aesthetic reasons and for forward compatibility, it&rsquo;s
+preferable to use <code>Newman::Store#[]</code> rather than instantiating
+a <code>Newman::Recorder</code> object directly. </p>
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">[]</span><span class="p">(</span><span class="n">column_key</span><span class="p">)</span>
