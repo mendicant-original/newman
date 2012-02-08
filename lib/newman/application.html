@@ -197,7 +197,7 @@ for use within its callbacks, as in the example shown below.</p>
 
 <pre><code>module ListLoader
   def load_list(name)
-    store = Newman::Store.new(settings.application.librelist_db)
+    store = Newman::Store.new(settings.application.list_db)
     Newman::MailingList.new(name, store)
   end
 end
@@ -256,7 +256,7 @@ can be rewritten as follows:</p>
 <pre><code>list_app = Newman::Application.new do
   helpers do
     def load_list(name)
-      store = Newman::Store.new(settings.application.librelist_db)
+      store = Newman::Store.new(settings.application.list_db)
       Newman::MailingList.new(name, store)
     end
   end
