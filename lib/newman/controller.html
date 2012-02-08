@@ -222,7 +222,20 @@ rather than replying to it.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-13">&#182;</a>
         </div>
-        <p>TODO</p>
+        <p><code>Newman::Controller#forward_message</code> works in a similar fashion to
+<code>Newman::Controller#response</code>, but copies the request FROM, SUBJECT
+and BODY fields and sets the REPLY TO field to be equal to
+<code>settings.service.default_sender</code>. This feature is convenient for
+implementing mailing-list style functionality, such as in the example
+below:</p>
+
+<pre><code>if list.subscriber?(sender)
+  forward_message :bcc =&gt; list.subscribers.join(&ldquo;, &rdquo;)
+else
+  respond :subject =&gt; &ldquo;You are not subscribed&rdquo;,
+          :body    =&gt; template(&ldquo;non-subscriber-error&rdquo;)
+end
+</code></pre>
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">forward_message</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="p">{})</span>
