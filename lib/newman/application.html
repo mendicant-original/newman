@@ -475,7 +475,13 @@ this in a future Newman release.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-23">&#182;</a>
         </div>
-        <p>TODO</p>
+        <p>These accessors have been made private to reflect the fact that
+<code>Newman::Application</code> is meant to be customized via its high level methods
+such as <code>use</code>, <code>helpers</code>, <code>match</code>, and <code>callback</code>. Any extensions of
+<code>Newman::Application</code> should rely on those methods and not directly
+reference these fields at all. If there is some functionality missing
+that needs to be added to the public API for you to build your
+extension, just let us know.</p>
 
       </td>
       <td class=code>
