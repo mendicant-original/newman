@@ -232,7 +232,7 @@ for an example of how this approach works.</p>
 mode, or server objects that have been explicitly instantiated. If you are
 using <code>Newman::Server.simple</code> to run your apps, it&rsquo;s safe to treat these
 as an implementation detail; all important data will get passed down
-into your apps.</p>
+into your apps on each <code>tick</code>.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="kp">attr_accessor</span> <span class="ss">:settings</span><span class="p">,</span> <span class="ss">:mailer</span><span class="p">,</span> <span class="ss">:apps</span><span class="p">,</span>  <span class="ss">:logger</span></pre></div>
@@ -246,7 +246,7 @@ into your apps.</p>
         <hr>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    </pre></div>
+        <div class='highlight'><pre></pre></div>
       </td>
     </tr>
     <tr id='section-11'>
@@ -254,7 +254,9 @@ into your apps.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-11">&#182;</a>
         </div>
-        <p>TODO</p>
+        <p><code>Newman::Server.run</code> kicks off a busy wait loop, alternating between
+calling <code>Newman::Server.tick</code> and sleeping for the amount of time
+specified by <code>settings.service.polling_interval</code>.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">run</span>
