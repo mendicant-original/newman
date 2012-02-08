@@ -32,6 +32,10 @@ and so all of these features are subject to change or disappear entirely. But if
 you have a need for this sort of tool, it's worth noting that this software
 isn't entirely vaporware, and that we could use your help!
 
+### Scary Warning
+
+DON'T HOOK UP NEWMAN TO ANY EMAIL INBOX THAT YOU CAN'T COMPLETELY WIPE OUT EVERY TIME IT RUNS. NEWMAN **WILL** DELETE YOUR EMAILS!!!
+
 ### For a demonstration of how Newman is used:
 
 Check out [Jester](http://github.com/mendicant-university/jester) as well as some of the
@@ -86,7 +90,3 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-### Scary Warning
-
-DON'T HOOK UP NEWMAN TO ANY EMAIL INBOX THAT YOU CAN'T COMPLETELY WIPE OUT EVERY TIME IT RUNS. NEWMAN **WILL** DELETE YOUR EMAILS!!!
