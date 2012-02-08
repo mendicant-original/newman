@@ -64,7 +64,22 @@ sure to check out <a href="https://github.com/mendicant-university/jester">Jeste
         <div class="pilwrap">
           <a class="pilcrow" href="#section-2">&#182;</a>
         </div>
-        <p>To initialize a <code>Newman::Application</code> object</p>
+        <p>A <code>Newman::Application</code> object is a blank slate upon creation, with fields
+set to hold <code>callbacks</code>, <code>matchers</code>, and <code>extensions</code>. A block may
+optionally be provided, which then gets executed within the context of the
+newly created <code>Newman::Application</code> instance. This is the common way of
+building applications, and is demonstrated by the example below:</p>
+
+<pre><code>ping_pong = Newman::Application.new do
+  subject(&ldquo;ping&rdquo;) do
+    respond(:subject =&gt; &ldquo;pong&rdquo;)
+  end
+end
+</code></pre>
+
+<p>Any method that can be called on a <code>Newman::Application</code> instance can be
+called within the provided block, including those methods mixed in by
+<code>Newman::Filters</code>.</p>
 
       </td>
       <td class=code>
