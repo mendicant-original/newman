@@ -116,8 +116,7 @@ flexible and also support other filter types such as a match against the
 whole email address at some point in the future.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    
-    <span class="k">def</span> <span class="nf">to</span><span class="p">(</span><span class="n">filter_type</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">action</span><span class="p">)</span>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">to</span><span class="p">(</span><span class="n">filter_type</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">action</span><span class="p">)</span>
       <span class="k">raise</span> <span class="no">NotImplementedError</span> <span class="k">unless</span> <span class="n">filter_type</span> <span class="o">==</span> <span class="ss">:tag</span>
 
       <span class="n">regex</span> <span class="o">=</span> <span class="n">compile_regex</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
