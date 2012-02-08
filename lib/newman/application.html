@@ -320,9 +320,9 @@ end
 
 <p>Because Newman&rsquo;s built in filters are designed to escape regular
 expression syntax by default, <code>Newman::Application#match</code> provides the
-only high-level mechanism for dynamic filter matches. It is possible
-to do low-level matches via <code>Newman::Application#callback</code>, but would
-be tedious to do so for most application developers.</p>
+only high-level mechanism for dynamic filter matches. Low level matching
+is possible via <code>Newman::Application#callback</code>, but would
+be an exercise in tedium for most application developers.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">match</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span>
