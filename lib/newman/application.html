@@ -301,11 +301,32 @@ probably a better tool to use.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-13">&#182;</a>
         </div>
-        <p><code>Newman::Application#match</code> is used to</p>
+        <p><code>Newman::Application#match</code> is used to define patterns which are used for
+extracting callback parameters. An example is shown below:</p>
+
+<pre><code>jester = Newman::Application.new do
+  match :genre, &lsquo;\S+&rsquo;
+  match :title, &lsquo;.*&rsquo;
+
+  subject(:match, &ldquo;a {genre} story &lsquo;{title}&rsquo;&rdquo;) do
+    story_library.add_story(:genre =&gt; params[:genre],
+                            :title =&gt; params[:title],
+                            :body =&gt; request.body.to_s)
+
+    respond :subject =&gt; &ldquo;Jester saved &lsquo;#{params[:title]}&rsquo;&rdquo;
+  end
+end
+</code></pre>
+
+<p>Because Newman&rsquo;s built in filters are designed to escape regular
+expression syntax by default, <code>Newman::Application#match</code> provides the
+only high-level mechanism for dynamic filter matches. It is possible
+to do dynamic matches with <code>Newman::Application#callback</code>, but would
+be tedious to do so for most application developers.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">match</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span>
-      <span class="n">matchers</span><span class="o">[</span><span class="nb">id</span><span class="o">.</span><span class="n">to_s</span><span class="o">]</span> <span class="o">=</span> <span class="n">pattern</span>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">match</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span>
+      <span class="n">matchers</span><span class="o">[</span><span class="nb">name</span><span class="o">]</span> <span class="o">=</span> <span class="n">pattern</span>
     <span class="k">end</span></pre></div>
       </td>
     </tr>
