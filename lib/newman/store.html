@@ -66,7 +66,7 @@ approach could be used to develop arbitrary persistent models.</p>
         <hr>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    </pre></div>
+        <div class='highlight'><pre></pre></div>
       </td>
     </tr>
     <tr id='section-3'>
@@ -74,7 +74,21 @@ approach could be used to develop arbitrary persistent models.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-3">&#182;</a>
         </div>
-        <p>TODO</p>
+        <p>To initialize a <code>Newman::Store</code>, a <code>filename</code> must be provided, i.e.</p>
+
+<pre><code>store = Newman::Store.new(&ldquo;simple.store&rdquo;)
+</code></pre>
+
+<p>This filename will be used to initialize a <code>PStore</code> object after first
+running <code>FileUtils.mkdir_p</code> to create any directories within the path to
+the filename if they do not already exist. Once that <code>PStore</code> object is
+created, two root keys will be mapped to empty Hash objects if they 
+are not set already: <code>:indentifers</code> and <code>:columns</code>.</p>
+
+<p>While it&rsquo;s okay to treat the <code>PStore</code> object as an implementation detail,
+we will treat our interactions with it as part of Newman&rsquo;s <strong>external
+interface</strong>, so that we are more conservative about making backwards
+incompatible changes to the databases created by <code>Newman::Store</code>.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
