@@ -1,9 +1,9 @@
 ![Newman](http://i.imgur.com/92bZB.jpg)
 
 Newman is a microframework which aims to do for email-based 
-applications what Rack and Sinatra have done for web programming. It is
-currently in its very early experimental stages, and is not safe for use in
-production. 
+applications what Rack and Sinatra have done for web programming. **It is
+currently in its very early experimental stages, and is in no way safe for use in
+production.** 
 
 That said, Newman is already capable of doing a number of interesting things. In
 particular:
