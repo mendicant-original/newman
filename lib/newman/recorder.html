@@ -38,6 +38,82 @@
     </tr>
   </thead>
   <tbody>
+    <tr id='section-1'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-1">&#182;</a>
+        </div>
+        <p><code>Newman::Recorder</code> provides a simple mechanism for storing non-relational
+records within a <code>Newman::Store</code> with autoincrementing identifiers. It
+supports basic CRUD operations, and also acts as an <code>Enumerable</code> object.</p>
+
+<p><code>Newman::Recorder</code> is part of Newman&rsquo;s <strong>external interface</strong>.</p>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="k">module</span> <span class="nn">Newman</span>
+  <span class="no">Record</span> <span class="o">=</span> <span class="no">Struct</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:column</span><span class="p">,</span> <span class="ss">:id</span><span class="p">,</span> <span class="ss">:contents</span><span class="p">)</span>
+
+  <span class="k">class</span> <span class="nc">Recorder</span>
+    <span class="kp">include</span> <span class="no">Enumerable</span>
+
+    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">store</span><span class="p">)</span>
+      <span class="nb">self</span><span class="o">.</span><span class="n">column</span> <span class="o">=</span> <span class="n">column</span>
+      <span class="nb">self</span><span class="o">.</span><span class="n">store</span>  <span class="o">=</span> <span class="n">store</span>
+
+      <span class="n">store</span><span class="o">.</span><span class="n">write</span> <span class="k">do</span> <span class="o">|</span><span class="n">data</span><span class="o">|</span>
+        <span class="n">data</span><span class="o">[</span><span class="ss">:identifiers</span><span class="o">][</span><span class="n">column</span><span class="o">]</span> <span class="o">||=</span> <span class="mi">0</span>
+        <span class="n">data</span><span class="o">[</span><span class="ss">:columns</span><span class="o">][</span><span class="n">column</span><span class="o">]</span>     <span class="o">||=</span> <span class="p">{}</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">each</span>
+      <span class="n">store</span><span class="o">.</span><span class="n">read</span> <span class="k">do</span> <span class="o">|</span><span class="n">data</span><span class="o">|</span>
+        <span class="n">data</span><span class="o">[</span><span class="ss">:columns</span><span class="o">][</span><span class="n">column</span><span class="o">].</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="nb">id</span><span class="p">,</span> <span class="n">contents</span><span class="o">|</span> 
+          <span class="k">yield</span><span class="p">(</span><span class="no">Record</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span><span class="n">contents</span><span class="p">))</span> 
+        <span class="k">end</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>
+      <span class="n">store</span><span class="o">.</span><span class="n">write</span> <span class="k">do</span> <span class="o">|</span><span class="n">data</span><span class="o">|</span> 
+        <span class="nb">id</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="o">[</span><span class="ss">:identifiers</span><span class="o">][</span><span class="n">column</span><span class="o">]</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span>
+        
+        <span class="n">data</span><span class="o">[</span><span class="ss">:columns</span><span class="o">][</span><span class="n">column</span><span class="o">][</span><span class="nb">id</span><span class="o">]</span> <span class="o">=</span> <span class="n">contents</span> 
+
+        <span class="no">Record</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">contents</span><span class="p">)</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+      <span class="n">store</span><span class="o">.</span><span class="n">read</span> <span class="k">do</span> <span class="o">|</span><span class="n">data</span><span class="o">|</span>
+        <span class="no">Record</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">data</span><span class="o">[</span><span class="ss">:columns</span><span class="o">][</span><span class="n">column</span><span class="o">][</span><span class="nb">id</span><span class="o">]</span><span class="p">)</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+      <span class="n">store</span><span class="o">.</span><span class="n">write</span> <span class="k">do</span> <span class="o">|</span><span class="n">data</span><span class="o">|</span>
+        <span class="n">data</span><span class="o">[</span><span class="ss">:columns</span><span class="o">][</span><span class="n">column</span><span class="o">][</span><span class="nb">id</span><span class="o">]</span> <span class="o">=</span> <span class="k">yield</span><span class="p">(</span><span class="n">data</span><span class="o">[</span><span class="ss">:columns</span><span class="o">][</span><span class="n">column</span><span class="o">][</span><span class="nb">id</span><span class="o">]</span><span class="p">)</span>
+
+        <span class="no">Record</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">data</span><span class="o">[</span><span class="ss">:columns</span><span class="o">][</span><span class="n">column</span><span class="o">][</span><span class="nb">id</span><span class="o">]</span><span class="p">)</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">destroy</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+      <span class="n">store</span><span class="o">.</span><span class="n">write</span> <span class="k">do</span> <span class="o">|</span><span class="n">data</span><span class="o">|</span>
+        <span class="n">data</span><span class="o">[</span><span class="ss">:columns</span><span class="o">][</span><span class="n">column</span><span class="o">].</span><span class="n">delete</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+      <span class="k">end</span>
+
+      <span class="kp">true</span>
+    <span class="k">end</span>
+
+    <span class="kp">private</span>
+
+    <span class="kp">attr_accessor</span> <span class="ss">:column</span><span class="p">,</span> <span class="ss">:store</span>
+  <span class="k">end</span>
+<span class="k">end</span></pre></div>
+      </td>
+    </tr>
   </table>
 </div>
 </body>
