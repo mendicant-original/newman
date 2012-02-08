@@ -73,10 +73,20 @@ supports basic CRUD operations, and also acts as an <code>Enumerable</code> obje
         <div class="pilwrap">
           <a class="pilcrow" href="#section-3">&#182;</a>
         </div>
-        <p>TODO</p>
+        <p>To initialize a <code>Newman::Recorder</code> object, a <code>column</code> key 
+and <code>store</code> object must be provided, i.e.</p>
+
+<pre><code>store     = Newman::Store.new(&ldquo;sample.store&rdquo;)
+recorder  = Newman::Recorder.new(:subscribers, store)
+</code></pre>
+
+<p>However, in most cases you should not instantiate a
+<code>Newman::Recorder</code> directly, and instead should make use of
+<code>Newman::Store#[]</code> which is syntactic sugar for the same operation.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">store</span><span class="p">)</span>
+        <div class='highlight'><pre>    
+    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">store</span><span class="p">)</span>
       <span class="nb">self</span><span class="o">.</span><span class="n">column</span> <span class="o">=</span> <span class="n">column</span>
       <span class="nb">self</span><span class="o">.</span><span class="n">store</span>  <span class="o">=</span> <span class="n">store</span>
 
@@ -109,7 +119,7 @@ supports basic CRUD operations, and also acts as an <code>Enumerable</code> obje
         <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">each</span>
       <span class="n">store</span><span class="o">.</span><span class="n">read</span> <span class="k">do</span> <span class="o">|</span><span class="n">data</span><span class="o">|</span>
         <span class="n">data</span><span class="o">[</span><span class="ss">:columns</span><span class="o">][</span><span class="n">column</span><span class="o">].</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="nb">id</span><span class="p">,</span> <span class="n">contents</span><span class="o">|</span> 
-          <span class="k">yield</span><span class="p">(</span><span class="no">Record</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span><span class="n">contents</span><span class="p">))</span> 
+          <span class="k">yield</span><span class="p">(</span><span class="no">Record</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">contents</span><span class="p">))</span> 
         <span class="k">end</span>
       <span class="k">end</span>
     <span class="k">end</span></pre></div>
