@@ -52,12 +52,43 @@ the mail gem and Newman&rsquo;s configuration system. </p>
 can easily stand in for it as long as they respond to the same set of
 messages. Be sure to see <code>Newman::TestMailer</code> for an example of how to build a
 custom object that can be used in place of a <code>Newman::Mailer</code> object.</p>
-
       </td>
       <td class=code>
         <div class='highlight'><pre><span class="k">module</span> <span class="nn">Newman</span>
   <span class="k">class</span> <span class="nc">Mailer</span>
-    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+    </pre></div>
+      </td>
+    </tr>
+    <tr id='section-2'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-2">&#182;</a>
+        </div>
+        <hr>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    </pre></div>
+      </td>
+    </tr>
+    <tr id='section-3'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-3">&#182;</a>
+        </div>
+        <p>To initialize a <code>Newman::Mailer</code> object, a settings object must be
+provided, i.e:</p>
+
+<pre><code>settings = Newman::Settings.from_file(&lsquo;config/environment.rb&rsquo;)
+mailer   = Newman::Mailer.new(settings)
+</code></pre>
+
+<p>This is done automatically for you by <code>Newman::Server.simple</code>, but must be
+done manually if you are creating a <code>Newman::Server</code> instance from
+scratch.</p>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
       <span class="n">imap</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">imap</span>
       <span class="n">smtp</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">smtp</span>
 
