@@ -43,7 +43,7 @@ Check out [Newman's Rocco-based API documentation](http://mendicant-university.g
 
 ### For general discussion, questions, and ideas about Newman:
 
-Find seacreature in the #newman channel on Freenode or send an email to newman@librelist.org
+Find seacreature or ericgj in the #newman channel on Freenode or send an email to newman@librelist.org
 
 ### Contributing to Newman:
 
