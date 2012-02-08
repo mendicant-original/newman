@@ -43,14 +43,14 @@
         <div class="pilwrap">
           <a class="pilcrow" href="#section-1">&#182;</a>
         </div>
-        
+        <p><code>Newman::TestMailer</code> is a drop-in replacement for <code>Newman::Mailer</code> meant for
+use in automated testing. It is a thin wrapper on top of the built in testing
+functionality provided by the mail gem.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre><span class="k">module</span> <span class="nn">Newman</span>
   <span class="k">class</span> <span class="nc">TestMailer</span>
-    <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="nb">self</span>
-      <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">self</span><span class="o">.</span><span class="n">instance</span> <span class="k">if</span> <span class="n">instance</span></pre></div>
+    <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="nb">self</span></pre></div>
       </td>
     </tr>
     <tr id='section-2'>
@@ -58,13 +58,51 @@
         <div class="pilwrap">
           <a class="pilcrow" href="#section-2">&#182;</a>
         </div>
-        <p>FIXME: It&rsquo;d be nice to find a non-singleton way to do this
-and if it can be found, then Newman::TestMailer needn&rsquo;t 
-be a singleton.</p>
+        <hr>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>      </pre></div>
+      </td>
+    </tr>
+    <tr id='section-3'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-3">&#182;</a>
+        </div>
+        <p>To initialize a <code>Newman::TestMailer</code> object, a settings object must be
+provided, i.e.</p>
+
+<pre><code>settings = Newman::Settings.from_file(&lsquo;config/environment.rb&rsquo;)
+mailer   = Newman::TestMailer.new(settings)
+</code></pre>
+
+<p>However, there are handful of caveats worth knowing about this
+constructing an isntance of this particular object.</p>
+
+<p>1) Most unit tests won&rsquo;t need a <code>Newman::TestMailer</code> object present, and most
+integration tests can make use of <code>Newman::Server.test_mode</code>, preventing
+the need to ever explicitly instantiate a <code>Newman::TestMailer</code> object.</p>
+
+<p>2) Because there isn&rsquo;t an obvious way to work with test objects in the
+underlying mail gem without relying on global state,
+<code>Newman::TestMailer</code> actually implements the singleton pattern and
+returns references to a single instance rather than creating new
+instances. The constructor interface is simply preserved so that it
+can be a drop-in replacement for a <code>Newman::Mailer</code> object.</p>
+
+<p>3) The settings object is not actually used, and is only part of the
+signature for API compatibility reasons.</p>
+
+<p>With these caveats in mind, be sure to think long and hard about whether
+you actually need to build instances of this object yourself before
+doing so :)</p>
 
       </td>
       <td class=code>
-        <div class='highlight'><pre>        <span class="no">Mail</span><span class="o">.</span><span class="n">defaults</span> <span class="k">do</span>
+        <div class='highlight'><pre>      <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">self</span><span class="o">.</span><span class="n">instance</span> <span class="k">if</span> <span class="n">instance</span>
+
+        <span class="no">Mail</span><span class="o">.</span><span class="n">defaults</span> <span class="k">do</span>
           <span class="n">retriever_method</span> <span class="ss">:test</span>
           <span class="n">delivery_method</span>  <span class="ss">:test</span>      
         <span class="k">end</span>
