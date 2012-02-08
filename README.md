@@ -22,7 +22,7 @@ particular:
 * Basic support for maintaining persistent lists of email addresses is
   provided.
 
-* Basic support for email templates are provided via Tilt
+* Basic support for email templates are provided via Tilt.
 
 * A barebones configuration system allows configuring email settings, service
   settings, and application specific settings.
