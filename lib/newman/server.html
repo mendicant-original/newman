@@ -93,8 +93,7 @@ request and response logging support enabled. Calling this method puts
 the server in an infinite polling loop, because its final action is to
 call <code>Newman::Server.run</code>.</p>
 
-<p>The following example gives a rough outline of how to make use of this
-method:</p>
+<p>The following example demonstrates how to make use of this method:</p>
 
 <pre><code>ping_pong = Newman::Application.new do
   subject(:match, &ldquo;ping&rdquo;) do
