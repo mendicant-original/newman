@@ -57,7 +57,9 @@ Newman&rsquo;s logging system.</p>
 <p><code>Newman::ResponseLogger</code> is part of Newman&rsquo;s <strong>internal interface</strong>.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre></pre></div>
+        <div class='highlight'><pre><span class="k">module</span> <span class="nn">Newman</span>  
+
+  <span class="no">ResponseLogger</span> <span class="o">=</span> <span class="no">Object</span><span class="o">.</span><span class="n">new</span></pre></div>
       </td>
     </tr>
     <tr id='section-2'>
@@ -68,7 +70,7 @@ Newman&rsquo;s logging system.</p>
         <hr>
       </td>
       <td class=code>
-        <div class='highlight'><pre><span class="k">module</span> <span class="nn">Newman</span>  </pre></div>
+        <div class='highlight'><pre></pre></div>
       </td>
     </tr>
     <tr id='section-3'>
@@ -84,9 +86,7 @@ it can be inserted at any point and will output the response email object
 at that point in the call chain.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>  <span class="no">ResponseLogger</span> <span class="o">=</span> <span class="no">Object</span><span class="o">.</span><span class="n">new</span>
-
-  <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="no">ResponseLogger</span>
+        <div class='highlight'><pre>  <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="no">ResponseLogger</span>
     <span class="kp">include</span> <span class="no">EmailLogger</span></pre></div>
       </td>
     </tr>
