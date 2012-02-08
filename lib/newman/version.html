@@ -38,6 +38,26 @@
     </tr>
   </thead>
   <tbody>
+    <tr id='section-1'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-1">&#182;</a>
+        </div>
+        <p>Newman::Version is used to determine which version of Newman is currently
+running and is part of Newman&rsquo;s <strong>external api</strong>.</p>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="k">module</span> <span class="nn">Newman</span>
+  <span class="k">module</span> <span class="nn">Version</span>
+    <span class="no">MAJOR</span>  <span class="o">=</span> <span class="mi">0</span>
+    <span class="no">MINOR</span>  <span class="o">=</span> <span class="mi">1</span>
+    <span class="no">TINY</span>   <span class="o">=</span> <span class="mi">1</span>
+    <span class="no">STRING</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="no">MAJOR</span><span class="si">}</span><span class="s2">.</span><span class="si">#{</span><span class="no">MINOR</span><span class="si">}</span><span class="s2">.</span><span class="si">#{</span><span class="no">TINY</span><span class="si">}</span><span class="s2">&quot;</span>
+  <span class="k">end</span>
+<span class="k">end</span></pre></div>
+      </td>
+    </tr>
   </table>
 </div>
 </body>
