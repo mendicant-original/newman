@@ -180,7 +180,8 @@ Otherwise, this method does not modify the mailing list.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-9">&#182;</a>
         </div>
-        <p>Use <code>subscriber?</code> to check if a given email address is on the list, i.e.</p>
+        <p><code>Newman::MailingList#subscriber?</code> is used to check if a given email address 
+is on the list, i.e.</p>
 
 <pre><code>mailing_list.subscriber?(&lsquo;gregory.t.brown@gmail.com&rsquo;)
 </code></pre>
@@ -210,8 +211,8 @@ returns false otherwise.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-11">&#182;</a>
         </div>
-        <p>Use <code>subscribers</code> to access all email addresses for the mailing
-list&rsquo;s subscribers, i.e:</p>
+        <p><code>Newman::MailingList#subscribers</code> is used to access all email addresses for 
+the mailing list&rsquo;s subscribers, i.e:</p>
 
 <pre><code>members = mailing_list.subscribers
 </code></pre>
@@ -230,6 +231,9 @@ list&rsquo;s subscribers, i.e:</p>
           <a class="pilcrow" href="#section-12">&#182;</a>
         </div>
         <hr>
+
+<p><strong>NOTE: Methods below this point in the file are implementation 
+details, and should not be depended upon</strong></p>
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="kp">private</span></pre></div>
@@ -240,8 +244,9 @@ list&rsquo;s subscribers, i.e:</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-13">&#182;</a>
         </div>
-        <p>These accessors are private because they are an implementation detail and
-should not be depended upon.</p>
+        <p>These accessors have been made private to reflect the fact that
+<code>Newman::MailingList</code> objects are meant to point to a single
+named list within a single data store once they are created.</p>
 
       </td>
       <td class=code>
