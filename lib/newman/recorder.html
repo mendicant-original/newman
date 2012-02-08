@@ -144,7 +144,7 @@ recorder object end up making calls to this method.</p>
         <hr>
       </td>
       <td class=code>
-        <div class='highlight'><pre></pre></div>
+        <div class='highlight'><pre>    </pre></div>
       </td>
     </tr>
     <tr id='section-7'>
@@ -159,8 +159,7 @@ automatically generates new ids, starting with <code>id=1</code> for the
 first record and then incrementing sequentially.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre> 
-    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>
       <span class="n">store</span><span class="o">.</span><span class="n">write</span> <span class="k">do</span> <span class="o">|</span><span class="n">data</span><span class="o">|</span> 
         <span class="nb">id</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="o">[</span><span class="ss">:identifiers</span><span class="o">][</span><span class="n">column</span><span class="o">]</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span>
         
