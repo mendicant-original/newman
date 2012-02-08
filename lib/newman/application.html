@@ -427,13 +427,13 @@ details, and should not be depended upon.</strong></p>
         </div>
         <p><code>Newman::Application#trigger_callbacks</code> runs a two step process:</p>
 
-<p>1) Grabs the <code>filter</code> Proc for each callback and executes it, passing in
+<p>1) It grabs the <code>filter</code> Proc for each callback and executes it, passing in
 the provided <code>controller</code>. Any <code>filter</code> proc that returns a logically true
 value is selected to be run.</p>
 
-<p>2) If the selection of <code>matched_callbacks</code> is empty, execute the default
-callback. Otherwise, run each callback in sequence, in the context of a
-controller object.</p>
+<p>2) If the selection of <code>matched_callbacks</code> is empty, it executes the default
+callback in the context of a controller object. Otherwise, it runs each 
+callback in sequence, in the context of a controller object.</p>
 
 <p>This method has some issues, in that it relies on awkward state mutations
 that could be either done in a better way or replaced with a mostly
