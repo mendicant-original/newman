@@ -75,7 +75,7 @@ Newman&rsquo;s logging system.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-3">&#182;</a>
         </div>
-        <p>The <code>log_email</code> method takes a logger object, a prefix, and a <code>Mail</code> object and 
+        <p>The <code>Newman::EmailLogger#log_email</code> method takes a logger object, a prefix, and a <code>Mail</code> object and 
 then outputs relevant debugging details. </p>
 
 <p>This method always at least provides a summary of the provided <code>email</code>
@@ -111,7 +111,7 @@ for those who are rolling their own logging functionality.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-5">&#182;</a>
         </div>
-        <p>The <code>summary</code> method returns a hash with a summary of the provided <code>email</code>. It is
+        <p>The <code>Newman::EmailLogger#summary</code> method returns a hash with a summary of the provided <code>email</code>. It is
 an implementation detail and should not be depended upon.</p>
 
       </td>
