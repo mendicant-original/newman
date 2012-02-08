@@ -163,7 +163,13 @@ discover what options are available.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-9">&#182;</a>
         </div>
-        <p>TODO</p>
+        <p><code>Newman::Controller#template</code> is used to invoke a template file within the
+context of the current controller object. A name for the template is
+provided and then looked up in the directory referenced by
+<code>settings.service.templates_dir</code>. While an example of using templates is 
+included in Newman&rsquo;s source, this feature hasn&rsquo;t really been tested 
+adequately. Please report any problems with this method in our 
+<a href="https://github.com/mendicant-university/newman/issues">issue tracker</a>.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">template</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
