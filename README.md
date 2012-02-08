@@ -41,6 +41,19 @@ simple examples in this repository.
 
 Check out [Newman's Rocco-based API documentation](http://mendicant-university.github.com/newman/lib/newman.html).
 
-### For general discussion, questions, and ideas about newman:
+### For general discussion, questions, and ideas about Newman:
 
 Find seacreature in the #newman channel on Freenode or send an email to newman@librelist.org
+
+## Contributing
+
+We do not yet have a clear roadmap or contributor guidelines, so be sure to talk
+to us before working on bug fixes or patches. But assuming you do want to send
+us some code, here is what you need to know:
+
+* You get to keep the copyright to your code, but you must agree to license it
+  under the MIT license.
+
+* Your code should come with tests. Integration tests are fine, but unit tests
+  would be nice where appropriate. Right now Newman is under tested and we don't
+  want to make that problem worse.
