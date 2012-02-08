@@ -193,16 +193,27 @@ for details.</p>
         <p>Use the <code>deliver_message</code> method to construct and immediately deliver a
 message using the delivery settings that were set up at initialization
 time.</p>
-
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">deliver_message</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span>
       <span class="n">new_message</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">deliver</span>
     <span class="k">end</span>
 
-    <span class="kp">private</span>
+    <span class="kp">private</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-10'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-10">&#182;</a>
+        </div>
+        <p>These accessors are private because they are an implementation detail 
+and should not be depended upon. <code>Newman::Mailer</code> objects should be
+treated as immutable constructs.</p>
 
-    <span class="kp">attr_accessor</span> <span class="ss">:retriever_settings</span><span class="p">,</span> <span class="ss">:delivery_settings</span>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="kp">attr_accessor</span> <span class="ss">:retriever_settings</span><span class="p">,</span> <span class="ss">:delivery_settings</span>
   <span class="k">end</span>
 <span class="k">end</span></pre></div>
       </td>
