@@ -97,6 +97,22 @@ developers.</p></li>
 
 <h3>Internal Interface (for extension developers)</h3>
 
+<ul>
+<li><p><a href="http://mendicant-university.github.com/newman/lib/newman/email_logger.html">Newman::EmailLogger</a>
+provides rudimentary logging support for email objects, and primarily exists to 
+support the <code>Newman::RequestLogger</code> and <code>Newman::ResponseLogger</code> objects.</p></li>
+<li><p><a href="http://mendicant-university.github.com/newman/lib/newman/request_logger.html">Newman::RequestLogger</a>
+provides a mechanism for logging information about incoming emails.</p></li>
+<li><p><a href="http://mendicant-university.github.com/newman/lib/newman/response_logger.html">Newman::ResponseLogger</a>
+provides a mechanism for logging information about outgoing emails.</p></li>
+<li><p><a href="http://mendicant-university.github.com/newman/lib/newman/mailer.html">Newman::Mailer</a> provides a thin
+wrapper on top of the <a href="http://github.com/mikel/mail">mail gem</a> which is
+designed to have a minimal API so that it can easily be swapped out with
+another mailer object.</p></li>
+<li><p><a href="http://mendicant-university.github.com/newman/lib/newman/test_mailer.html">Newman::TestMailer</a> 
+is a drop-in replacement for <code>Newman::Mailer</code> meant for use in automated testing. </p></li>
+</ul>
+
       </td>
       <td class=code>
         <div class='highlight'><pre> 
