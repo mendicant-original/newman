@@ -441,8 +441,7 @@ replaced with a mostly stateless approach. We will look at fixing
 this in a future Newman release.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre> 
-    <span class="k">def</span> <span class="nf">trigger_callbacks</span><span class="p">(</span><span class="n">controller</span><span class="p">)</span>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">trigger_callbacks</span><span class="p">(</span><span class="n">controller</span><span class="p">)</span>
       <span class="n">matched_callbacks</span> <span class="o">=</span> <span class="n">callbacks</span><span class="o">.</span><span class="n">select</span> <span class="k">do</span> <span class="o">|</span><span class="n">e</span><span class="o">|</span> 
         <span class="n">filter</span> <span class="o">=</span> <span class="n">e</span><span class="o">[</span><span class="ss">:filter</span><span class="o">]</span>
         <span class="n">e</span><span class="o">[</span><span class="ss">:match_data</span><span class="o">]</span> <span class="o">=</span> <span class="n">filter</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">controller</span><span class="p">)</span>
