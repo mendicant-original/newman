@@ -54,6 +54,10 @@ need to worry about how this object is implemented. Both
 <code>Newman::Server.simple</code> and <code>Newman::Server.test_mode</code> create a
 <code>Newman::Settings</code> object for you automatically, and you will typically be
 tweaking a sample settings file rather than crafting one from scratch.</p>
+
+<p>The <code>Newman::Settings</code> is part of Newman&rsquo;s <strong>internal API</strong>, but the setting
+file format and various settings that Newman depends on should be considered
+part of the <strong>external API</strong>.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre><span class="k">module</span> <span class="nn">Newman</span> 
