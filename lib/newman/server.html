@@ -163,12 +163,12 @@ mailer.messages.first.subject.must_equal(&quot;pong&rdquo;)
 <p>It&rsquo;s worth mentioning that although <code>Newman::Server.test_mode</code> is part of
 our external interface, the <code>Newman::TestMailer</code> object is considered part
 of our internals. This is due to some ugly issues with global state and
-the overall brittleness of the current implementation. Please proceed with
-caution if you wish to use this feature.</p>
+the overall brittleness of the current implementation. Expect a bit of
+weirdness if you plan to use this feature, at least until we improve upon
+it.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    
-    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">test_mode</span><span class="p">(</span><span class="n">settings_file</span><span class="p">)</span>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">test_mode</span><span class="p">(</span><span class="n">settings_file</span><span class="p">)</span>
       <span class="n">settings</span> <span class="o">=</span> <span class="no">Settings</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="n">settings_file</span><span class="p">)</span>
       <span class="n">mailer</span>   <span class="o">=</span> <span class="no">TestMailer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
 
