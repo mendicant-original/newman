@@ -277,7 +277,8 @@ need to be fixed in a future version of Newman. Patches welcome!</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-15">&#182;</a>
         </div>
-        <p>TODO</p>
+        <p><strong>NOTE: Methods below this point in the file are implementation 
+details, and should not be depended upon</strong></p>
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="kp">private</span></pre></div>
@@ -299,7 +300,9 @@ need to be fixed in a future version of Newman. Patches welcome!</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-17">&#182;</a>
         </div>
-        <p>TODO</p>
+        <p>These accessors have been made private to reflect the fac that
+<code>Newman::Recorder</code> objects are meant to point to a single column within a
+single data store once created.</p>
 
       </td>
       <td class=code>
