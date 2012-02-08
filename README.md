@@ -58,6 +58,10 @@ us some code, here is what you need to know:
   would be nice where appropriate. Right now Newman is under tested and we don't
   want to make that problem worse.
 
+* Newman is taking a use-case oriented approach to design. Be prepared to
+  justify any proposed change with real or realistic scenarios, rather than
+  simply addressing theoretical concerns.
+
 ### Authorship:
 
 Newman is being developed by [Gregory Brown](http://community.mendicantuniversity.org/people/sandal)
