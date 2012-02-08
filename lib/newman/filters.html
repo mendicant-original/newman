@@ -74,7 +74,7 @@ are used and can treat their implementation details as a black box.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-3">&#182;</a>
         </div>
-        <p>The <code>Newman::Filters#to</code> method takes a <code>filter_type</code>, a <code>pattern</code>, 
+        <p><code>Newman::Filters#to</code> takes a <code>filter_type</code>, a <code>pattern</code>, 
 and an <code>action</code> and then registers a callback which gets run for 
 each new request the application handles. If the filter matches the 
 incoming message, the <code>action</code> block gets run in the context of
@@ -151,7 +151,7 @@ whole email address at some point in the future.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-5">&#182;</a>
         </div>
-        <p>The <code>Newman::Filters#subject</code> method takes a <code>filter_type</code>, 
+        <p><code>Newman::Filters#subject</code> takes a <code>filter_type</code>, 
 a <code>pattern</code>, and an <code>action</code> and
 then registers a callback which gets run for each new request the
 application handles. If the filter matches the incoming message, the
