@@ -38,6 +38,69 @@
     </tr>
   </thead>
   <tbody>
+    <tr id='section-1'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-1">&#182;</a>
+        </div>
+        <p><code>Newman::Mailer</code> allows you to easily receive mail via IMAP and send mail via
+SMTP, and is the default mailing strategy used by <code>Newman::Server.simple</code>.
+This class mostly exists to serve as an adapter that bridges the gap between
+the mail gem and Newman&rsquo;s configuration system. </p>
+
+<p><code>Newman::Mailer</code>&rsquo;s interface is intentionally minimal so that other objects
+can easily stand in for it as long as they respond to the same set of
+messages. Be sure to see <code>Newman::TestMailer</code> for an example of how to build a
+custom object that can be used in place of a <code>Newman::Mailer</code> object.</p>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="k">module</span> <span class="nn">Newman</span>
+  <span class="k">class</span> <span class="nc">Mailer</span>
+    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+      <span class="n">imap</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">imap</span>
+      <span class="n">smtp</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">smtp</span>
+
+      <span class="nb">self</span><span class="o">.</span><span class="n">retriever_settings</span> <span class="o">=</span> <span class="p">{</span>
+         <span class="ss">:address</span>    <span class="o">=&gt;</span> <span class="n">imap</span><span class="o">.</span><span class="n">address</span><span class="p">,</span>
+         <span class="ss">:user_name</span>  <span class="o">=&gt;</span> <span class="n">imap</span><span class="o">.</span><span class="n">user</span><span class="p">,</span>
+         <span class="ss">:password</span>   <span class="o">=&gt;</span> <span class="n">imap</span><span class="o">.</span><span class="n">password</span><span class="p">,</span>
+         <span class="ss">:enable_ssl</span> <span class="o">=&gt;</span> <span class="n">imap</span><span class="o">.</span><span class="n">ssl_enabled</span> <span class="o">||</span> <span class="kp">false</span><span class="p">,</span>
+         <span class="ss">:port</span>       <span class="o">=&gt;</span> <span class="n">imap</span><span class="o">.</span><span class="n">port</span>
+      <span class="p">}</span>
+      
+      <span class="nb">self</span><span class="o">.</span><span class="n">delivery_settings</span> <span class="o">=</span> <span class="p">{</span>
+         <span class="ss">:address</span>              <span class="o">=&gt;</span> <span class="n">smtp</span><span class="o">.</span><span class="n">address</span><span class="p">,</span>
+         <span class="ss">:user_name</span>            <span class="o">=&gt;</span> <span class="n">smtp</span><span class="o">.</span><span class="n">user</span><span class="p">,</span>
+         <span class="ss">:password</span>             <span class="o">=&gt;</span> <span class="n">smtp</span><span class="o">.</span><span class="n">password</span><span class="p">,</span>
+         <span class="ss">:authentication</span>       <span class="o">=&gt;</span> <span class="ss">:plain</span><span class="p">,</span>
+         <span class="ss">:enable_starttls_auto</span> <span class="o">=&gt;</span> <span class="n">smtp</span><span class="o">.</span><span class="n">starttls_enabled</span> <span class="o">||</span> <span class="kp">false</span><span class="p">,</span>
+         <span class="ss">:port</span>                 <span class="o">=&gt;</span> <span class="n">smtp</span><span class="o">.</span><span class="n">port</span>
+      <span class="p">}</span>
+    <span class="k">end</span>
+    
+    <span class="k">def</span> <span class="nf">messages</span>
+      <span class="no">Mail</span><span class="o">::</span><span class="no">IMAP</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">retriever_settings</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="ss">:delete_after_find</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">new_message</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span>
+      <span class="n">msg</span> <span class="o">=</span> <span class="no">Mail</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span>
+      <span class="n">msg</span><span class="o">.</span><span class="n">delivery_method</span><span class="p">(</span><span class="ss">:smtp</span><span class="p">,</span> <span class="n">delivery_settings</span><span class="p">)</span>
+
+      <span class="n">msg</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">deliver_message</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span>
+      <span class="n">new_message</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">deliver</span>
+    <span class="k">end</span>
+
+    <span class="kp">private</span>
+
+    <span class="kp">attr_accessor</span> <span class="ss">:retriever_settings</span><span class="p">,</span> <span class="ss">:delivery_settings</span>
+  <span class="k">end</span>
+<span class="k">end</span></pre></div>
+      </td>
+    </tr>
   </table>
 </div>
 </body>
