@@ -149,7 +149,8 @@ whole email address at some point in the future.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-5">&#182;</a>
         </div>
-        <p>The <code>subject</code> method takes a <code>filter_type</code>, a <code>pattern</code>, and an <code>action</code> and
+        <p>The <code>Newman::Filters#subject</code> method takes a <code>filter_type</code>, 
+a <code>pattern</code>, and an <code>action</code> and
 then registers a callback which gets run for each new request the
 application handles. If the filter matches the incoming message, the
 <code>action</code> block gets run in the context of a <code>Newman::Controller</code> object.
