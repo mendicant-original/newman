@@ -111,12 +111,15 @@ designed to have a minimal API so that it can easily be swapped out with
 another mailer object.</p></li>
 <li><p><a href="http://mendicant-university.github.com/newman/lib/newman/test_mailer.html">Newman::TestMailer</a> 
 is a drop-in replacement for <code>Newman::Mailer</code> meant for use in automated testing. </p></li>
+<li><p><a href="http://mendicant-university.github.com/newman/lib/newman/settings.html">Newman::Settings</a> provides
+the base functionality that is used by Newman&rsquo;s configuration files. Note
+that while this object is part of the internals, the settings actually used
+by Newman should be considered part of the external API.</p></li>
 </ul>
 
       </td>
       <td class=code>
-        <div class='highlight'><pre> 
-<span class="nb">require</span> <span class="s2">&quot;logger&quot;</span>
+        <div class='highlight'><pre><span class="nb">require</span> <span class="s2">&quot;logger&quot;</span>
 <span class="nb">require</span> <span class="s2">&quot;pstore&quot;</span>
 <span class="nb">require</span> <span class="s2">&quot;ostruct&quot;</span>
 <span class="nb">require</span> <span class="s2">&quot;fileutils&quot;</span>
