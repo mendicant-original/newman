@@ -85,17 +85,22 @@ you and is the easiest way to run a single Newman application.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-3">&#182;</a>
         </div>
-        <p><code>Newman::Server.test_mode</code> automatically generates a <code>Newman::TestMailer</code> object
-and <code>Newman::Settings</code> object from the provided <code>settings_file</code>. These
+        <p><code>Newman::Server.simple</code> automatically generates a <code>Newman::Mailer</code> object
+and <code>Newman::Settings</code> object from the privded <code>settings_file</code>. These
 objects are then passed on to <code>Newman::Server.new</code> and a server instance
-which is preconfigured for use in integration testing is returned.</p>
+is created. The server object is set up to run the specified <code>app</code>, with
+request and response logging support enabled. Calling this method puts
+the server in an infinite polling loop, because its final action is to
+call <code>Newman::Server.run</code>.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">test_mode</span><span class="p">(</span><span class="n">settings_file</span><span class="p">)</span>
-      <span class="n">settings</span> <span class="o">=</span> <span class="no">Settings</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="n">settings_file</span><span class="p">)</span>
-      <span class="n">mailer</span>   <span class="o">=</span> <span class="no">TestMailer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">simple</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">settings_file</span><span class="p">)</span>
+      <span class="n">settings</span>     <span class="o">=</span> <span class="no">Settings</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="n">settings_file</span><span class="p">)</span>
+      <span class="n">mailer</span>       <span class="o">=</span> <span class="no">Mailer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+      <span class="n">server</span>       <span class="o">=</span> <span class="kp">new</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">mailer</span><span class="p">)</span>
+      <span class="n">server</span><span class="o">.</span><span class="n">apps</span> <span class="o">=</span> <span class="o">[</span><span class="no">RequestLogger</span><span class="p">,</span> <span class="n">app</span><span class="p">,</span> <span class="no">ResponseLogger</span><span class="o">]</span>
 
-      <span class="kp">new</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">mailer</span><span class="p">)</span>
+      <span class="n">server</span><span class="o">.</span><span class="n">run</span>
     <span class="k">end</span></pre></div>
       </td>
     </tr>
@@ -115,16 +120,17 @@ which is preconfigured for use in integration testing is returned.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-5">&#182;</a>
         </div>
-        <p>TODO</p>
+        <p><code>Newman::Server.test_mode</code> automatically generates a <code>Newman::TestMailer</code> object
+and <code>Newman::Settings</code> object from the provided <code>settings_file</code>. These
+objects are then passed on to <code>Newman::Server.new</code> and a server instance
+which is preconfigured for use in integration testing is returned.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">simple</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">settings_file</span><span class="p">)</span>
-      <span class="n">settings</span>     <span class="o">=</span> <span class="no">Settings</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="n">settings_file</span><span class="p">)</span>
-      <span class="n">mailer</span>       <span class="o">=</span> <span class="no">Mailer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
-      <span class="n">server</span>       <span class="o">=</span> <span class="kp">new</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">mailer</span><span class="p">)</span>
-      <span class="n">server</span><span class="o">.</span><span class="n">apps</span> <span class="o">=</span> <span class="o">[</span><span class="no">RequestLogger</span><span class="p">,</span> <span class="n">app</span><span class="p">,</span> <span class="no">ResponseLogger</span><span class="o">]</span>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">test_mode</span><span class="p">(</span><span class="n">settings_file</span><span class="p">)</span>
+      <span class="n">settings</span> <span class="o">=</span> <span class="no">Settings</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="n">settings_file</span><span class="p">)</span>
+      <span class="n">mailer</span>   <span class="o">=</span> <span class="no">TestMailer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
 
-      <span class="n">server</span><span class="o">.</span><span class="n">run</span>
+      <span class="kp">new</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">mailer</span><span class="p">)</span>
     <span class="k">end</span></pre></div>
       </td>
     </tr>
