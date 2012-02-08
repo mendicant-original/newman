@@ -51,14 +51,24 @@ way.</p>
 sure to check out <a href="https://github.com/mendicant-university/jester">Jester</a>.</p>
 
 <p><code>Newman::Application</code> is part of Newman&rsquo;s <strong>external interface</strong></p>
-
       </td>
       <td class=code>
         <div class='highlight'><pre><span class="k">module</span> <span class="nn">Newman</span> 
   <span class="k">class</span> <span class="nc">Application</span>
-    <span class="kp">include</span> <span class="no">Filters</span>
 
-    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+    <span class="kp">include</span> <span class="no">Filters</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-2'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-2">&#182;</a>
+        </div>
+        <p>To initialize a <code>Newman::Application</code> object</p>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
       <span class="nb">self</span><span class="o">.</span><span class="n">callbacks</span>  <span class="o">=</span> <span class="o">[]</span>
       <span class="nb">self</span><span class="o">.</span><span class="n">matchers</span>   <span class="o">=</span> <span class="p">{}</span>
       <span class="nb">self</span><span class="o">.</span><span class="n">extensions</span> <span class="o">=</span> <span class="o">[]</span>
