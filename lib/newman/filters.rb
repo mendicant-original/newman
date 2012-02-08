@@ -1,18 +1,23 @@
-# The `Newman::Filters` module provides the standard filtering mechanisms for 
-# Newman applications. Unless you are building a server-side extension for
+# `Newman::Filters` provides the standard filtering mechanisms for 
+# Newman applications. 
+#
+# Unless you are building a server-side extension for
 # Newman, you probably only need to be familiar with how these filter methods
 # are used and can treat their implementation details as a black box.
+#
+# `Newman::Filters` is part of Newman's **external interface**.
 
 module Newman 
   module Filters
-
+    
     # ---
-
-    # The `to` method takes a `filter_type`, a `pattern`, and an `action` and
-    # then registers a callback which gets run for each new request the
-    # application handles. If the filter matches the incoming message, the
-    # `action` block gets run in the context of a `Newman::Controller` object.
-    # Otherwise, the `action` block does not get run at all.
+    
+    # `Newman::Filters#to` takes a `filter_type`, a `pattern`, 
+    # and an `action` and then registers a callback which gets run for 
+    # each new request the application handles. If the filter matches the 
+    # incoming message, the `action` block gets run in the context of
+    # a `Newman::Controller` object. Otherwise, the `action` block 
+    # does not get run at all.
     #
     # Currently, the only supported `filter_type` is `:tag`, which leverages the
     # `+` extension syntax for email addresses to filter out emails with certain
@@ -48,7 +53,7 @@ module Newman
     # `service.domain` setting. It'd be nice to make this a bit more 
     # flexible and also support other filter types such as a match against the
     # whole email address at some point in the future.
-    
+
     def to(filter_type, pattern, &action)
       raise NotImplementedError unless filter_type == :tag
 
@@ -66,7 +71,8 @@ module Newman
 
     # ---
 
-    # The `subject` method takes a `filter_type`, a `pattern`, and an `action` and
+    # `Newman::Filters#subject` takes a `filter_type`, 
+    # a `pattern`, and an `action` and
     # then registers a callback which gets run for each new request the
     # application handles. If the filter matches the incoming message, the
     # `action` block gets run in the context of a `Newman::Controller` object.

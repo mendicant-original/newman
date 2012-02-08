@@ -1,6 +1,15 @@
 # `Newman::TestMailer` is a drop-in replacement for `Newman::Mailer` meant for
 # use in automated testing. It is a thin wrapper on top of the built in testing
 # functionality provided by the mail gem.
+#
+# `Newman::TestMailer` may be a useful tool for Newman application developers,
+# at some point but is a bit tricky to work with due to the fact that it 
+# relies on global state. This is a known issue and will hopefully be solved in
+# a future version of Newman.
+#
+# `Newman::TestMailer` is part of Newman's **internal interface**, but may
+# become part of the **external interface** if we can make it less brittle.
+# Patches are welcome!
 
 module Newman
   class TestMailer
@@ -50,7 +59,7 @@ module Newman
 
     # ---
 
-    # Use the `messages` method to retrieve all messages currently in the inbox
+    # `Newman::TestMailer#messages` is used to retrieve all messages currently in the inbox
     # and then delete them from the underlying `Mail::TestMailer` object so that
     # the inbox gets cleared. This method returns an array of
     # `Mail::Message` objects if any messages were found, and returns
@@ -69,7 +78,7 @@ module Newman
 
     # ---
     
-    # Use the `new_message` method to construct a new `Mail::Message` object,
+    # `Newman::TestMailer#new_message` is used to construct a new `Mail::Message` object,
     # with the delivery settings set to test mode. 
     # This method passes all its arguments on to `Mail.new`, so be sure 
     # to refer to the [mail gem's documentation](http://github.com/mikel/mail)
@@ -81,7 +90,7 @@ module Newman
 
     # ---
 
-    # Use the `deliver_message` method to construct and immediately deliver a
+    # `Newman::TestMailer#deliver_message` method is used to construct and immediately deliver a
     # message with the delivery settings set to test mode.
 
     def deliver_message(*a, &b)

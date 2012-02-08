@@ -1,4 +1,4 @@
-# Newman supports rudimentary request and response logging functionality, which is
+# `Newman::ResponseLogger` supports rudimentary response logging functionality, which is
 # enabled by default when `Newman::Server.simple` is used to execute your
 # applications. 
 #
@@ -8,6 +8,8 @@
 # `service.debug_mode = true` to your configuration file, or set the Ruby 
 # `$DEBUG` global variable, you will get much more verbose output from 
 # Newman's logging system.
+#
+# `Newman::ResponseLogger` is part of Newman's **internal interface**.
 
 # ---
 
@@ -27,9 +29,10 @@ module Newman
 
     # ---
 
-    # The `call` method simply delegates to `EmailLogger#log_email`, passing it
-    # a logger instance, the `"RESPONSE"` prefix for the log line, and an instance
-    # of an email object. See `Newman::Server.tick` and `Newman::EmailLogger#log_email`
+    # `Newman::ResponseLogger#call` simply delegates to 
+    # `EmailLogger#log_email`, passing it a logger instance, the 
+    # `"RESPONSE"` prefix for the log line, and an instance of an email 
+    # object. See `Newman::Server.tick` and `Newman::EmailLogger#log_email`
     # for details.
 
     def call(params)

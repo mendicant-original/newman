@@ -1,6 +1,6 @@
-# Newman supports rudimentary request and response logging functionality, which is
-# enabled by default when `Newman::Server.simple` is used to execute your
-# applications. 
+# `Newman::EmailLogger` provides rudimentary logging support for email objects,
+# and primarily exists to support the `Newman::RequestLogger` and
+# `Newman::ResponseLogger` objects.
 #
 # If you are only interested in making use of this logging functionality and not
 # extending it or changing it in some way, you do not need to be familiar with
@@ -8,13 +8,15 @@
 # `service.debug_mode = true` to your configuration file, or set the Ruby 
 # `$DEBUG` global variable, you will get much more verbose output from 
 # Newman's logging system.
+#
+# `Newman::EmailLogger` is part of Newman's **internal interface**.
 
 module Newman
   module EmailLogger
 
     # ---
 
-    # The `log_email` method takes a logger object, a prefix, and a `Mail` object and 
+    # `Newman::EmailLogger#log_email` takes a logger object, a prefix, and a `Mail` object and 
     # then outputs relevant debugging details. 
     #
     # This method always at least provides a summary of the provided `email`
@@ -32,10 +34,14 @@ module Newman
 
     # ---
     
-    private
+    # **NOTE: Methods below this point in the file are implementation details, 
+    # and should not be depended upon**
     
-    # The `summary` method returns a hash with a summary of the provided `email`. It is
-    # an implementation detail and should not be depended upon.
+    private
+
+    # ---
+    
+    # `Newman::EmailLogger#email_summary` returns a hash with a summary of the provided `email` object. 
     
     def email_summary(email)
       { :from     => email.from,

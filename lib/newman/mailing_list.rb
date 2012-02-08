@@ -1,7 +1,11 @@
 # `Newman::MailingList` implements a simple mechanism for storing lists of email
-# addresses keyed by a name. This is meant to be used in conjunction with a
+# addresses keyed by a mailing list name. 
+#
+# This object is meant to be used in conjunction with a
 # `Newman::Store` object which is `PStore` backed, but would fairly easily map to
-# arbitrary data stores via adapter objects.
+# arbitrary data stores via adapter objects. 
+#
+# `Newman::MailingList` is part of Newman's **external interface**.
 
 module Newman
   class MailingList
@@ -21,7 +25,8 @@ module Newman
 
     # ---
     
-    # Use `subscribe` to add subscribers to the mailing list, i.e.
+    # `Newman::MailingList#subscribe` is used to add subscribers to 
+    # the mailing list, i.e.
     #
     #     mailing_list.subscribe('gregory.t.brown@gmail.com')
     #
@@ -41,7 +46,8 @@ module Newman
 
     # ---
     
-    # Use `unsubscribe` to remove subscribers from the mailing list, i.e.
+    # `Newman::MailingList#unsubscribe` is used to remove subscribers from 
+    # the mailing list, i.e.
     #
     #     mailing_list.unsubscribe('gregory.t.brown@gmail.com')
     #
@@ -63,7 +69,8 @@ module Newman
 
     # ---
 
-    # Use `subscriber?` to check if a given email address is on the list, i.e.
+    # `Newman::MailingList#subscriber?` is used to check if a given email address 
+    # is on the list, i.e.
     #
     #     mailing_list.subscriber?('gregory.t.brown@gmail.com')
     #
@@ -76,8 +83,8 @@ module Newman
 
     # ---
 
-    # Use `subscribers` to access all email addresses for the mailing
-    # list's subscribers, i.e:
+    # `Newman::MailingList#subscribers` is used to access all email addresses for 
+    # the mailing list's subscribers, i.e:
     #
     #     members = mailing_list.subscribers
     #
@@ -89,10 +96,16 @@ module Newman
 
     # ---
 
+    # **NOTE: Methods below this point in the file are implementation 
+    # details, and should not be depended upon**
+
     private
 
-    # These accessors are private because they are an implementation detail and
-    # should not be depended upon.
+    # ---
+
+    # These accessors have been made private to reflect the fact that
+    # `Newman::MailingList` objects are meant to point to a single
+    # named list within a single data store once they are created.
     
     attr_accessor :name, :store
   end

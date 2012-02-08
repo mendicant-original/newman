@@ -1,9 +1,8 @@
 ![Newman](http://i.imgur.com/92bZB.jpg)
 
-This is going to be an experiment in building a simple framework for developing
-email-based applications. It is based on ideas from an exercise in 
-Mendicant University's January 2012 core skills course, and also serves as a
-demo application for an article in the Practicing Ruby Journal.
+Newman exists to make building simple email based applications as easy as
+Sinatra makes building simple web applications, and to make sharing useful email
+processing extensions as easy as Rack makes sharing web framework extensions.
 
 ### For a demonstration of how Newman is used:
 

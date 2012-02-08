@@ -3,10 +3,13 @@
 # This class mostly exists to serve as an adapter that bridges the gap between
 # the mail gem and Newman's configuration system. 
 #
-# `Newman::Mailer`'s interface minimal by design so that other objects
+# `Newman::Mailer`'s interface is minimal by design so that other objects
 # can easily stand in for it as long as they respond to the same set of
 # messages. Be sure to see `Newman::TestMailer` for an example of how to build a
 # custom object that can be used in place of a `Newman::Mailer` object.
+#
+#
+# `Newman::Mailer` is part of Newman's **internal interface**.
 
 module Newman
   class Mailer
@@ -52,7 +55,7 @@ module Newman
 
     # ---
 
-    # Use the `messages` method to retrieve all messages currently in the inbox
+    # `Newman::Mailer#messages` is used to retrieve all messages currently in the inbox
     # and then delete them from the server. This method returns an array of
     # `Mail::Message` objects if any messages were found, and returns
     # an empty array otherwise.
@@ -63,7 +66,7 @@ module Newman
 
     # ---
     
-    # Use the `new_message` method to construct a new `Mail::Message` object,
+    # `Newman::Mailer#new_message` is used to construct a new `Mail::Message` object,
     # with the delivery settings that were set up at initialization time. 
     # This method passes all its arguments on to `Mail.new`, so be sure 
     # to refer to the [mail gem's documentation](http://github.com/mikel/mail)
@@ -78,7 +81,7 @@ module Newman
 
     # ---
     
-    # Use the `deliver_message` method to construct and immediately deliver a
+    # `Newman::Mailer#deliver_message` is used to construct and immediately deliver a
     # message using the delivery settings that were set up at initialization
     # time.
 
@@ -88,11 +91,16 @@ module Newman
 
     # ---
 
+    # **NOTE: Methods below this point in the file are implementation 
+    # details, and should not be depended upon**
+
     private
 
-    # These accessors are private because they are an implementation detail 
-    # and should not be depended upon. `Newman::Mailer` objects should be
-    # treated as immutable constructs.
+    # ---
+
+    # These accessors have been made private to reflect the fact that
+    # `Newman::Mailer` objects are meant to be treated as immutable constructs
+    # once they are created.
 
     attr_accessor :retriever_settings, :delivery_settings
   end
