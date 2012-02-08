@@ -5,7 +5,8 @@ applications what Rack and Sinatra have done for web programming. It is
 currently in its very early experimental stages, and is not safe for use in
 production. 
 
-That said, it is already capable of doing a number of interesting things:
+That said, Newman is already capable of doing a number of interesting things. In
+particular:
 
 * A simple polling server provides a basic interface for
   reading email from a single inbox and then building up a response email.
@@ -14,6 +15,17 @@ That said, it is already capable of doing a number of interesting things:
 
 * Filters can also be defined for handling messages based on arbitrary
   conditions evaluated against a `Mail::Messsage` object.
+
+* A rudimentary PStore backed storage mechanism is provided for persistence.
+
+* Basic support for maintaining persistent lists of email addresses is
+  provided.
+
+* Basic support for email templates are provided via Tilt
+
+* A barebones configuration system that allows configuring email settings, service
+  settings, and application specific settings is provided.
+
 
 ### For a demonstration of how Newman is used:
 
