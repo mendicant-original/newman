@@ -153,9 +153,9 @@ especially useful on its own.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-7">&#182;</a>
         </div>
-        <p><code>Newman::Application#default</code> provides a way to define a default callback
-to run when no other callbacks match the incoming request. For example,
-you can define a callback such as the one below:</p>
+        <p><code>Newman::Application#default</code> is used to define a default callback
+which will run when no other callbacks match the incoming request.
+For example, you can define a callback such as the one below:</p>
 
 <pre><code>default do
   respond(:subject =&gt; &ldquo;REQUEST NOT UNDERSTOOD&rdquo;)
@@ -190,10 +190,11 @@ in a future version of Newman.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-9">&#182;</a>
         </div>
-        <p><code>Newman:::Application#use</code> stores a module to be mixed in to the
-controller object created each time <code>Newman::Application#call</code>
-is run. This allows an application object to provide extensions
-for use within its callbacks, as in the example shown below.</p>
+        <p><code>Newman:::Application#use</code> is used to register the extension 
+modules that get mixed in to the controller 
+objects created by <code>Newman::Application#call</code>. This allows 
+an application object to provide extensions for use within its 
+callbacks, as in the example shown below.</p>
 
 <pre><code>module ListLoader
   def load_list(name)
@@ -300,7 +301,7 @@ probably a better tool to use.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-13">&#182;</a>
         </div>
-        <p>TODO</p>
+        <p><code>Newman::Application#match</code> is used to</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">match</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span>
