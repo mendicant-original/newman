@@ -48,7 +48,7 @@ SMTP, and is the default mailing strategy used by <code>Newman::Server.simple</c
 This class mostly exists to serve as an adapter that bridges the gap between
 the mail gem and Newman&rsquo;s configuration system. </p>
 
-<p><code>Newman::Mailer</code>&rsquo;s interface is intentionally minimal so that other objects
+<p><code>Newman::Mailer</code>&rsquo;s interface minimal by design so that other objects
 can easily stand in for it as long as they respond to the same set of
 messages. Be sure to see <code>Newman::TestMailer</code> for an example of how to build a
 custom object that can be used in place of a <code>Newman::Mailer</code> object.</p>
