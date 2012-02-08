@@ -60,8 +60,7 @@ functionality provided by the mail gem.</p>
         <hr>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="nb">self</span>
-      </pre></div>
+        <div class='highlight'><pre>      </pre></div>
       </td>
     </tr>
     <tr id='section-3'>
@@ -98,7 +97,8 @@ you actually need to explicitly build instances of this object before
 doing so :)</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>      <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+        <div class='highlight'><pre>    <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="nb">self</span>
+      <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">self</span><span class="o">.</span><span class="n">instance</span> <span class="k">if</span> <span class="n">instance</span>
 
         <span class="no">Mail</span><span class="o">.</span><span class="n">defaults</span> <span class="k">do</span>
