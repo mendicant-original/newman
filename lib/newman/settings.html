@@ -158,7 +158,11 @@ future version of Newman.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-7">&#182;</a>
         </div>
-        <p>TODO</p>
+        <p>The Newman::Settings#load_config method accepts a <code>filename</code> and evaluates
+the contents of that file within the context of a <code>Newman::Settings</code>
+instance. In practice, this method is typically used by
+<code>Newman::Settings#from_file</code>, but can also be used to apply
+multiple settings files to a single <code>Newman::Settings</code> object</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">load_config</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
