@@ -117,9 +117,14 @@ directly but instead will make use of a configuration file and the
 files in its <code>examples/</code> and <code>test/</code> directories, and applications should do the
 same. This will help users discover what fields can be set.</p>
 
+<p>We are aware of the fact that the current configuration system is way too
+flexible and a breeding ground for subtle bugs. This will be fixed in a
+future version of Newman.</p>
+
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">initialize</span>
+        <div class='highlight'><pre>    
+    <span class="k">def</span> <span class="nf">initialize</span>
       <span class="nb">self</span><span class="o">.</span><span class="n">imap</span>        <span class="o">=</span> <span class="no">OpenStruct</span><span class="o">.</span><span class="n">new</span>
       <span class="nb">self</span><span class="o">.</span><span class="n">smtp</span>        <span class="o">=</span> <span class="no">OpenStruct</span><span class="o">.</span><span class="n">new</span>
       <span class="nb">self</span><span class="o">.</span><span class="n">service</span>     <span class="o">=</span> <span class="no">OpenStruct</span><span class="o">.</span><span class="n">new</span>
