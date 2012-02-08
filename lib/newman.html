@@ -86,6 +86,13 @@ a minimal persistence layer for storing non-relational data.</p></li>
 <li><p><a href="http://mendicant-university.github.com/newman/lib/newman/recorder.html">Newman::Recorder</a>
 provides a mechanism for storing records with autoincrementing identifiers
 within a <code>Newman::Store</code> and supports some rudimentary CRUD functionality.</p></li>
+<li><p>Implicitly, the settings files used by Newman as well as the structure of
+its low level data storage format are also considered part of external API,
+even though these are actually implementation details. This is simply
+because we want to make sure to clearly reflect backwards incompatible
+changes to these features via our versioning policy, as this sort of
+change could potentially cause update problems for application
+developers.</p></li>
 </ul>
 
 <h3>Internal Interface (for extension developers)</h3>
