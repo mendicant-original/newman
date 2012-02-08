@@ -165,8 +165,7 @@ to refer to the <a href="http://github.com/mikel/mail">mail gem&rsquo;s document
 for details.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    
-    <span class="k">def</span> <span class="nf">new_message</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">new_message</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span>
       <span class="n">msg</span> <span class="o">=</span> <span class="no">Mail</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span>
       <span class="n">msg</span><span class="o">.</span><span class="n">delivery_method</span><span class="p">(</span><span class="ss">:smtp</span><span class="p">,</span> <span class="n">delivery_settings</span><span class="p">)</span>
 
