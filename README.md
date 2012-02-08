@@ -38,7 +38,7 @@ simple examples in this repository.
 
 ### For a walkthrough of Newman's codebase:
 
-Check out the [Rocco-based API documentation](http://mendicant-university.github.com/newman/lib/newman.html).
+Check out [Newman's Rocco-based API documentation](http://mendicant-university.github.com/newman/lib/newman.html).
 
 ### For general discussion, questions, and ideas about newman:
 
