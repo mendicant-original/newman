@@ -86,6 +86,11 @@ mailer   = Newman::Mailer.new(settings)
 done manually if you are creating a <code>Newman::Server</code> instance from
 scratch.</p>
 
+<p>Currently, not all of the settings supported by the mail gem are mapped by
+Newman. This is by design, to limit the amount of configuration options
+need to think about. However, if this is causing you a problem, 
+please <a href="https://github.com/mendicant-university/newman/issues">file an issue</a>.</p>
+
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
