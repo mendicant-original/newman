@@ -1,5 +1,12 @@
 require_relative "example_helper"
 
+# The simplest possible mailing list app
+#
+# Settings:
+#
+# - `application.simplelist_db`<br>
+#     path to mailing list pstore file, relative to application root
+#
 module Newman
   module Examples
 
