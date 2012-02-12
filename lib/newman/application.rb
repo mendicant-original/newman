@@ -175,9 +175,13 @@ module Newman
     # only high-level mechanism for dynamic filter matches. Low level matching
     # is possible via `Newman::Application#callback`, but would
     # be an exercise in tedium for most application developers.
-
+    #
+    # NOTE: `Newman::Application#match` converts the provided `name` to a
+    # string using `to_s` to make life easier for the internals. Because
+    # `Newman::Application#matchers` is an implementation detail, you probably
+    # don't need to worry about this unless you're hacking on Newman itself.
     def match(name, pattern)
-      matchers[name] = pattern
+      matchers[name.to_s] = pattern
     end
 
     # ---
