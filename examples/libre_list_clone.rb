@@ -1,8 +1,13 @@
-# This is a cheap and possibly buggy clone of librelist.org's automatic
-# mailing list creation
-
 require_relative "example_helper"
 
+# This is a cheap and possibly buggy clone of librelist.org's automatic
+# mailing list creation
+#
+# Settings:
+#
+# - `application.librelist_db`<br>
+#     path to mailing list pstore file, relative to application root
+#
 module Newman
   module Examples
     LibreList = Newman::Application.new do
