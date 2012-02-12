@@ -1,6 +1,13 @@
+### 0.2.1 (2012-02-11)
+
+- Fixed a bug with `Newman::Application#match`. It now normalizes keys to 
+  strings for easy use with `Newman::Application#compile_regex`, which
+  fixes our substitution logic in patterns.
+
 ### 0.2.0 (2012-02-08)
 
-- Internals mostly rewritten, changes too numerous to outline meaningfully. We'll keep better track of these changes in the future.
+- Internals mostly rewritten, changes too numerous to outline meaningfully. 
+  We'll keep better track of these changes in the future.
 
 - Basic logging support added.
 
