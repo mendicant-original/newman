@@ -49,12 +49,21 @@ module Newman
     # server and run the simple `ping_pong` application.
 
     def self.simple(app, settings_file)
+      server = simple!(app, settings_file)
+      server.run
+    end
+
+    # `Newman::Server#simple!` is the same as `Newman::Server#simple`, but does
+    # not automatically start a busy wait loop. Instead, it returns a server
+    # object.
+    
+    def self.simple!(app, settings_file)
       settings     = Settings.from_file(settings_file)
       mailer       = Mailer.new(settings)
       server       = new(settings, mailer)
-      server.apps = [RequestLogger, app, ResponseLogger]
+      server.apps  = [RequestLogger, app, ResponseLogger]
 
-      server.run
+      server
     end
 
     # ---

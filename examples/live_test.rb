@@ -1,11 +1,10 @@
 require_relative "ping_pong"
 
+server = Newman::Server.simple!(Newman::Examples::PingPong,
+                               "config/environment.rb")
 
-settings = Newman::Settings.from_file("config/environment.rb")
-mailer = Newman::Mailer.new(settings)
-
-server = Newman::Server.new(settings, mailer)
-server.apps << Newman::Examples::PingPong
+mailer   = server.mailer
+settings = server.settings
 
 mailer.deliver_message(:to   => settings.application.ping_email,
                        :from => settings.service.default_sender)
