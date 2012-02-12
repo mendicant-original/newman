@@ -323,10 +323,15 @@ expression syntax by default, <code>Newman::Application#match</code> provides th
 only high-level mechanism for dynamic filter matches. Low level matching
 is possible via <code>Newman::Application#callback</code>, but would
 be an exercise in tedium for most application developers.</p>
+
+<p>NOTE: <code>Newman::Application#match</code> converts the name of the match to a
+string using <code>to_s</code> to make life easier for the internals. Because
+<code>Newman::Application#matchers</code> is an implementation detail, you probably
+don&rsquo;t need to worry about this unless you&rsquo;re hacking on Newman itself.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">match</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span>
-      <span class="n">matchers</span><span class="o">[</span><span class="nb">name</span><span class="o">]</span> <span class="o">=</span> <span class="n">pattern</span>
+      <span class="n">matchers</span><span class="o">[</span><span class="nb">name</span><span class="o">.</span><span class="n">to_s</span><span class="o">]</span> <span class="o">=</span> <span class="n">pattern</span>
     <span class="k">end</span></pre></div>
       </td>
     </tr>
