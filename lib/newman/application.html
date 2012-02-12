@@ -324,7 +324,7 @@ only high-level mechanism for dynamic filter matches. Low level matching
 is possible via <code>Newman::Application#callback</code>, but would
 be an exercise in tedium for most application developers.</p>
 
-<p>NOTE: <code>Newman::Application#match</code> converts the name of the match to a
+<p>NOTE: <code>Newman::Application#match</code> converts the provided <code>name</code> to a
 string using <code>to_s</code> to make life easier for the internals. Because
 <code>Newman::Application#matchers</code> is an implementation detail, you probably
 don&rsquo;t need to worry about this unless you&rsquo;re hacking on Newman itself.</p>
