@@ -233,9 +233,11 @@ module Newman
     # this in a future Newman release.
 
     def trigger_callbacks(controller)
+      match_data = {}
+
       matched_callbacks = callbacks.select do |e| 
         filter = e[:filter]
-        e[:match_data] = filter.call(controller)
+        match_data[e] = filter.call(controller)
       end
 
       if matched_callbacks.empty?
@@ -243,7 +245,7 @@ module Newman
       else
         matched_callbacks.each do |e|
           action = e[:action]
-          controller.params = e[:match_data] || {}
+          controller.params = match_data[e]
           controller.instance_exec(&action)
         end
       end
