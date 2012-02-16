@@ -1,4 +1,4 @@
-![Newman](http://d.images.memegenerator.net/instances/400x/14705499.jpg)
+![Newman](http://i.imgur.com/GCqaT.png)
 
 Newman is a microframework which aims to do for email-based 
 applications what Rack and Sinatra have done for web programming. **While our
