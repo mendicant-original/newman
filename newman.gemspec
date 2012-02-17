@@ -9,10 +9,11 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/mendicant-university/newman"
   s.summary = "A microframework for mail-centric applications"
   s.description = "A microframework for mail-centric applications"
-  s.files = Dir.glob("{lib,examples,test}/**/*") + %w[README.md CHANGELOG.md Gemfile]
+  s.files = Dir.glob("{lib,examples,test,bin}/**/*") + %w[README.md CHANGELOG.md Gemfile]
   s.require_path = 'lib'
   s.add_runtime_dependency 'mail', "~> 2.3.0"
   s.add_runtime_dependency 'tilt', "~> 1.3.3"
+  s.executables = "newman"
 
   s.add_development_dependency 'minitest', "~> 2.11.1"
   s.add_development_dependency 'simplecov'
