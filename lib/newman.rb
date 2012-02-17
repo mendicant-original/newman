@@ -93,6 +93,7 @@ require "logger"
 require "pstore"
 require "ostruct"
 require "fileutils"
+require "optparse"
 
 require "mail"
 require "tilt"
