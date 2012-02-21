@@ -169,6 +169,11 @@ module Newman
     # exception is re-raised, typically taking the server down with it. This
     # setting is off by default.
     #
+    # 2b) If the mailer encounters any IMAP errors retrieving messages, those 
+    # errors are logged and re-raised, taking the server down. (Currently, you
+    # should use a process watcher to restart Newman to protect against such
+    # errors.)
+    #
     # 3) Assuming an exception is not encountered, the response is delivered.
 
     def tick         
@@ -196,6 +201,9 @@ module Newman
 
         response.deliver
       end
+    rescue Exception => e
+      logger.fatal("Caught exception: #{e}\n\n#{e.backtrace.join("\n")}")
+      raise
     end
 
     # ---
