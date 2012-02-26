@@ -21,6 +21,7 @@ module Newman
       self.request  = params.fetch(:request)
       self.response = params.fetch(:response)
       self.logger   = params.fetch(:logger)
+      response.perform_deliveries = true
     end
 
     # ---
