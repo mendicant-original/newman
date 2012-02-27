@@ -23,6 +23,12 @@ describe "template" do
                )
       end
 
+      to :tag, "{list_id}.partials" do
+        respond(:subject => "RE: #{request.subject}",
+                :body    => template('test/echo_with_partials')
+               )
+      end
+      
     end
   end
 
@@ -36,14 +42,19 @@ describe "template" do
   
   it "renders simple template without passed locals hash" do
     mailer.deliver_message(:from => "me@example.com",
-                           :to => "test+fizbiz.echo@test.com")
+                           :to => "test+fizbiz.echo@test.com",
+                           :body => "Could you call me about fizbiz please?")
     server.tick
 
     msgs = mailer.messages
     assert_equal 1, msgs.count
     
-    # assert that list_id is rendered in view
-    assert_match /\bfizbiz\b/, msgs.first.decoded
+    actual = msgs.first.decoded
+    
+    # assert that list_id, sender, and body is rendered in view
+    assert_match /\bme\@example\.com\b/, actual
+    assert_match /\bfizbiz\b/, actual
+    assert_match /Could you call me about fizbiz please\?/, actual
   end
   
   it "renders template with passed locals hash" do
@@ -60,6 +71,23 @@ describe "template" do
     # assert that pick_4 and magic_code locals are rendered in view
     assert_match(/Pick 4\: \d\d\d\d/, actual)
     assert_match(/Your magic code is\: #{expected_code}/, actual)
+  end
+  
+  it "renders template with partials" do
+    mailer.deliver_message(:from => "me@example.com",
+                           :to => "test+fizbiz.partials@test.com",
+                           :body => "Could you call me about fizbiz please?")
+    server.tick
+
+    msgs = mailer.messages
+    assert_equal 1, msgs.count
+    
+    actual = msgs.first.decoded
+    
+    # assert that list_id, sender, and body is rendered in view
+    assert_match /\bme\@example\.com\b/, actual
+    assert_match /\bfizbiz\b/, actual
+    assert_match /Could you call me about fizbiz please\?/, actual
   end
   
 end
