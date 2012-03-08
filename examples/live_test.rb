@@ -2,7 +2,6 @@ require_relative "ping_pong"
 
 server = Newman::Server.simple!(Newman::Examples::PingPong,
                                "config/environment.rb")
-
 mailer   = server.mailer
 settings = server.settings
 

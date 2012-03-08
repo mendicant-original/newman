@@ -1,0 +1,6 @@
+The sender of this email was <%= sender %>.
+It was sent <%= request.date %>.
+The list it was routed to was <%= params[:list_id] %>.
+The body of the request follows:
+
+<%= request.decoded %>

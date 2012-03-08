@@ -61,9 +61,9 @@ module Newman
     # adequately. Please report any problems with this method in our 
     # [issue tracker](https://github.com/mendicant-university/newman/issues).
 
-    def template(name)
+    def template(name,locals={})
       Tilt.new(Dir.glob("#{settings.service.templates_dir}/#{name}.*").first)
-          .render(self)
+          .render(self,locals)
     end
 
     # --- 

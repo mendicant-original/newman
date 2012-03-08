@@ -105,19 +105,17 @@ module Newman
     # ---
     
     # To initialize a `Newman::Server` object, a settings object and mailer object must
-    # be provided, and a logger object may also be provided. If a logger object
-    # is not provided, `Newman::Server#default_logger` is called to create one.
-    #
+    # be provided.
+    # 
     # Instantiating a server object directly can be useful for building live
     # integration tests, or for building cron jobs which process email
     # periodically rather than in a busy-wait loop. See one of Newman's [live
     # tests](https://github.com/mendicant-university/newman/blob/master/examples/live_test.rb)
     # for an example of how this approach works.
 
-    def initialize(settings, mailer, logger=nil)
+    def initialize(settings, mailer)
       self.settings = settings
       self.mailer   = mailer
-      self.logger   = logger || default_logger
       self.apps     = []
     end
 
@@ -129,7 +127,16 @@ module Newman
     # as an implementation detail; all important data will get passed down
     # into your apps on each `tick`.
 
-    attr_accessor :settings, :mailer, :apps,  :logger
+    attr_accessor :settings, :mailer, :apps
+    attr_writer   :logger
+
+
+    # Returns the logger object that was set via Server#logger=, or delegates to
+    # `default_logger` if no custom logger was provided.
+    #
+    def logger
+      @logger || default_logger
+    end
 
     # ---
 
@@ -169,6 +176,11 @@ module Newman
     # exception is re-raised, typically taking the server down with it. This
     # setting is off by default.
     #
+    # 2b) If the mailer encounters any IMAP errors retrieving messages, those 
+    # errors are logged and re-raised, taking the server down. (Currently, you
+    # should use a process watcher to restart Newman to protect against such
+    # errors.)
+    #
     # 3) Assuming an exception is not encountered, the response is delivered.
 
     def tick         
@@ -196,6 +208,9 @@ module Newman
 
         response.deliver
       end
+    rescue Exception => e
+      logger.fatal("Caught exception: #{e}\n\n#{e.backtrace.join("\n")}")
+      raise
     end
 
     # ---

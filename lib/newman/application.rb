@@ -226,11 +226,6 @@ module Newman
     # 2) If the selection of `matched_callbacks` is empty, it executes the default
     # callback in the context of a controller object. Otherwise, it runs each 
     # callback in sequence, in the context of a controller object.
-    #
-    # This method may have some weird side effects because it relies on
-    # awkward state mutations that could be either done in a better way or 
-    # replaced with a mostly stateless approach. We will look at fixing 
-    # this in a future Newman release.
 
     def trigger_callbacks(controller)
       match_data = {}
