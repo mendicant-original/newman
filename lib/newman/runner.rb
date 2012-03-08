@@ -5,23 +5,19 @@ module Newman
     def start(argv)
       filename, params = parse_options(argv)
 
-      self.basepath    = File.dirname(filename)
+      self.basepath      = File.dirname(filename)
+      default_settings   = "#{basepath}/config/environment.rb"
 
-      self.server_mode = params.fetch(:server_mode, :poll)
-      
-      settings_file    = params.fetch(:settings_file, "#{basepath}/config/environment.rb")
-      self.settings    = Newman::Settings.from_file(settings_file)
-
-      settings.service.debug_mode = true if params[:debug_mode]
+      self.server_mode   = params.fetch(:server_mode, :poll)
+      self.settings_file = params.fetch(:settings_file, default_settings)
+      self.debug_mode    = params.fetch(:debug_mode, false)   
 
       eval(File.read(filename), binding)
     end
 
-    def run(apps)
-      server = Newman::Server.new(settings, Newman::Mailer.new(settings)) 
-      server.apps << Newman::RequestLogger
-      server.apps += Array(apps)
-      server.apps << Newman::ResponseLogger
+    def run(app)
+      server = Newman::Server.simple!(app, settings_file) 
+      server.settings.service.debug_mode = true if debug_mode
 
       case server_mode
       when :poll
@@ -49,6 +45,6 @@ module Newman
       [runner_file, params]
     end
 
-    attr_accessor :settings, :basepath, :server_mode
+    attr_accessor :basepath, :server_mode, :settings_file, :debug_mode
   end
 end
