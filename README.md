@@ -45,6 +45,9 @@ simple examples in this repository.
 
 Check out [Newman's Rocco-based API documentation](http://mendicant-university.github.com/newman/lib/newman.html).
 
+We update this documentation on each gem release of newman, but to generate this documentation yourself, 
+you'll need to install the rocco gem.
+
 ### For general discussion, questions, and ideas about Newman:
 
 Find seacreature or ericgj in the #newman channel on Freenode or send an email to newman@librelist.org
