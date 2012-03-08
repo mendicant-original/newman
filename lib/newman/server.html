@@ -105,8 +105,8 @@ is created. </p>
   end
 end 
 
-server = Newman::Server.simple!(ping_pong, &ldquo;config/environment.rb&rdquo;)
-# call server.tick or server.run at some later point.
+s = Newman::Server.simple!(ping_pong, &ldquo;config/environment.rb&rdquo;)
+# call s.tick or s.run at some later point.
 </code></pre>
 
 <p>Given a proper configuration file, this will make it possible to easily
