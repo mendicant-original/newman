@@ -113,11 +113,7 @@ server and run the simple <code>ping_pong</code> application.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">simple</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">settings_file</span><span class="p">)</span>
-      <span class="n">settings</span>     <span class="o">=</span> <span class="no">Settings</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="n">settings_file</span><span class="p">)</span>
-      <span class="n">mailer</span>       <span class="o">=</span> <span class="no">Mailer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
-      <span class="n">server</span>       <span class="o">=</span> <span class="kp">new</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">mailer</span><span class="p">)</span>
-      <span class="n">server</span><span class="o">.</span><span class="n">apps</span> <span class="o">=</span> <span class="o">[</span><span class="no">RequestLogger</span><span class="p">,</span> <span class="n">app</span><span class="p">,</span> <span class="no">ResponseLogger</span><span class="o">]</span>
-
+      <span class="n">server</span> <span class="o">=</span> <span class="n">simple!</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">settings_file</span><span class="p">)</span>
       <span class="n">server</span><span class="o">.</span><span class="n">run</span>
     <span class="k">end</span></pre></div>
       </td>
@@ -127,16 +123,37 @@ server and run the simple <code>ping_pong</code> application.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-4">&#182;</a>
         </div>
-        <hr>
+        <p><code>Newman::Server#simple!</code> is the same as <code>Newman::Server#simple</code>, but does
+not automatically start a busy wait loop. Instead, it returns a server
+object.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>     </pre></div>
+        <div class='highlight'><pre>    
+    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">simple!</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">settings_file</span><span class="p">)</span>
+      <span class="n">settings</span>     <span class="o">=</span> <span class="no">Settings</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="n">settings_file</span><span class="p">)</span>
+      <span class="n">mailer</span>       <span class="o">=</span> <span class="no">Mailer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+      <span class="n">server</span>       <span class="o">=</span> <span class="kp">new</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">mailer</span><span class="p">)</span>
+      <span class="n">server</span><span class="o">.</span><span class="n">apps</span>  <span class="o">=</span> <span class="o">[</span><span class="no">RequestLogger</span><span class="p">,</span> <span class="n">app</span><span class="p">,</span> <span class="no">ResponseLogger</span><span class="o">]</span>
+
+      <span class="n">server</span>
+    <span class="k">end</span></pre></div>
       </td>
     </tr>
     <tr id='section-5'>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-5">&#182;</a>
+        </div>
+        <hr>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>     </pre></div>
+      </td>
+    </tr>
+    <tr id='section-6'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-6">&#182;</a>
         </div>
         <p><code>Newman::Server.test_mode</code> automatically generates a <code>Newman::TestMailer</code> object
 and <code>Newman::Settings</code> object from the provided <code>settings_file</code>. These
@@ -175,10 +192,10 @@ it.</p>
     <span class="k">end</span></pre></div>
       </td>
     </tr>
-    <tr id='section-6'>
+    <tr id='section-7'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-6">&#182;</a>
+          <a class="pilcrow" href="#section-7">&#182;</a>
         </div>
         <hr>
       </td>
@@ -186,14 +203,13 @@ it.</p>
         <div class='highlight'><pre>    </pre></div>
       </td>
     </tr>
-    <tr id='section-7'>
+    <tr id='section-8'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-7">&#182;</a>
+          <a class="pilcrow" href="#section-8">&#182;</a>
         </div>
         <p>To initialize a <code>Newman::Server</code> object, a settings object and mailer object must
-be provided, and a logger object may also be provided. If a logger object
-is not provided, <code>Newman::Server#default_logger</code> is called to create one.</p>
+be provided.</p>
 
 <p>Instantiating a server object directly can be useful for building live
 integration tests, or for building cron jobs which process email
@@ -202,18 +218,17 @@ tests</a>
 for an example of how this approach works.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">mailer</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="kp">nil</span><span class="p">)</span>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">mailer</span><span class="p">)</span>
       <span class="nb">self</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="n">settings</span>
       <span class="nb">self</span><span class="o">.</span><span class="n">mailer</span>   <span class="o">=</span> <span class="n">mailer</span>
-      <span class="nb">self</span><span class="o">.</span><span class="n">logger</span>   <span class="o">=</span> <span class="n">logger</span> <span class="o">||</span> <span class="n">default_logger</span>
       <span class="nb">self</span><span class="o">.</span><span class="n">apps</span>     <span class="o">=</span> <span class="o">[]</span>
     <span class="k">end</span></pre></div>
       </td>
     </tr>
-    <tr id='section-8'>
+    <tr id='section-9'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-8">&#182;</a>
+          <a class="pilcrow" href="#section-9">&#182;</a>
         </div>
         <hr>
       </td>
@@ -221,10 +236,10 @@ for an example of how this approach works.</p>
         <div class='highlight'><pre>    </pre></div>
       </td>
     </tr>
-    <tr id='section-9'>
+    <tr id='section-10'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-9">&#182;</a>
+          <a class="pilcrow" href="#section-10">&#182;</a>
         </div>
         <p>These accessors are mostly meant for use with server objects under test
 mode, or server objects that have been explicitly instantiated. If you are
@@ -233,13 +248,28 @@ as an implementation detail; all important data will get passed down
 into your apps on each <code>tick</code>.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="kp">attr_accessor</span> <span class="ss">:settings</span><span class="p">,</span> <span class="ss">:mailer</span><span class="p">,</span> <span class="ss">:apps</span><span class="p">,</span>  <span class="ss">:logger</span></pre></div>
+        <div class='highlight'><pre>    <span class="kp">attr_accessor</span> <span class="ss">:settings</span><span class="p">,</span> <span class="ss">:mailer</span><span class="p">,</span> <span class="ss">:apps</span>
+    <span class="kp">attr_writer</span>   <span class="ss">:logger</span></pre></div>
       </td>
     </tr>
-    <tr id='section-10'>
+    <tr id='section-11'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-10">&#182;</a>
+          <a class="pilcrow" href="#section-11">&#182;</a>
+        </div>
+        <p>Returns the logger object that was set via Server#logger=, or delegates to
+<code>default_logger</code> if no custom logger was provided.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">logger</span>
+      <span class="vi">@logger</span> <span class="o">||</span> <span class="n">default_logger</span>
+    <span class="k">end</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-12'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-12">&#182;</a>
         </div>
         <hr>
       </td>
@@ -247,10 +277,10 @@ into your apps on each <code>tick</code>.</p>
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-11'>
+    <tr id='section-13'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-11">&#182;</a>
+          <a class="pilcrow" href="#section-13">&#182;</a>
         </div>
         <p><code>Newman::Server.run</code> kicks off a busy wait loop, alternating between
 calling <code>Newman::Server.tick</code> and sleeping for the amount of time
@@ -268,10 +298,10 @@ with a use case that made the extra dependency worth it.</p>
     <span class="k">end</span></pre></div>
       </td>
     </tr>
-    <tr id='section-12'>
+    <tr id='section-14'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-12">&#182;</a>
+          <a class="pilcrow" href="#section-14">&#182;</a>
         </div>
         <hr>
       </td>
@@ -279,10 +309,10 @@ with a use case that made the extra dependency worth it.</p>
         <div class='highlight'><pre>    </pre></div>
       </td>
     </tr>
-    <tr id='section-13'>
+    <tr id='section-15'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-13">&#182;</a>
+          <a class="pilcrow" href="#section-15">&#182;</a>
         </div>
         <p><code>Newman::Server.tick</code> runs the following sequence for each incoming
 request. </p>
@@ -303,6 +333,11 @@ the processing of the current request is halted. Details about the failure
 are logged and if <code>settings.service.raise_exceptions</code> is enabled, the
 exception is re-raised, typically taking the server down with it. This
 setting is off by default.</p>
+
+<p>2b) If the mailer encounters any IMAP errors retrieving messages, those 
+errors are logged and re-raised, taking the server down. (Currently, you
+should use a process watcher to restart Newman to protect against such
+errors.)</p>
 
 <p>3) Assuming an exception is not encountered, the response is delivered.</p>
       </td>
@@ -332,30 +367,10 @@ setting is off by default.</p>
 
         <span class="n">response</span><span class="o">.</span><span class="n">deliver</span>
       <span class="k">end</span>
+    <span class="k">rescue</span> <span class="no">Exception</span> <span class="o">=&gt;</span> <span class="n">e</span>
+      <span class="n">logger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="s2">&quot;Caught exception: </span><span class="si">#{</span><span class="n">e</span><span class="si">}</span><span class="se">\n\n</span><span class="si">#{</span><span class="n">e</span><span class="o">.</span><span class="n">backtrace</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+      <span class="k">raise</span>
     <span class="k">end</span></pre></div>
-      </td>
-    </tr>
-    <tr id='section-14'>
-      <td class=docs>
-        <div class="pilwrap">
-          <a class="pilcrow" href="#section-14">&#182;</a>
-        </div>
-        <hr>
-      </td>
-      <td class=code>
-        <div class='highlight'><pre></pre></div>
-      </td>
-    </tr>
-    <tr id='section-15'>
-      <td class=docs>
-        <div class="pilwrap">
-          <a class="pilcrow" href="#section-15">&#182;</a>
-        </div>
-        <p><strong>NOTE: Methods below this point in the file are implementation 
-details, and should not be depended upon</strong></p>
-      </td>
-      <td class=code>
-        <div class='highlight'><pre>    <span class="kp">private</span></pre></div>
       </td>
     </tr>
     <tr id='section-16'>
@@ -366,13 +381,36 @@ details, and should not be depended upon</strong></p>
         <hr>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    </pre></div>
+        <div class='highlight'><pre></pre></div>
       </td>
     </tr>
     <tr id='section-17'>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-17">&#182;</a>
+        </div>
+        <p><strong>NOTE: Methods below this point in the file are implementation 
+details, and should not be depended upon</strong></p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="kp">private</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-18'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-18">&#182;</a>
+        </div>
+        <hr>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    </pre></div>
+      </td>
+    </tr>
+    <tr id='section-19'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-19">&#182;</a>
         </div>
         <p><code>Newman::Server#default_logger</code> generates a logger object using 
 Ruby&rsquo;s standard library. This object outputs to <code>STDERR</code>, and

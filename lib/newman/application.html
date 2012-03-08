@@ -439,17 +439,14 @@ value is selected to be run.</p>
 <p>2) If the selection of <code>matched_callbacks</code> is empty, it executes the default
 callback in the context of a controller object. Otherwise, it runs each 
 callback in sequence, in the context of a controller object.</p>
-
-<p>This method may have some weird side effects because it relies on
-awkward state mutations that could be either done in a better way or 
-replaced with a mostly stateless approach. We will look at fixing 
-this in a future Newman release.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">trigger_callbacks</span><span class="p">(</span><span class="n">controller</span><span class="p">)</span>
+      <span class="n">match_data</span> <span class="o">=</span> <span class="p">{}</span>
+
       <span class="n">matched_callbacks</span> <span class="o">=</span> <span class="n">callbacks</span><span class="o">.</span><span class="n">select</span> <span class="k">do</span> <span class="o">|</span><span class="n">e</span><span class="o">|</span> 
         <span class="n">filter</span> <span class="o">=</span> <span class="n">e</span><span class="o">[</span><span class="ss">:filter</span><span class="o">]</span>
-        <span class="n">e</span><span class="o">[</span><span class="ss">:match_data</span><span class="o">]</span> <span class="o">=</span> <span class="n">filter</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">controller</span><span class="p">)</span>
+        <span class="n">match_data</span><span class="o">[</span><span class="n">e</span><span class="o">]</span> <span class="o">=</span> <span class="n">filter</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">controller</span><span class="p">)</span>
       <span class="k">end</span>
 
       <span class="k">if</span> <span class="n">matched_callbacks</span><span class="o">.</span><span class="n">empty?</span>
@@ -457,7 +454,7 @@ this in a future Newman release.</p>
       <span class="k">else</span>
         <span class="n">matched_callbacks</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">e</span><span class="o">|</span>
           <span class="n">action</span> <span class="o">=</span> <span class="n">e</span><span class="o">[</span><span class="ss">:action</span><span class="o">]</span>
-          <span class="n">controller</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">e</span><span class="o">[</span><span class="ss">:match_data</span><span class="o">]</span> <span class="o">||</span> <span class="p">{}</span>
+          <span class="n">controller</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">match_data</span><span class="o">[</span><span class="n">e</span><span class="o">]</span>
           <span class="n">controller</span><span class="o">.</span><span class="n">instance_exec</span><span class="p">(</span><span class="o">&amp;</span><span class="n">action</span><span class="p">)</span>
         <span class="k">end</span>
       <span class="k">end</span>

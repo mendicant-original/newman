@@ -172,9 +172,9 @@ adequately. Please report any problems with this method in our
 <a href="https://github.com/mendicant-university/newman/issues">issue tracker</a>.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">template</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">template</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span><span class="n">locals</span><span class="o">=</span><span class="p">{})</span>
       <span class="no">Tilt</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">Dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">#{</span><span class="n">settings</span><span class="o">.</span><span class="n">service</span><span class="o">.</span><span class="n">templates_dir</span><span class="si">}</span><span class="s2">/</span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">.*&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">)</span>
-          <span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="nb">self</span><span class="p">)</span>
+          <span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="nb">self</span><span class="p">,</span><span class="n">locals</span><span class="p">)</span>
     <span class="k">end</span></pre></div>
       </td>
     </tr>
