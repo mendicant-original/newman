@@ -47,7 +47,7 @@
 to applications as a request, and then delivers a response email after the
 applications have modified it.</p>
 
-<p>A <code>Newman::Server</code> object can be used in three distinct ways:</p>
+<p>A <code>Newman::Server</code> object can be used in four distinct ways:</p>
 
 <p>1) Instantiated via <code>Newman::Server.test_mode</code> and then run tick by tick
 in integration tests.</p>
@@ -55,7 +55,10 @@ in integration tests.</p>
 <p>2) Instantiated via <code>Newman::Server.simple</code> which immediately executes
 an infinite polling loop.</p>
 
-<p>3) Instantiated explicitly and manually configured, for maximum control.</p>
+<p>3) Instantiated via <code>Newman::Server.simple!</code>, and then run manually (either
+in a loop or by tick), using the same defaults used by <code>Newman::Server.simple</code></p>
+
+<p>4) Instantiated explicitly and manually configured, for maximum control.</p>
 
 <p>All of these different workflows are supported, but if you are simply looking
 to build applications with <code>Newman</code>, you are most likely going to end up using
