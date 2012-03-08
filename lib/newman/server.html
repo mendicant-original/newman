@@ -269,6 +269,17 @@ into your apps on each <code>tick</code>.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-12">&#182;</a>
         </div>
+        <hr>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre></pre></div>
+      </td>
+    </tr>
+    <tr id='section-13'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-13">&#182;</a>
+        </div>
         <p>Returns the logger object that was set via <code>Newman::Server#logger=</code>, 
 or delegates to <code>default_logger</code> if no custom logger was provided.</p>
       </td>
@@ -278,10 +289,10 @@ or delegates to <code>default_logger</code> if no custom logger was provided.</p
     <span class="k">end</span></pre></div>
       </td>
     </tr>
-    <tr id='section-13'>
+    <tr id='section-14'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-13">&#182;</a>
+          <a class="pilcrow" href="#section-14">&#182;</a>
         </div>
         <hr>
       </td>
@@ -289,10 +300,10 @@ or delegates to <code>default_logger</code> if no custom logger was provided.</p
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-14'>
+    <tr id='section-15'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-14">&#182;</a>
+          <a class="pilcrow" href="#section-15">&#182;</a>
         </div>
         <p><code>Newman::Server.run</code> kicks off a busy wait loop, alternating between
 calling <code>Newman::Server.tick</code> and sleeping for the amount of time
@@ -310,10 +321,10 @@ with a use case that made the extra dependency worth it.</p>
     <span class="k">end</span></pre></div>
       </td>
     </tr>
-    <tr id='section-15'>
+    <tr id='section-16'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-15">&#182;</a>
+          <a class="pilcrow" href="#section-16">&#182;</a>
         </div>
         <hr>
       </td>
@@ -321,10 +332,10 @@ with a use case that made the extra dependency worth it.</p>
         <div class='highlight'><pre>    </pre></div>
       </td>
     </tr>
-    <tr id='section-16'>
+    <tr id='section-17'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-16">&#182;</a>
+          <a class="pilcrow" href="#section-17">&#182;</a>
         </div>
         <p><code>Newman::Server.tick</code> runs the following sequence for each incoming
 request. </p>
@@ -385,10 +396,10 @@ errors.)</p>
     <span class="k">end</span></pre></div>
       </td>
     </tr>
-    <tr id='section-17'>
+    <tr id='section-18'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-17">&#182;</a>
+          <a class="pilcrow" href="#section-18">&#182;</a>
         </div>
         <hr>
       </td>
@@ -396,10 +407,10 @@ errors.)</p>
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-18'>
+    <tr id='section-19'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-18">&#182;</a>
+          <a class="pilcrow" href="#section-19">&#182;</a>
         </div>
         <p><strong>NOTE: Methods below this point in the file are implementation 
 details, and should not be depended upon</strong></p>
@@ -408,10 +419,10 @@ details, and should not be depended upon</strong></p>
         <div class='highlight'><pre>    <span class="kp">private</span></pre></div>
       </td>
     </tr>
-    <tr id='section-19'>
+    <tr id='section-20'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-19">&#182;</a>
+          <a class="pilcrow" href="#section-20">&#182;</a>
         </div>
         <hr>
       </td>
@@ -419,10 +430,10 @@ details, and should not be depended upon</strong></p>
         <div class='highlight'><pre>    </pre></div>
       </td>
     </tr>
-    <tr id='section-20'>
+    <tr id='section-21'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-20">&#182;</a>
+          <a class="pilcrow" href="#section-21">&#182;</a>
         </div>
         <p><code>Newman::Server#default_logger</code> generates a logger object using 
 Ruby&rsquo;s standard library. This object outputs to <code>STDERR</code>, and
