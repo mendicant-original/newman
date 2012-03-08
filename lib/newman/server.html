@@ -88,13 +88,10 @@ for you.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-3">&#182;</a>
         </div>
-        <p><code>Newman::Server.simple</code> automatically generates a <code>Newman::Mailer</code> object
+        <p><code>Newman::Server.simple!</code> automatically generates a <code>Newman::Mailer</code> object
 and <code>Newman::Settings</code> object from the provided <code>settings_file</code>. These
 objects are then passed on to <code>Newman::Server.new</code> and a server instance
-is created. The server object is set up to run the specified <code>app</code>, with
-request and response logging support enabled. Calling this method puts
-the server in an infinite polling loop, because its final action is to
-call <code>Newman::Server#run</code>.</p>
+is created. </p>
 
 <p>The following example demonstrates how to use this method:</p>
 
@@ -108,30 +105,16 @@ call <code>Newman::Server#run</code>.</p>
   end
 end 
 
-Newman::Server.simple(ping_pong, &ldquo;config/environment.rb&rdquo;)
+server = Newman::Server.simple!(ping_pong, &ldquo;config/environment.rb&rdquo;)
+# call server.tick or server.run at some later point.
 </code></pre>
 
-<p>Given a properly configured settings file, this code will launch a polling
-server and run the simple <code>ping_pong</code> application.</p>
+<p>Given a proper configuration file, this will make it possible to easily
+get your applications up and running with simple request and response
+logging enabled.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">simple</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">settings_file</span><span class="p">)</span>
-      <span class="n">server</span> <span class="o">=</span> <span class="n">simple!</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">settings_file</span><span class="p">)</span>
-      <span class="n">server</span><span class="o">.</span><span class="n">run</span>
-    <span class="k">end</span></pre></div>
-      </td>
-    </tr>
-    <tr id='section-4'>
-      <td class=docs>
-        <div class="pilwrap">
-          <a class="pilcrow" href="#section-4">&#182;</a>
-        </div>
-        <p><code>Newman::Server#simple!</code> is the same as <code>Newman::Server#simple</code>, but does
-not automatically start a busy wait loop. Instead, it returns a server
-object.</p>
-      </td>
-      <td class=code>
-        <div class='highlight'><pre>    
+        <div class='highlight'><pre>   
     <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">simple!</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">settings_file</span><span class="p">)</span>
       <span class="n">settings</span>     <span class="o">=</span> <span class="no">Settings</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="n">settings_file</span><span class="p">)</span>
       <span class="n">mailer</span>       <span class="o">=</span> <span class="no">Mailer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
@@ -139,6 +122,23 @@ object.</p>
       <span class="n">server</span><span class="o">.</span><span class="n">apps</span>  <span class="o">=</span> <span class="o">[</span><span class="no">RequestLogger</span><span class="p">,</span> <span class="n">app</span><span class="p">,</span> <span class="no">ResponseLogger</span><span class="o">]</span>
 
       <span class="n">server</span>
+    <span class="k">end</span>
+      </pre></div>
+      </td>
+    </tr>
+    <tr id='section-4'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-4">&#182;</a>
+        </div>
+        <p><code>Newman::Server#simple</code> is the same as <code>Newman::Server#simple!</code>, but
+automatically starts an infinite polling loop.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    
+    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">simple</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">settings_file</span><span class="p">)</span>
+      <span class="n">server</span> <span class="o">=</span> <span class="n">simple!</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">settings_file</span><span class="p">)</span>
+      <span class="n">server</span><span class="o">.</span><span class="n">run</span>
     <span class="k">end</span></pre></div>
       </td>
     </tr>
