@@ -1,16 +1,18 @@
 ### 0.3.0 (2012-03-08)
 
-Improvements:
+**Improvements:**
 
-- Added documentation of all settings that can be modified via Newman configuration files
+- Added documentation of all settings that can be modified via Newman configuration files.
+
 - Added `Newman::Server#simple!`, which combines some of the flexibility of
   manually building a server object with sensible defaults. This method is
   useful for building simple tick-based servers, or for tweaking small details
-  such as which logger you want to use
+  such as which logger you want to use.
+
 - Allow a locals hash to be passed to tilt via `Newman::Controller#template`,
   and added some integration tests for template support.
 
-Behavior Changes:
+**Behavior Changes:**
 
 - Caching of logger object is less aggressive now, allowing 
   `Newman::Server#logger=` to be called at any time to change the 
