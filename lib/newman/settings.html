@@ -58,6 +58,39 @@ tweaking a sample settings file rather than crafting one from scratch.</p>
 <p><code>Newman::Settings</code>is part of Newman&rsquo;s <strong>internal API</strong>, but 
 the setting file format and various settings that Newman depends
 on should be considered part of the <strong>external API</strong>.</p>
+
+<p>The following settings are currently supported:</p>
+
+<pre><code>imap.address
+imap.user
+imap.password
+imap.ssl_enabled (default false)
+imap.port
+
+smtp.address
+smtp.user
+smtp.password
+smtp.starttls_enabled  (default false)
+smtp.port
+
+service.debug_mode
+  log error backtraces and full request and response emails
+
+service.default_sender
+  default FROM field for responses, can be changed by applications
+
+service.domain
+  mail domain, used by filters and in building email addresses
+
+service.polling_interval
+  idle seconds between server ticks (checking and processing email)
+
+service.raise_exceptions
+  raise exceptions during server ticks, killing the server
+
+service.templates_dir
+  directory of template files, relative to the application root
+</code></pre>
       </td>
       <td class=code>
         <div class='highlight'><pre></pre></div>
@@ -71,7 +104,8 @@ on should be considered part of the <strong>external API</strong>.</p>
         <hr>
       </td>
       <td class=code>
-        <div class='highlight'><pre> </pre></div>
+        <div class='highlight'><pre><span class="k">module</span> <span class="nn">Newman</span> 
+  <span class="k">class</span> <span class="nc">Settings</span></pre></div>
       </td>
     </tr>
     <tr id='section-3'>
@@ -79,53 +113,16 @@ on should be considered part of the <strong>external API</strong>.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-3">&#182;</a>
         </div>
-        <p>List of current settings (all default to nil unless otherwise noted)</p>
-
-<ul>
-<li><code>imap.address</code></li>
-<li><code>imap.user</code></li>
-<li><code>imap.password</code></li>
-<li><code>imap.ssl_enabled</code>  (default false)</li>
-<li><p><code>imap.port</code></p></li>
-<li><p><code>smtp.address</code></p></li>
-<li><p><code>smtp.user</code></p></li>
-<li><p><code>smtp.password</code></p></li>
-<li><p><code>smtp.starttls_enabled</code>  (default false)</p></li>
-<li><p><code>smtp.port</code></p></li>
-<li><p><code>service.debug_mode</code><br>
-  log error backtraces and full request and response emails</p></li>
-<li><p><code>service.default_sender</code><br>
-  default FROM field for responses, can be changed by applications</p></li>
-<li><p><code>service.domain</code><br>
-  mail domain, used by filters and by applications in building email addresses</p></li>
-<li><p><code>service.polling_interval</code><br>
-  idle seconds between server ticks (checking and processing email)</p></li>
-<li><p><code>service.raise_exceptions</code><br>
-  raise exceptions during server ticks, killing the server</p></li>
-<li><p><code>service.templates_dir</code><br>
-  directory of template files, relative to the application root</p></li>
-</ul>
-      </td>
-      <td class=code>
-        <div class='highlight'><pre><span class="k">module</span> <span class="nn">Newman</span> 
-  <span class="k">class</span> <span class="nc">Settings</span></pre></div>
-      </td>
-    </tr>
-    <tr id='section-4'>
-      <td class=docs>
-        <div class="pilwrap">
-          <a class="pilcrow" href="#section-4">&#182;</a>
-        </div>
         <hr>
       </td>
       <td class=code>
         <div class='highlight'><pre>    </pre></div>
       </td>
     </tr>
-    <tr id='section-5'>
+    <tr id='section-4'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-5">&#182;</a>
+          <a class="pilcrow" href="#section-4">&#182;</a>
         </div>
         <p>The <code>Newman::Settings.from_file</code> method is used to create
 a new <code>Newman::Settings</code> object and populate it with the data 
@@ -151,10 +148,10 @@ things.</p>
     <span class="k">end</span></pre></div>
       </td>
     </tr>
-    <tr id='section-6'>
+    <tr id='section-5'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-6">&#182;</a>
+          <a class="pilcrow" href="#section-5">&#182;</a>
         </div>
         <hr>
       </td>
@@ -162,10 +159,10 @@ things.</p>
         <div class='highlight'><pre>     </pre></div>
       </td>
     </tr>
-    <tr id='section-7'>
+    <tr id='section-6'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-7">&#182;</a>
+          <a class="pilcrow" href="#section-6">&#182;</a>
         </div>
         <p>A <code>Newman::Settings</code> object is a blank slate upon creation. It simply
 assigns an empty <code>OpenStruct</code> object for each type of settings data it 
@@ -190,10 +187,10 @@ future version of Newman.</p>
     <span class="k">end</span></pre></div>
       </td>
     </tr>
-    <tr id='section-8'>
+    <tr id='section-7'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-8">&#182;</a>
+          <a class="pilcrow" href="#section-7">&#182;</a>
         </div>
         <hr>
       </td>
@@ -201,10 +198,10 @@ future version of Newman.</p>
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-9'>
+    <tr id='section-8'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-9">&#182;</a>
+          <a class="pilcrow" href="#section-8">&#182;</a>
         </div>
         <p>The <code>imap</code> and <code>smtp</code> fields are used by <code>Newman::Mailer</code>, 
 the <code>service</code> field is used throughout Newman (particularly in
@@ -215,10 +212,10 @@ application-specific configurations.</p>
         <div class='highlight'><pre>    <span class="kp">attr_accessor</span> <span class="ss">:imap</span><span class="p">,</span> <span class="ss">:smtp</span><span class="p">,</span> <span class="ss">:service</span><span class="p">,</span> <span class="ss">:application</span></pre></div>
       </td>
     </tr>
-    <tr id='section-10'>
+    <tr id='section-9'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-10">&#182;</a>
+          <a class="pilcrow" href="#section-9">&#182;</a>
         </div>
         <hr>
       </td>
@@ -226,10 +223,10 @@ application-specific configurations.</p>
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-11'>
+    <tr id='section-10'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-11">&#182;</a>
+          <a class="pilcrow" href="#section-10">&#182;</a>
         </div>
         <p><code>Newman::Settings#load_config</code> is used for evaluating
 the contents of a file within the context of a <code>Newman::Settings</code>
