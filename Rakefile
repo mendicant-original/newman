@@ -1,8 +1,7 @@
 # TASKS TAKEN FROM: https://github.com/rtomayko/rocco/blob/master/Rakefile
 #
 require 'rake/clean'
-
-gem "redcarpet", "~> 1.17.2"
+require 'bundler/setup'
 
 require 'rocco/tasks'
 Rocco::make 'docs/', 'lib/**/*.rb'
