@@ -2,7 +2,7 @@
 
 Improvements:
 
-- Added documentation of the settings Newman's configuration files support.
+- Added documentation of all settings that can be modified via Newman configuration files
 - Added `Newman::Server#simple!`, which combines some of the flexibility of
   manually building a server object with sensible defaults. This method is
   useful for building simple tick-based servers, or for tweaking small details
