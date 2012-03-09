@@ -21,6 +21,10 @@
 - `Newman::Server.new` no longer accepts a custom logger argument. 
    Use `Newman::Server#logger=` instead.
 
+- Locked explicitly to mail v2.3.0, because we're being bit by an upstream
+  bug. We will try to lock more optimistically in a future release of
+  Newman.
+
 [Diff of all changes since 0.2.1](https://github.com/mendicant-university/newman/compare/v0.2.1...v0.3.0#diff-43)
 
 ### 0.2.1 (2012-02-11)
