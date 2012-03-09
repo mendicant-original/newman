@@ -13,36 +13,39 @@
 # `Newman::Settings`is part of Newman's **internal API**, but 
 # the setting file format and various settings that Newman depends
 # on should be considered part of the **external API**.
-
-# ---
- 
-# List of current settings (all default to nil unless otherwise noted)
 #
-# - `imap.address`
-# - `imap.user`
-# - `imap.password`
-# - `imap.ssl_enabled`  (default false)
-# - `imap.port`
+# The following settings are currently supported:
 #
-# - `smtp.address`
-# - `smtp.user`
-# - `smtp.password`
-# - `smtp.starttls_enabled`  (default false)
-# - `smtp.port`
+#     imap.address
+#     imap.user
+#     imap.password
+#     imap.ssl_enabled (default false)
+#     imap.port
 #
-# - `service.debug_mode`<br>
+#     smtp.address
+#     smtp.user
+#     smtp.password
+#     smtp.starttls_enabled  (default false)
+#     smtp.port
+#
+#     service.debug_mode
 #       log error backtraces and full request and response emails
-# - `service.default_sender`<br>
-#       default FROM field for responses, can be changed by applications
-# - `service.domain`<br>
-#       mail domain, used by filters and by applications in building email addresses
-# - `service.polling_interval`<br>
-#       idle seconds between server ticks (checking and processing email)
-# - `service.raise_exceptions`<br>
-#       raise exceptions during server ticks, killing the server
-# - `service.templates_dir`<br>
-#       directory of template files, relative to the application root
 #
+#     service.default_sender
+#       default FROM field for responses
+#     
+#     service.domain
+#       mail domain, used by filters and in building email addresses
+#     
+#     service.polling_interval
+#       idle seconds between server ticks 
+#     
+#     service.raise_exceptions
+#       raise exceptions during server ticks, killing the server
+#       
+#     service.templates_dir
+#       directory of template files, relative to application root
+
 module Newman 
   class Settings
 

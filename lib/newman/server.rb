@@ -2,34 +2,34 @@
 # to applications as a request, and then delivers a response email after the
 # applications have modified it.
 #
-# A `Newman::Server` object can be used in three distinct ways:
+# A `Newman::Server` object can be used in four distinct ways:
 #
 # 1) Instantiated via `Newman::Server.test_mode` and then run tick by tick
 # in integration tests.
 # 
 # 2) Instantiated via `Newman::Server.simple` which immediately executes
 # an infinite polling loop.
-# 
-# 3) Instantiated explicitly and manually configured, for maximum control.
+#
+# 3) Instantiated via `Newman::Server.simple!`, and then run manually (either
+# in a loop or by tick), using the same defaults used by `Newman::Server.simple`
+#
+# 4) Instantiated explicitly and manually configured, for maximum control.
 #
 # All of these different workflows are supported, but if you are simply looking
 # to build applications with `Newman`, you are most likely going to end up using
-# `Newman::Server.simple` because it takes care of most of the setup work for
-# you and is the easiest way to run a single Newman application.
+# either `simple()` or `simple!()` because they care of most of the setup work 
+# for you.
 #
 # `Newman::Server` is part of Newman's **external interface**.
 
 module Newman  
   class Server
     # ---
-    
-    # `Newman::Server.simple` automatically generates a `Newman::Mailer` object
-    # and `Newman::Settings` object from the privded `settings_file`. These
+     
+    # `Newman::Server.simple!` automatically generates a `Newman::Mailer` object
+    # and `Newman::Settings` object from the provided `settings_file`. These
     # objects are then passed on to `Newman::Server.new` and a server instance
-    # is created. The server object is set up to run the specified `app`, with
-    # request and response logging support enabled. Calling this method puts
-    # the server in an infinite polling loop, because its final action is to
-    # call `Newman::Server.run`.
+    # is created. 
     #
     # The following example demonstrates how to use this method:
     #
@@ -42,21 +42,13 @@ module Newman
     #         respond(:subject => "You missed the ball!")
     #       end
     #     end 
+    #     
+    #     s = Newman::Server.simple!(ping_pong, "config/environment.rb")
+    #     # call s.tick or s.run at some later point.
     #
-    #     Newman::Server.simple(ping_pong, "config/environment.rb")
-    #
-    # Given a properly configured settings file, this code will launch a polling
-    # server and run the simple `ping_pong` application.
-
-    def self.simple(app, settings_file)
-      server = simple!(app, settings_file)
-      server.run
-    end
-
-    # `Newman::Server#simple!` is the same as `Newman::Server#simple`, but does
-    # not automatically start a busy wait loop. Instead, it returns a server
-    # object.
-    
+    # Given a proper configuration file, this will make it possible to easily
+    # get your applications up and running with simple request and response
+    # logging enabled.
     def self.simple!(app, settings_file)
       settings     = Settings.from_file(settings_file)
       mailer       = Mailer.new(settings)
@@ -64,6 +56,16 @@ module Newman
       server.apps  = [RequestLogger, app, ResponseLogger]
 
       server
+    end
+    
+    # ---
+     
+    # `Newman::Server#simple` is the same as `Newman::Server#simple!`, but
+    # automatically starts an infinite polling loop.
+
+    def self.simple(app, settings_file)
+      server = simple!(app, settings_file)
+      server.run
     end
 
     # ---
@@ -73,7 +75,7 @@ module Newman
     # objects are then passed on to `Newman::Server.new` and a server instance
     # which is preconfigured for use in integration testing is returned.
     #
-    # Using the application from the `Newman::Server.simple` documentation
+    # Using the application from the `Newman::Server.simple!` documentation
     # above, it'd be possible to write a simple integration test using this
     # method in the following way:
     #
@@ -130,9 +132,10 @@ module Newman
     attr_accessor :settings, :mailer, :apps
     attr_writer   :logger
 
+    # ---
 
-    # Returns the logger object that was set via Server#logger=, or delegates to
-    # `default_logger` if no custom logger was provided.
+    # Returns the logger object that was set via `Newman::Server#logger=`, 
+    # or delegates to `default_logger` if no custom logger was provided.
     #
     def logger
       @logger || default_logger
@@ -176,10 +179,11 @@ module Newman
     # exception is re-raised, typically taking the server down with it. This
     # setting is off by default.
     #
-    # 2b) If the mailer encounters any IMAP errors retrieving messages, those 
-    # errors are logged and re-raised, taking the server down. (Currently, you
-    # should use a process watcher to restart Newman to protect against such
-    # errors.)
+    # 2b) If there are any server errors (such as an error retrieving messages
+    # via IMAP), those  errors are logged and re-raised, taking the server 
+    # down. Currently, you should use a process watcher to restart
+    # Newman to protect against such failures, but be careful about restarting
+    # without knowing what went wrong!
     #
     # 3) Assuming an exception is not encountered, the response is delivered.
 
