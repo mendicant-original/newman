@@ -194,7 +194,7 @@ module Newman
 
         process_request(request, response) && response.deliver
       end
-    rescue Exception => e
+    rescue StandardError => e
       logger.fatal("SERVER ERROR") { "#{e.inspect}\n" + e.backtrace.join("\n  ") }
       raise
     end
