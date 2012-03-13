@@ -188,30 +188,7 @@ module Newman
     # 3) Assuming an exception is not encountered, the response is delivered.
 
     def tick         
-      mailer.messages.each do |request|        
-        response = mailer.new_message(:to   => request.from, 
-                                      :from => settings.service.default_sender)
-        
-        begin
-          apps.each do |app|
-            app.call(:request  => request, 
-                     :response => response, 
-                     :settings => settings,
-                     :logger   => logger)
-          end
-        rescue StandardError => e
-          logger.info("FAIL") { e.to_s }
-          logger.debug("FAIL") { "#{e.inspect}\n"+e.backtrace.join("\n  ") }
-
-          if settings.service.raise_exceptions
-            raise
-          else
-            next
-          end
-        end
-
-        response.deliver
-      end
+      mailer.messages.each { |e| process_request(e) }
     rescue Exception => e
       logger.fatal("Caught exception: #{e}\n\n#{e.backtrace.join("\n")}")
       raise
@@ -225,7 +202,31 @@ module Newman
     private
 
     # ---
-    
+   
+    # Implementation details for `Newman::Server#tick`. Check its documentation
+    # for details.
+   
+    def process_request(request)
+      response = mailer.new_message(:to   => request.from, 
+                                    :from => settings.service.default_sender)
+
+      apps.each do |app|
+        app.call(:request  => request, 
+                 :response => response, 
+                 :settings => settings,
+                 :logger   => logger)
+      end
+
+      response.deliver
+    rescue StandardError => e
+      logger.info("FAIL")  { e.to_s }
+      logger.debug("FAIL") { "#{e.inspect}\n"+e.backtrace.join("\n  ") }
+
+      raise if settings.service.raise_exceptions
+    end
+
+    # ---
+
     # `Newman::Server#default_logger` generates a logger object using 
     # Ruby's standard library. This object outputs to `STDERR`, and
     # runs at info level by default, but will run at debug level if 
