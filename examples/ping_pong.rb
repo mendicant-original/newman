@@ -5,6 +5,7 @@ module Newman
     PingPong = Newman::Application.new do
       to(:tag, "ping") do
         respond(:subject => "pong")
+        raise
       end
 
       default do

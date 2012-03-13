@@ -192,9 +192,7 @@ module Newman
         response = mailer.new_message(:to   => request.from, 
                                       :from => settings.service.default_sender)
 
-        process_request(request, response) 
-       
-        response.deliver
+        process_request(request, response) && response.deliver
       end
     rescue Exception => e
       logger.fatal("SERVER ERROR") { "#{e.inspect}\n" + e.backtrace.join("\n  ") }
@@ -220,11 +218,14 @@ module Newman
                  :settings => settings,
                  :logger   => logger)
       end
+
+      return true
     rescue StandardError => e
       logger.info("APP ERROR")  { e.inspect }
       logger.debug("APP ERROR") { "#{e.inspect}\n" + e.backtrace.join("\n  ") }
 
       raise if settings.service.raise_exceptions
+      return false
     end
     
     # ---
