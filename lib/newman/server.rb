@@ -190,7 +190,7 @@ module Newman
     def tick         
       mailer.messages.each { |e| process_request(e) }
     rescue Exception => e
-      logger.fatal("Caught exception: #{e}\n\n#{e.backtrace.join("\n")}")
+      logger.fatal { "Caught exception: #{e}" + e.backtrace.join("\n  ") }
       raise
     end
 
@@ -220,7 +220,7 @@ module Newman
       response.deliver
     rescue StandardError => e
       logger.info("FAIL")  { e.to_s }
-      logger.debug("FAIL") { "#{e.inspect}\n"+e.backtrace.join("\n  ") }
+      logger.debug("FAIL") { "#{e}\n"+e.backtrace.join("\n  ") }
 
       raise if settings.service.raise_exceptions
     end
