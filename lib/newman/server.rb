@@ -188,7 +188,14 @@ module Newman
     # 3) Assuming an exception is not encountered, the response is delivered.
 
     def tick         
-      mailer.messages.each { |e| process_request(e) }
+      mailer.messages.each do |request| 
+        response = mailer.new_message(:to   => request.from, 
+                                      :from => settings.service.default_sender)
+
+        process_request(request, response) 
+       
+        response.deliver
+      end
     rescue Exception => e
       logger.fatal("SERVER ERROR") { "#{e.inspect}\n" + e.backtrace.join("\n  ") }
       raise
@@ -206,25 +213,20 @@ module Newman
     # Implementation details for `Newman::Server#tick`. Check its documentation
     # for details.
    
-    def process_request(request)
-      response = mailer.new_message(:to   => request.from, 
-                                    :from => settings.service.default_sender)
-
+    def process_request(request, response)
       apps.each do |app|
         app.call(:request  => request, 
                  :response => response, 
                  :settings => settings,
                  :logger   => logger)
       end
-
-      response.deliver
     rescue StandardError => e
       logger.info("APP ERROR")  { e.inspect }
       logger.debug("APP ERROR") { "#{e.inspect}\n" + e.backtrace.join("\n  ") }
 
       raise if settings.service.raise_exceptions
     end
-
+    
     # ---
 
     # `Newman::Server#default_logger` generates a logger object using 
