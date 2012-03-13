@@ -221,11 +221,14 @@ module Newman
 
       return true
     rescue StandardError => e
-      logger.info("APP ERROR")  { e.inspect }
-      logger.debug("APP ERROR") { "#{e.inspect}\n" + e.backtrace.join("\n  ") }
+      if settings.service.raise_exceptions
+        raise
+      else
+        logger.info("APP ERROR")  { e.inspect }
+        logger.debug("APP ERROR") { "#{e.inspect}\n" + e.backtrace.join("\n  ") }
 
-      raise if settings.service.raise_exceptions
-      return false
+        return false
+      end
     end
     
     # ---
